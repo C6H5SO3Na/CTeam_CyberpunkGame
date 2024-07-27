@@ -4,48 +4,6 @@ namespace Invector.vCharacterController
 {
     public class vThirdPersonController : vThirdPersonAnimator
     {
-        public float attackCooldown = 1f;
-        private float lastAttackTime;
-        public float attackRange = 1.5f;
-        public int attackDamage = 10;
-        public LayerMask enemyLayer;
-
-        public virtual void Attack()
-        {
-            if (!CanAttack()) return;
-
-           
-            // Perform the attack logic, such as detecting hits and applying damage
-            DetectAndDamageEnemies();
-
-            // Update the last attack time
-            lastAttackTime = Time.time;
-        }
-
-        protected virtual bool CanAttack()
-        {
-            // Implement logic to determine if the character can attack
-            // This could include checking if the character is grounded, 
-            // if an attack cooldown is active, if the character is alive, etc.
-            return Time.time >= lastAttackTime + attackCooldown;
-        }
-
-        protected virtual void DetectAndDamageEnemies()
-        {
-            // Perform a sphere cast or another method to detect enemies within attack range
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
-
-            foreach (var hitCollider in hitColliders)
-            {
-                // Apply damage to the enemy
-                var enemy = hitCollider.GetComponent<AIScript>(); // Assuming the enemy has a script named "Enemy"
-                if (enemy != null)
-                {
-                    enemy.TakeDamage(attackDamage);
-                }
-            }
-        }
-
         public virtual void ControlAnimatorRootMotion()
         {
             if (!this.enabled) return;
