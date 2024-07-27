@@ -1,0 +1,654 @@
+Using pre-set license
+Built from '2022.2/staging' branch; Version is '2022.2.9f1 (1cc571a6ec95) revision 1885553'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 11  (10.0.22631) 64bit Professional' Language: 'en' Physical Memory: 32607 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2022.2.9f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker2
+-projectPath
+D:/Github/3rdTGS/CTeam_CyberpunkGame/AIProject
+-logFile
+Logs/AssetImportWorker2.log
+-srvPort
+49432
+Successfully changed project path to: D:/Github/3rdTGS/CTeam_CyberpunkGame/AIProject
+D:/Github/3rdTGS/CTeam_CyberpunkGame/AIProject
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [16588] Host "[IP] 192.168.0.104 [Port] 0 [Flags] 2 [Guid] 1355600262 [EditorId] 1355600262 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-T45E80G) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [16588] Host "[IP] 192.168.0.104 [Port] 0 [Flags] 2 [Guid] 1355600262 [EditorId] 1355600262 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-T45E80G) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+Refreshing native plugins compatible for Editor in 2.26 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.2.9f1 (1cc571a6ec95)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.2.9f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Github/3rdTGS/CTeam_CyberpunkGame/AIProject/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: AMD Radeon RX 6700 XT (ID=0x73df)
+    Vendor:   ATI
+    VRAM:     12242 MB
+    Driver:   32.0.11021.1011
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.2.9f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.2.9f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.2.9f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56020
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.2.9f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002492 seconds.
+- Loaded All Assemblies, in  0.185 seconds
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.150 seconds
+Domain Reload Profiling:
+	ReloadAssembly (105ms)
+		BeginReloadAssembly (48ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (0ms)
+		LoadAllAssembliesAndSetupDomain (0ms)
+			LoadAssemblies (46ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (76ms)
+				TypeCache.Initialize (75ms)
+					TypeCache.ScanAssembly (74ms)
+				ResolveRequiredComponents (0ms)
+		FinalizeReload (0ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (0ms)
+			SetupLoadedEditorAssemblies (114ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (5ms)
+				RefreshPlugins (0ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (78ms)
+				ProcessInitializeOnLoadMethodAttributes (26ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  0.387 seconds
+Refreshing native plugins compatible for Editor in 0.94 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.296 seconds
+Domain Reload Profiling:
+	ReloadAssembly (113ms)
+		BeginReloadAssembly (69ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (11ms)
+		LoadAllAssembliesAndSetupDomain (274ms)
+			LoadAssemblies (145ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (161ms)
+				TypeCache.Initialize (149ms)
+					TypeCache.ScanAssembly (147ms)
+				ResolveRequiredComponents (2ms)
+		FinalizeReload (0ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (0ms)
+			SetupLoadedEditorAssemblies (216ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (3ms)
+				SetLoadedEditorAssemblies (2ms)
+				RefreshPlugins (0ms)
+				BeforeProcessingInitializeOnLoad (30ms)
+				ProcessInitializeOnLoadAttributes (168ms)
+				ProcessInitializeOnLoadMethodAttributes (10ms)
+				AfterProcessingInitializeOnLoad (3ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (4ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Refreshing native plugins compatible for Editor in 0.81 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3311 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 44 unused Assets / (139.7 KB). Loaded Objects now: 3780.
+Memory consumption went from 0.50 GB to 0.50 GB.
+Total: 1.767300 ms (FindLiveObjects: 0.150600 ms CreateObjectMapping: 0.038400 ms MarkObjects: 1.504600 ms  DeleteObjects: 0.073100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/vAnimateUV.cs: 949198305ac01ff1e183ef710106b63d -> fc91a3cec6a97383c9bfe7d58ab5d4b9
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonController.cs: 85ba13b6327dbcd0bf1f5c885b856578 -> 7f659f6225ce273dd5bc790c7e420737
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/MeleeAttackState.cs: 1e6055cd12f6e2c8f3558306ccb9fdbc -> 6d7016f5026668cb891ec82611d3e81e
+  custom:scripting/monoscript/fileName/BulletScript.cs: 13477a3b0c98cca55096ea1dcfe934dc -> d888d721bde78eacda1c314a50a2cf74
+  custom:scripting/monoscript/fileName/vThirdPersonCamera.cs: b6c421e0257a9e1fe19408a44b1edb6a -> 57a43024d76a91ac821f833f81afc3e9
+  custom:scripting/monoscript/fileName/vComment.cs: 3bc2e8eedff4f94665b2285c79a43984 -> 8189466712302c4c00e76ba6ec327b37
+  custom:scripting/monoscript/fileName/DeathState.cs: 20a7c198df922ab55d56739d295c59ce -> 69bad2579a3b0ad9524276c49ad53e0f
+  custom:scripting/monoscript/fileName/IdleState.cs: 52914808617777df0d3d3fbd60d825fa -> f41f19628c1c4d491de31b71e3adb6b0
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonInput.cs: 2e5c9dc1f09fe4d4486f5ac26dc25042 -> 88ce389858b02b6444f6b5ad6a8c2de1
+  custom:scripting/monoscript/fileName/PatrolState.cs: 515faf7a0b7069b5cd75926d897a3314 -> 0b0dacae08882054ed60aa8604425f95
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:scripting/monoscript/fileName/vThirdPersonAnimator.cs: ec5db9deb8c5c775956c67ade8b722c6 -> 3f164cc8309ba6f321c51db588f4fc34
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:scripting/monoscript/fileName/ChaseState.cs: 59ff0e6034837a14bce17bd33a367809 -> eb26ec447cce36af48eb6ba31b80c9e3
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:scripting/monoscript/fileName/vExtensions.cs: 92587f9f03811b70f67526f2c9070637 -> c3d402263dd2da3a86a3c5cc248e5827
+  custom:scripting/monoscript/fileName/IAIState.cs: 08d39b3c21fdec6f22ddd7b339d59f93 -> c2efdb5c63b52758f0ec45d9e9e1f493
+  custom:scripting/monoscript/fileName/SpeedCheck.cs: 7a69d2193bd1dd51203a301a842510bf -> 75bf8ce041330969e3aabca480cb085a
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonMotor.cs: d148c23257a97bd1f33c552b6a8ff2a6 -> 7f8423fa48c814436427177ca8599753
+  custom:scripting/monoscript/fileName/vPickupItem.cs: 2cee58ec2f296fa7e0a7d905538a4e57 -> 488a596863ee3d370a4177af434e1a49
+  custom:scripting/monoscript/fileName/AIScript.cs: 1afabd00e56cafc1e3cb65f8bc610eb1 -> 5e7ad04bd88b0254bbeeaca2843c3549
+  custom:scripting/monoscript/fileName/RangedAttackState.cs: fb830b8cd37a0ec1b84fcda342f0f5f4 -> 76dc05e6082c9932a7a98377de244217
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/HurtState.cs: fda8070c640a4c0140519e9c23b51341 -> b03778ac26bfb48a866d4347cede1e00
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  0.386 seconds
+Refreshing native plugins compatible for Editor in 0.75 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.578 seconds
+Domain Reload Profiling:
+	ReloadAssembly (130ms)
+		BeginReloadAssembly (90ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (25ms)
+		LoadAllAssembliesAndSetupDomain (255ms)
+			LoadAssemblies (148ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (146ms)
+				TypeCache.Initialize (143ms)
+					TypeCache.ScanAssembly (140ms)
+				ResolveRequiredComponents (3ms)
+		FinalizeReload (0ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (0ms)
+			SetupLoadedEditorAssemblies (342ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (4ms)
+				RefreshPlugins (0ms)
+				BeforeProcessingInitializeOnLoad (51ms)
+				ProcessInitializeOnLoadAttributes (261ms)
+				ProcessInitializeOnLoadMethodAttributes (17ms)
+				AfterProcessingInitializeOnLoad (4ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.20 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3303 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 23 unused Assets / (109.1 KB). Loaded Objects now: 3795.
+Memory consumption went from 511.4 MB to 511.3 MB.
+Total: 3.177500 ms (FindLiveObjects: 0.174900 ms CreateObjectMapping: 0.057300 ms MarkObjects: 2.730200 ms  DeleteObjects: 0.214700 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/vAnimateUV.cs: 949198305ac01ff1e183ef710106b63d -> fc91a3cec6a97383c9bfe7d58ab5d4b9
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonController.cs: 85ba13b6327dbcd0bf1f5c885b856578 -> 7f659f6225ce273dd5bc790c7e420737
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/MeleeAttackState.cs: 1e6055cd12f6e2c8f3558306ccb9fdbc -> 6d7016f5026668cb891ec82611d3e81e
+  custom:scripting/monoscript/fileName/BulletScript.cs: 13477a3b0c98cca55096ea1dcfe934dc -> d888d721bde78eacda1c314a50a2cf74
+  custom:scripting/monoscript/fileName/vThirdPersonCamera.cs: b6c421e0257a9e1fe19408a44b1edb6a -> 57a43024d76a91ac821f833f81afc3e9
+  custom:scripting/monoscript/fileName/vComment.cs: 3bc2e8eedff4f94665b2285c79a43984 -> 8189466712302c4c00e76ba6ec327b37
+  custom:scripting/monoscript/fileName/DeathState.cs: 20a7c198df922ab55d56739d295c59ce -> 69bad2579a3b0ad9524276c49ad53e0f
+  custom:scripting/monoscript/fileName/IdleState.cs: 52914808617777df0d3d3fbd60d825fa -> f41f19628c1c4d491de31b71e3adb6b0
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonInput.cs: 2e5c9dc1f09fe4d4486f5ac26dc25042 -> 88ce389858b02b6444f6b5ad6a8c2de1
+  custom:scripting/monoscript/fileName/PatrolState.cs: 515faf7a0b7069b5cd75926d897a3314 -> 0b0dacae08882054ed60aa8604425f95
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:scripting/monoscript/fileName/vThirdPersonAnimator.cs: ec5db9deb8c5c775956c67ade8b722c6 -> 3f164cc8309ba6f321c51db588f4fc34
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:scripting/monoscript/fileName/ChaseState.cs: 59ff0e6034837a14bce17bd33a367809 -> eb26ec447cce36af48eb6ba31b80c9e3
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:scripting/monoscript/fileName/vExtensions.cs: 92587f9f03811b70f67526f2c9070637 -> c3d402263dd2da3a86a3c5cc248e5827
+  custom:scripting/monoscript/fileName/IAIState.cs: 08d39b3c21fdec6f22ddd7b339d59f93 -> c2efdb5c63b52758f0ec45d9e9e1f493
+  custom:scripting/monoscript/fileName/SpeedCheck.cs: 7a69d2193bd1dd51203a301a842510bf -> 75bf8ce041330969e3aabca480cb085a
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonMotor.cs: d148c23257a97bd1f33c552b6a8ff2a6 -> 7f8423fa48c814436427177ca8599753
+  custom:scripting/monoscript/fileName/vPickupItem.cs: 2cee58ec2f296fa7e0a7d905538a4e57 -> 488a596863ee3d370a4177af434e1a49
+  custom:scripting/monoscript/fileName/AIScript.cs: 1afabd00e56cafc1e3cb65f8bc610eb1 -> 5e7ad04bd88b0254bbeeaca2843c3549
+  custom:scripting/monoscript/fileName/RangedAttackState.cs: fb830b8cd37a0ec1b84fcda342f0f5f4 -> 76dc05e6082c9932a7a98377de244217
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/HurtState.cs: fda8070c640a4c0140519e9c23b51341 -> b03778ac26bfb48a866d4347cede1e00
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  0.396 seconds
+Refreshing native plugins compatible for Editor in 0.84 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.527 seconds
+Domain Reload Profiling:
+	ReloadAssembly (127ms)
+		BeginReloadAssembly (88ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (23ms)
+		LoadAllAssembliesAndSetupDomain (268ms)
+			LoadAssemblies (153ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (153ms)
+				TypeCache.Initialize (151ms)
+					TypeCache.ScanAssembly (146ms)
+				ResolveRequiredComponents (3ms)
+		FinalizeReload (0ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (0ms)
+			SetupLoadedEditorAssemblies (300ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (5ms)
+				RefreshPlugins (0ms)
+				BeforeProcessingInitializeOnLoad (48ms)
+				ProcessInitializeOnLoadAttributes (223ms)
+				ProcessInitializeOnLoadMethodAttributes (15ms)
+				AfterProcessingInitializeOnLoad (3ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.16 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3303 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 23 unused Assets / (109.2 KB). Loaded Objects now: 3810.
+Memory consumption went from 511.4 MB to 511.3 MB.
+Total: 2.258900 ms (FindLiveObjects: 0.165600 ms CreateObjectMapping: 0.042800 ms MarkObjects: 1.897700 ms  DeleteObjects: 0.152000 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/vAnimateUV.cs: 949198305ac01ff1e183ef710106b63d -> fc91a3cec6a97383c9bfe7d58ab5d4b9
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonController.cs: 85ba13b6327dbcd0bf1f5c885b856578 -> 7f659f6225ce273dd5bc790c7e420737
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/MeleeAttackState.cs: 1e6055cd12f6e2c8f3558306ccb9fdbc -> 6d7016f5026668cb891ec82611d3e81e
+  custom:scripting/monoscript/fileName/BulletScript.cs: 13477a3b0c98cca55096ea1dcfe934dc -> d888d721bde78eacda1c314a50a2cf74
+  custom:scripting/monoscript/fileName/vThirdPersonCamera.cs: b6c421e0257a9e1fe19408a44b1edb6a -> 57a43024d76a91ac821f833f81afc3e9
+  custom:scripting/monoscript/fileName/vComment.cs: 3bc2e8eedff4f94665b2285c79a43984 -> 8189466712302c4c00e76ba6ec327b37
+  custom:scripting/monoscript/fileName/DeathState.cs: 20a7c198df922ab55d56739d295c59ce -> 69bad2579a3b0ad9524276c49ad53e0f
+  custom:scripting/monoscript/fileName/IdleState.cs: 52914808617777df0d3d3fbd60d825fa -> f41f19628c1c4d491de31b71e3adb6b0
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonInput.cs: 2e5c9dc1f09fe4d4486f5ac26dc25042 -> 88ce389858b02b6444f6b5ad6a8c2de1
+  custom:scripting/monoscript/fileName/PatrolState.cs: 515faf7a0b7069b5cd75926d897a3314 -> 0b0dacae08882054ed60aa8604425f95
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:scripting/monoscript/fileName/vThirdPersonAnimator.cs: ec5db9deb8c5c775956c67ade8b722c6 -> 3f164cc8309ba6f321c51db588f4fc34
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:scripting/monoscript/fileName/ChaseState.cs: 59ff0e6034837a14bce17bd33a367809 -> eb26ec447cce36af48eb6ba31b80c9e3
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:scripting/monoscript/fileName/vExtensions.cs: 92587f9f03811b70f67526f2c9070637 -> c3d402263dd2da3a86a3c5cc248e5827
+  custom:scripting/monoscript/fileName/IAIState.cs: 08d39b3c21fdec6f22ddd7b339d59f93 -> c2efdb5c63b52758f0ec45d9e9e1f493
+  custom:scripting/monoscript/fileName/SpeedCheck.cs: 7a69d2193bd1dd51203a301a842510bf -> 75bf8ce041330969e3aabca480cb085a
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonMotor.cs: d148c23257a97bd1f33c552b6a8ff2a6 -> 7f8423fa48c814436427177ca8599753
+  custom:scripting/monoscript/fileName/vPickupItem.cs: 2cee58ec2f296fa7e0a7d905538a4e57 -> 488a596863ee3d370a4177af434e1a49
+  custom:scripting/monoscript/fileName/AIScript.cs: 1afabd00e56cafc1e3cb65f8bc610eb1 -> 5e7ad04bd88b0254bbeeaca2843c3549
+  custom:scripting/monoscript/fileName/RangedAttackState.cs: fb830b8cd37a0ec1b84fcda342f0f5f4 -> 76dc05e6082c9932a7a98377de244217
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/HurtState.cs: fda8070c640a4c0140519e9c23b51341 -> b03778ac26bfb48a866d4347cede1e00
+========================================================================
+Received Import Request.
+  Time since last request: 100833.024754 seconds.
+  path: Assets/Prefab/RangedAi.prefab
+  artifactKey: Guid(33ec44308a0dc0f478688586437b4cb4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/RangedAi.prefab using Guid(33ec44308a0dc0f478688586437b4cb4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57e89848fe8dcb0f29899dc52d59b97c') in 0.151430 seconds 
+Internal: There are remaining Allocations on the JobTempAlloc. This is a leak, and will impact performance
+To Debug, run app with -diag-job-temp-memory-leak-validation cmd line argument. This will output the callstacks of the leaked allocations.
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 209
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  0.353 seconds
+Refreshing native plugins compatible for Editor in 0.92 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.503 seconds
+Domain Reload Profiling:
+	ReloadAssembly (115ms)
+		BeginReloadAssembly (78ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (2ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (21ms)
+		LoadAllAssembliesAndSetupDomain (237ms)
+			LoadAssemblies (126ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (142ms)
+				TypeCache.Initialize (139ms)
+					TypeCache.ScanAssembly (136ms)
+				ResolveRequiredComponents (3ms)
+		FinalizeReload (0ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (0ms)
+			SetupLoadedEditorAssemblies (287ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (4ms)
+				SetLoadedEditorAssemblies (4ms)
+				RefreshPlugins (0ms)
+				BeforeProcessingInitializeOnLoad (43ms)
+				ProcessInitializeOnLoadAttributes (220ms)
+				ProcessInitializeOnLoadMethodAttributes (13ms)
+				AfterProcessingInitializeOnLoad (3ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (4ms)
+Refreshing native plugins compatible for Editor in 1.34 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3302 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 23 unused Assets / (101.7 KB). Loaded Objects now: 3835.
+Memory consumption went from 0.50 GB to 0.50 GB.
+Total: 2.198600 ms (FindLiveObjects: 0.135800 ms CreateObjectMapping: 0.050400 ms MarkObjects: 1.974100 ms  DeleteObjects: 0.037600 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/vAnimateUV.cs: 949198305ac01ff1e183ef710106b63d -> fc91a3cec6a97383c9bfe7d58ab5d4b9
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonController.cs: 85ba13b6327dbcd0bf1f5c885b856578 -> 7f659f6225ce273dd5bc790c7e420737
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/MeleeAttackState.cs: 1e6055cd12f6e2c8f3558306ccb9fdbc -> 6d7016f5026668cb891ec82611d3e81e
+  custom:scripting/monoscript/fileName/BulletScript.cs: 13477a3b0c98cca55096ea1dcfe934dc -> d888d721bde78eacda1c314a50a2cf74
+  custom:scripting/monoscript/fileName/vThirdPersonCamera.cs: b6c421e0257a9e1fe19408a44b1edb6a -> 57a43024d76a91ac821f833f81afc3e9
+  custom:scripting/monoscript/fileName/vComment.cs: 3bc2e8eedff4f94665b2285c79a43984 -> 8189466712302c4c00e76ba6ec327b37
+  custom:scripting/monoscript/fileName/DeathState.cs: 20a7c198df922ab55d56739d295c59ce -> 69bad2579a3b0ad9524276c49ad53e0f
+  custom:scripting/monoscript/fileName/IdleState.cs: 52914808617777df0d3d3fbd60d825fa -> f41f19628c1c4d491de31b71e3adb6b0
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonInput.cs: 2e5c9dc1f09fe4d4486f5ac26dc25042 -> 88ce389858b02b6444f6b5ad6a8c2de1
+  custom:scripting/monoscript/fileName/PatrolState.cs: 515faf7a0b7069b5cd75926d897a3314 -> 0b0dacae08882054ed60aa8604425f95
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:scripting/monoscript/fileName/vThirdPersonAnimator.cs: ec5db9deb8c5c775956c67ade8b722c6 -> 3f164cc8309ba6f321c51db588f4fc34
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:scripting/monoscript/fileName/ChaseState.cs: 59ff0e6034837a14bce17bd33a367809 -> eb26ec447cce36af48eb6ba31b80c9e3
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:scripting/monoscript/fileName/vExtensions.cs: 92587f9f03811b70f67526f2c9070637 -> c3d402263dd2da3a86a3c5cc248e5827
+  custom:scripting/monoscript/fileName/IAIState.cs: 08d39b3c21fdec6f22ddd7b339d59f93 -> c2efdb5c63b52758f0ec45d9e9e1f493
+  custom:scripting/monoscript/fileName/SpeedCheck.cs: 7a69d2193bd1dd51203a301a842510bf -> 75bf8ce041330969e3aabca480cb085a
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonMotor.cs: d148c23257a97bd1f33c552b6a8ff2a6 -> 7f8423fa48c814436427177ca8599753
+  custom:scripting/monoscript/fileName/vPickupItem.cs: 2cee58ec2f296fa7e0a7d905538a4e57 -> 488a596863ee3d370a4177af434e1a49
+  custom:scripting/monoscript/fileName/AIScript.cs: 1afabd00e56cafc1e3cb65f8bc610eb1 -> 5e7ad04bd88b0254bbeeaca2843c3549
+  custom:scripting/monoscript/fileName/RangedAttackState.cs: fb830b8cd37a0ec1b84fcda342f0f5f4 -> 76dc05e6082c9932a7a98377de244217
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/HurtState.cs: fda8070c640a4c0140519e9c23b51341 -> b03778ac26bfb48a866d4347cede1e00
+========================================================================
+Received Import Request.
+  Time since last request: 54.317446 seconds.
+  path: Assets/Prefab/Samurai_Test_0726.fbx
+  artifactKey: Guid(007094cbb613d8749b0eb8e6781a1ac8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Samurai_Test_0726.fbx using Guid(007094cbb613d8749b0eb8e6781a1ac8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c095d979e382d9e2ca864a47de91b11') in 0.180699 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 16
+========================================================================
+Received Import Request.
+  Time since last request: 477.426780 seconds.
+  path: Assets/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/FBX/VBOT_LOD.fbx
+  artifactKey: Guid(340f99b8334a14c4a8a01dce6e1e5348) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/FBX/VBOT_LOD.fbx using Guid(340f99b8334a14c4a8a01dce6e1e5348) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e159fee7296ac7305ff71f2e911c2100') in 0.039744 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 182
+========================================================================
+Received Import Request.
+  Time since last request: 0.497501 seconds.
+  path: Assets/FreeAssets/Robot/Model/Robot_Done.fbx
+  artifactKey: Guid(d90bb73efd66cb24f952f67c0ea2b03e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/FreeAssets/Robot/Model/Robot_Done.fbx using Guid(d90bb73efd66cb24f952f67c0ea2b03e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d9a2c57d68a747ebd8e351980c85748') in 0.591167 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2052
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  0.356 seconds
+Refreshing native plugins compatible for Editor in 1.00 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.363 seconds
+Domain Reload Profiling:
+	ReloadAssembly (118ms)
+		BeginReloadAssembly (79ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (2ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (22ms)
+		LoadAllAssembliesAndSetupDomain (238ms)
+			LoadAssemblies (130ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (140ms)
+				TypeCache.Initialize (138ms)
+					TypeCache.ScanAssembly (134ms)
+				ResolveRequiredComponents (3ms)
+		FinalizeReload (0ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (0ms)
+			SetupLoadedEditorAssemblies (200ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (3ms)
+				SetLoadedEditorAssemblies (2ms)
+				RefreshPlugins (0ms)
+				BeforeProcessingInitializeOnLoad (31ms)
+				ProcessInitializeOnLoadAttributes (153ms)
+				ProcessInitializeOnLoadMethodAttributes (9ms)
+				AfterProcessingInitializeOnLoad (2ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (3ms)
+Refreshing native plugins compatible for Editor in 1.49 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3302 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 22 unused Assets / (101.0 KB). Loaded Objects now: 3887.
+Memory consumption went from 0.51 GB to 0.51 GB.
+Total: 2.298100 ms (FindLiveObjects: 0.154400 ms CreateObjectMapping: 0.057400 ms MarkObjects: 2.049900 ms  DeleteObjects: 0.035900 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/vAnimateUV.cs: 949198305ac01ff1e183ef710106b63d -> fc91a3cec6a97383c9bfe7d58ab5d4b9
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonController.cs: 85ba13b6327dbcd0bf1f5c885b856578 -> 7f659f6225ce273dd5bc790c7e420737
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/MeleeAttackState.cs: 1e6055cd12f6e2c8f3558306ccb9fdbc -> 6d7016f5026668cb891ec82611d3e81e
+  custom:scripting/monoscript/fileName/BulletScript.cs: 13477a3b0c98cca55096ea1dcfe934dc -> d888d721bde78eacda1c314a50a2cf74
+  custom:scripting/monoscript/fileName/vThirdPersonCamera.cs: b6c421e0257a9e1fe19408a44b1edb6a -> 57a43024d76a91ac821f833f81afc3e9
+  custom:scripting/monoscript/fileName/vComment.cs: 3bc2e8eedff4f94665b2285c79a43984 -> 8189466712302c4c00e76ba6ec327b37
+  custom:scripting/monoscript/fileName/DeathState.cs: 20a7c198df922ab55d56739d295c59ce -> 69bad2579a3b0ad9524276c49ad53e0f
+  custom:scripting/monoscript/fileName/IdleState.cs: 52914808617777df0d3d3fbd60d825fa -> f41f19628c1c4d491de31b71e3adb6b0
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonInput.cs: 2e5c9dc1f09fe4d4486f5ac26dc25042 -> 88ce389858b02b6444f6b5ad6a8c2de1
+  custom:scripting/monoscript/fileName/PatrolState.cs: 515faf7a0b7069b5cd75926d897a3314 -> 0b0dacae08882054ed60aa8604425f95
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:scripting/monoscript/fileName/vThirdPersonAnimator.cs: ec5db9deb8c5c775956c67ade8b722c6 -> 3f164cc8309ba6f321c51db588f4fc34
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:scripting/monoscript/fileName/ChaseState.cs: 59ff0e6034837a14bce17bd33a367809 -> eb26ec447cce36af48eb6ba31b80c9e3
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:scripting/monoscript/fileName/vExtensions.cs: 92587f9f03811b70f67526f2c9070637 -> c3d402263dd2da3a86a3c5cc248e5827
+  custom:scripting/monoscript/fileName/IAIState.cs: 08d39b3c21fdec6f22ddd7b339d59f93 -> c2efdb5c63b52758f0ec45d9e9e1f493
+  custom:scripting/monoscript/fileName/SpeedCheck.cs: 7a69d2193bd1dd51203a301a842510bf -> 75bf8ce041330969e3aabca480cb085a
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonMotor.cs: d148c23257a97bd1f33c552b6a8ff2a6 -> 7f8423fa48c814436427177ca8599753
+  custom:scripting/monoscript/fileName/vPickupItem.cs: 2cee58ec2f296fa7e0a7d905538a4e57 -> 488a596863ee3d370a4177af434e1a49
+  custom:scripting/monoscript/fileName/AIScript.cs: 1afabd00e56cafc1e3cb65f8bc610eb1 -> 5e7ad04bd88b0254bbeeaca2843c3549
+  custom:scripting/monoscript/fileName/RangedAttackState.cs: fb830b8cd37a0ec1b84fcda342f0f5f4 -> 76dc05e6082c9932a7a98377de244217
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/HurtState.cs: fda8070c640a4c0140519e9c23b51341 -> b03778ac26bfb48a866d4347cede1e00
+========================================================================
+Received Import Request.
+  Time since last request: 23.447406 seconds.
+  path: Assets/Scenes/Demo.unity
+  artifactKey: Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Demo.unity using Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7185419cb032467cc746c824c0dff6ab') in 0.001249 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1.913528 seconds.
+  path: Assets/Scenes/Main.unity
+  artifactKey: Guid(b2b33a8041d3c494897d66383ca7edfa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Main.unity using Guid(b2b33a8041d3c494897d66383ca7edfa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2cbb1002dbe12e9f85670ff687d3e502') in 0.000283 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.439798 seconds.
+  path: Assets/Scenes/SampleScene.unity
+  artifactKey: Guid(99c9720ab356a0642a771bea13969a05) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/SampleScene.unity using Guid(99c9720ab356a0642a771bea13969a05) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2945714d597df85d4102ac0853842fbb') in 0.000298 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 4.129658 seconds.
+  path: Assets/Scenes/Main
+  artifactKey: Guid(3d2189941c9e15d43932abc8d81e2961) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Main using Guid(3d2189941c9e15d43932abc8d81e2961) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e8e7931a949c5f628875b2390ea868d') in 0.000277 seconds 
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image D:\Github\3rdTGS\CTeam_CyberpunkGame\AIProject\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  0.365 seconds
+Refreshing native plugins compatible for Editor in 2.49 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.552 seconds
+Domain Reload Profiling:
+	ReloadAssembly (118ms)
+		BeginReloadAssembly (78ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (20ms)
+		LoadAllAssembliesAndSetupDomain (246ms)
+			LoadAssemblies (124ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (153ms)
+				TypeCache.Initialize (146ms)
+					TypeCache.ScanAssembly (141ms)
+				ResolveRequiredComponents (7ms)
+		FinalizeReload (0ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (0ms)
+			SetupLoadedEditorAssemblies (280ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (4ms)
+				SetLoadedEditorAssemblies (2ms)
+				RefreshPlugins (0ms)
+				BeforeProcessingInitializeOnLoad (41ms)
+				ProcessInitializeOnLoadAttributes (215ms)
+				ProcessInitializeOnLoadMethodAttributes (13ms)
+				AfterProcessingInitializeOnLoad (4ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.36 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3302 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 22 unused Assets / (101.0 KB). Loaded Objects now: 3902.
+Memory consumption went from 0.51 GB to 0.51 GB.
+Total: 2.487100 ms (FindLiveObjects: 0.159200 ms CreateObjectMapping: 0.045800 ms MarkObjects: 2.241000 ms  DeleteObjects: 0.040500 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/vAnimateUV.cs: 949198305ac01ff1e183ef710106b63d -> fc91a3cec6a97383c9bfe7d58ab5d4b9
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonController.cs: 85ba13b6327dbcd0bf1f5c885b856578 -> 7f659f6225ce273dd5bc790c7e420737
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/MeleeAttackState.cs: 1e6055cd12f6e2c8f3558306ccb9fdbc -> 6d7016f5026668cb891ec82611d3e81e
+  custom:scripting/monoscript/fileName/BulletScript.cs: 13477a3b0c98cca55096ea1dcfe934dc -> d888d721bde78eacda1c314a50a2cf74
+  custom:scripting/monoscript/fileName/vThirdPersonCamera.cs: b6c421e0257a9e1fe19408a44b1edb6a -> 57a43024d76a91ac821f833f81afc3e9
+  custom:scripting/monoscript/fileName/vComment.cs: 3bc2e8eedff4f94665b2285c79a43984 -> 8189466712302c4c00e76ba6ec327b37
+  custom:scripting/monoscript/fileName/DeathState.cs: 20a7c198df922ab55d56739d295c59ce -> 69bad2579a3b0ad9524276c49ad53e0f
+  custom:scripting/monoscript/fileName/IdleState.cs: 52914808617777df0d3d3fbd60d825fa -> f41f19628c1c4d491de31b71e3adb6b0
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonInput.cs: 2e5c9dc1f09fe4d4486f5ac26dc25042 -> 88ce389858b02b6444f6b5ad6a8c2de1
+  custom:scripting/monoscript/fileName/PatrolState.cs: 515faf7a0b7069b5cd75926d897a3314 -> 0b0dacae08882054ed60aa8604425f95
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:scripting/monoscript/fileName/vThirdPersonAnimator.cs: ec5db9deb8c5c775956c67ade8b722c6 -> 3f164cc8309ba6f321c51db588f4fc34
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:scripting/monoscript/fileName/ChaseState.cs: 59ff0e6034837a14bce17bd33a367809 -> eb26ec447cce36af48eb6ba31b80c9e3
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:scripting/monoscript/fileName/vExtensions.cs: 92587f9f03811b70f67526f2c9070637 -> c3d402263dd2da3a86a3c5cc248e5827
+  custom:scripting/monoscript/fileName/IAIState.cs: 08d39b3c21fdec6f22ddd7b339d59f93 -> c2efdb5c63b52758f0ec45d9e9e1f493
+  custom:scripting/monoscript/fileName/SpeedCheck.cs: 7a69d2193bd1dd51203a301a842510bf -> 75bf8ce041330969e3aabca480cb085a
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/vThirdPersonMotor.cs: d148c23257a97bd1f33c552b6a8ff2a6 -> 7f8423fa48c814436427177ca8599753
+  custom:scripting/monoscript/fileName/vPickupItem.cs: 2cee58ec2f296fa7e0a7d905538a4e57 -> 488a596863ee3d370a4177af434e1a49
+  custom:scripting/monoscript/fileName/AIScript.cs: 1afabd00e56cafc1e3cb65f8bc610eb1 -> 5e7ad04bd88b0254bbeeaca2843c3549
+  custom:scripting/monoscript/fileName/RangedAttackState.cs: fb830b8cd37a0ec1b84fcda342f0f5f4 -> 76dc05e6082c9932a7a98377de244217
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/HurtState.cs: fda8070c640a4c0140519e9c23b51341 -> b03778ac26bfb48a866d4347cede1e00
