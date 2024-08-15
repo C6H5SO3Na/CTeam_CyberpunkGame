@@ -1,52 +1,65 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DaiPan : MonoBehaviour
 {
-    public GameObject leftHandPrefab;  // Prefab of the left hand
-    public GameObject rightHandPrefab; // Prefab of the right hand
-    public float impactForce = 100f;   // Force of the DaiPan impact
-    public float distance = 23.0f;     // Distance between the hands
-    public float offset = 20.0f;       // Offset from the player
-    public float yPosition = 60f;      // Starting Y position of the hands
-    public float groundPosition = 0f;  // Ground Y position where the hands stop
-    public float waitTime = 3.0f;      // Time to wait before going back to the top
+    public GameObject leftHandPrefab;
+    public GameObject rightHandPrefab;
+    public float impactForce = 100f;
+    public float distance = 23.0f;
+    public float offset = 20.0f;
+    public float yPosition = 60f;
+    public float groundPosition = 0f;
+    public float waitTime = 3.0f;
+    public float maxLifetime = 10.0f;  // Maximum lifetime for the hands
 
-    private GameObject leftHand;
-    private GameObject rightHand;
-    private bool isDaiPanTriggered = false;
+    private GameObject leftHandInstance;
+    private GameObject rightHandInstance;
+    private Coroutine attackCoroutine;
 
-    // Start is called before the first frame update
-    void Start()
+    public GameObject bossHitBox;
+    void OnEnable()
     {
-        TriggerDaiPan();
+        attackCoroutine = StartCoroutine(HandleDaiPanOnce());
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        // No need to restart the coroutine here since we're handling it in the coroutine itself.
-    }
-
-    void TriggerDaiPan()
-    {
-        if (!isDaiPanTriggered)
+        bossHitBox.GetComponent<MeshCollider>().enabled = false;
+        if (attackCoroutine != null)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-            // Calculate the initial positions based on the player's position
-            Vector3 leftHandPosition, rightHandPosition;
-            CalculateHandPositions(player, out leftHandPosition, out rightHandPosition);
-
-            // Instantiate the hands at the calculated positions
-            leftHand = Instantiate(leftHandPrefab, leftHandPosition, Quaternion.identity);
-            rightHand = Instantiate(rightHandPrefab, rightHandPosition, Quaternion.identity);
-
-            StartCoroutine(HandleDaiPanLoop());
-
-            isDaiPanTriggered = true;
+            StopCoroutine(attackCoroutine);
         }
+    }
+
+    IEnumerator HandleDaiPanOnce()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        Vector3 leftHandPosition, rightHandPosition;
+        CalculateHandPositions(player, out leftHandPosition, out rightHandPosition);
+
+        leftHandInstance = Instantiate(leftHandPrefab, leftHandPosition, Quaternion.identity);
+        rightHandInstance = Instantiate(rightHandPrefab, rightHandPosition, Quaternion.identity);
+
+        leftHandInstance.GetComponent<HandMoving>().MoveTo(new Vector3(leftHandInstance.transform.position.x, groundPosition, leftHandInstance.transform.position.z));
+        rightHandInstance.GetComponent<HandMoving>().MoveTo(new Vector3(rightHandInstance.transform.position.x, groundPosition, rightHandInstance.transform.position.z));
+
+        // Wait until hands stop moving or a timeout occurs
+        float timeout = 5.0f; // Timeout duration in seconds
+        float elapsed = 0f;
+
+        while (!AreHandsStopped() && elapsed < timeout)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(waitTime);
+
+
+        // Ensure the script is disabled after the attack
+        this.enabled = false;
     }
 
     void CalculateHandPositions(GameObject player, out Vector3 leftHandPosition, out Vector3 rightHandPosition)
@@ -60,42 +73,23 @@ public class DaiPan : MonoBehaviour
         rightHandPosition = new Vector3(rightHandX, yPosition, playerZ);
     }
 
-    IEnumerator HandleDaiPanLoop()
-    {
-        while (true) // Infinite loop until explicitly stopped or object destroyed
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-            // Move hands down to the ground
-            leftHand.GetComponent<HandMoving>().MoveTo(new Vector3(leftHand.transform.position.x, groundPosition, leftHand.transform.position.z));
-            rightHand.GetComponent<HandMoving>().MoveTo(new Vector3(rightHand.transform.position.x, groundPosition, rightHand.transform.position.z));
-
-            yield return new WaitUntil(() => AreHandsStopped());
-
-            // Wait for 3 seconds at the ground position
-            yield return new WaitForSeconds(waitTime);
-
-            // Calculate new positions based on player's current position
-            Vector3 leftHandPosition, rightHandPosition;
-            CalculateHandPositions(player, out leftHandPosition, out rightHandPosition);
-
-            // Move hands back to the top position
-            leftHand.GetComponent<HandMoving>().MoveTo(leftHandPosition);
-            rightHand.GetComponent<HandMoving>().MoveTo(rightHandPosition);
-
-            yield return new WaitUntil(() => AreHandsStopped());
-
-            // Wait for a short period before restarting the loop
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
     bool AreHandsStopped()
     {
-        HandMoving leftHandScript = leftHand.GetComponent<HandMoving>();
-        HandMoving rightHandScript = rightHand.GetComponent<HandMoving>();
+        if (leftHandInstance == null || rightHandInstance == null)
+        {
+            return true;
+        }
 
-        return leftHandScript != null && rightHandScript != null && !leftHandScript.isMoving && !rightHandScript.isMoving;
+        HandMoving leftHandScript = leftHandInstance.GetComponent<HandMoving>();
+        HandMoving rightHandScript = rightHandInstance.GetComponent<HandMoving>();
+
+        if (leftHandScript == null || rightHandScript == null)
+        {
+            Debug.LogWarning("HandMoving script not found on one or both hands.");
+            return true;
+        }
+
+        return !leftHandScript.isMoving && !rightHandScript.isMoving;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -110,5 +104,10 @@ public class DaiPan : MonoBehaviour
                 playerRb.AddForce(Vector3.down * impactForce, ForceMode.Impulse);
             }
         }
+    }
+
+    private void Start()
+    {
+
     }
 }

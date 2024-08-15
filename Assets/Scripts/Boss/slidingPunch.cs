@@ -1,74 +1,64 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class slidingPunch : MonoBehaviour
 {
-    public GameObject LeftArm;
-    public GameObject RightArm;
-    public float speed = 2.0f; // Speed of the slapping motion
-    public float distance = 5.0f; // Distance to move for the slapping motion
+    public GameObject leftArmPrefab;
+    public GameObject rightArmPrefab;
+    public float speed = 0.5f; // Speed of the slapping motion
+    public float distance = 20.0f; // Distance to move for the slapping motion
 
+    private Coroutine attackCoroutine;
+    private GameObject leftArmInstance;
+    private GameObject rightArmInstance;
     private Vector3 leftStartPosition;
     private Vector3 rightStartPosition;
-    private bool isLeftSlapping = true;
-    private bool isRightSlapping = true;
 
-    // Start is called before the first frame update
-    void Start()
+    public GameObject bossHitBox;
+
+    void OnEnable()
     {
-        GameObject leftArm = Instantiate(LeftArm);
-        GameObject rightArm = Instantiate(RightArm);
+        leftArmInstance = Instantiate(leftArmPrefab);
+        rightArmInstance = Instantiate(rightArmPrefab);
 
-        leftStartPosition = leftArm.transform.position;
-        rightStartPosition = rightArm.transform.position;
-
-        StartCoroutine(SlappingMotion(leftArm.transform, rightArm.transform));
+        leftStartPosition = leftArmInstance.transform.position;
+        rightStartPosition = rightArmInstance.transform.position;
+        attackCoroutine = StartCoroutine(SlappingMotion(leftArmInstance.transform, rightArmInstance.transform));
     }
 
-    IEnumerator SlappingMotion(Transform leftArm, Transform rightArm)
+    void OnDisable()
     {
-        while (true)
+        bossHitBox.GetComponent<MeshCollider>().enabled = false;
+        if (attackCoroutine != null)
         {
-            float time = 0;
-            float duration = 1.0f / speed;
-
-            while (time < duration)
-            {
-                time += Time.deltaTime;
-                float t = Mathf.Sin(time * Mathf.PI);
-
-                // Left arm: move from left to right
-                if (isLeftSlapping)
-                {
-                    leftArm.position = leftStartPosition - new Vector3(t * distance, 0, 0);
-                }
-                else
-                {
-                    leftArm.position = leftStartPosition + new Vector3(t * distance, 0, 0);
-                }
-
-                // Right arm: move from right to left
-                if (isRightSlapping)
-                {
-                    rightArm.position = rightStartPosition + new Vector3(t * distance, 0, 0);
-                }
-                else
-                {
-                    rightArm.position = rightStartPosition - new Vector3(t * distance, 0, 0);
-                }
-
-                yield return null;
-            }
-
-            // Toggle the slapping direction
-            isLeftSlapping = !isLeftSlapping;
-            isRightSlapping = !isRightSlapping;
+            StopCoroutine(attackCoroutine);
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator SlappingMotion(Transform leftArmTransform, Transform rightArmTransform)
     {
+        float time = 0;
+        float duration = 1.0f / speed;
+
+        // Slap motion: move away from start positions
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = Mathf.Sin(time * Mathf.PI);
+
+            // Left arm moves to the right
+            leftArmTransform.position = leftStartPosition - new Vector3(t * distance, 0, 0);
+
+            // Right arm moves to the left
+            rightArmTransform.position = rightStartPosition + new Vector3(t * distance, 0, 0);
+
+            yield return null;
+        }
+
+        // Destroy the arms after the attack is done and they have returned to the start position
+        Destroy(leftArmInstance);
+        Destroy(rightArmInstance);
+
+        this.enabled = false; // Disable the script after completing the attack
     }
 }

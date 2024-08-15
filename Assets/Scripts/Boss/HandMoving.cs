@@ -17,7 +17,7 @@ public class HandMoving : MonoBehaviour
     {
         isMoving = true;
 
-        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        while (Vector3.Distance(transform.position, targetPosition) > 1.0f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
             yield return null;
@@ -25,5 +25,7 @@ public class HandMoving : MonoBehaviour
 
         transform.position = targetPosition;
         isMoving = false;
+        yield return new WaitForSeconds(1.0f);
+        Destroy(gameObject);
     }
 }
