@@ -4,42 +4,26 @@ using UnityEngine;
 
 public class HandMoving : MonoBehaviour
 {
-    public float moveSpeed = 10.0f; // Speed at which the hand moves down
-    public float targetYPosition = 0.0f; // Y position where the hand will stop moving
+    public float moveSpeed = 10f;  // Speed of the hand movement
+    public bool isMoving = false;
 
-    public bool isMoving = true;
+    public void MoveTo(Vector3 targetPosition)
+    {
+        StopAllCoroutines();  // Stop any previous movement
+        StartCoroutine(MoveHand(targetPosition));
+    }
 
-    // Start is called before the first frame update
-    void Start()
+    IEnumerator MoveHand(Vector3 targetPosition)
     {
         isMoving = true;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isMoving)
+        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
-            MoveHandDown();
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            yield return null;
         }
-    }
 
-    void MoveHandDown()
-    {
-        // Move the hand down at the specified speed
-        transform.position -= new Vector3(0, moveSpeed * Time.deltaTime, 0);
-
-        // Check if the hand has reached or gone below the target Y position
-        if (transform.position.y <= targetYPosition)
-        {
-            isMoving = false;
-            OnHandStop(); // Optional: Call a method when the hand stops moving
-        }
-    }
-
-    void OnHandStop()
-    {
-        // Do something when the hand stops moving (e.g., play a sound, trigger an animation)
-        Debug.Log("Hand has stopped moving.");
+        transform.position = targetPosition;
+        isMoving = false;
     }
 }
