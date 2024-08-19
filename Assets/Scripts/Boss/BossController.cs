@@ -10,6 +10,7 @@ public class BossController : MonoBehaviour
     private slidingPunch slidingPunchScript;
     private bossLaser bossLaserScript;
     private DaiPan daiPanScript;
+    private ShootingRocket shootingRocketScript; 
 
     public float attackInterval = 5.0f; // Time between attacks
 
@@ -23,6 +24,7 @@ public class BossController : MonoBehaviour
         slidingPunchScript = GetComponent<slidingPunch>();
         bossLaserScript = GetComponent<bossLaser>();
         daiPanScript = GetComponent<DaiPan>();
+        shootingRocketScript = GetComponent<ShootingRocket>(); 
 
         // Start the attack pattern cycle
         StartCoroutine(AttackPatternCycle());
@@ -35,8 +37,7 @@ public class BossController : MonoBehaviour
             int attackChoice;
             do
             {
-                // Choose a random attack pattern, different from the last one
-                attackChoice = Random.Range(0, 3);
+            attackChoice = Random.Range(0, 4); 
             } while (attackChoice == lastAttack);
 
             // Execute the chosen attack
@@ -51,13 +52,16 @@ public class BossController : MonoBehaviour
                 case 2:
                     ExecuteDaiPan();
                     break;
+                case 3: 
+                    ExecuteShootingRocket();
+                    break;
             }
 
-            // Update lastAttack with the current choice
+            
             lastAttack = attackChoice;
             bossHitBox.GetComponent<MeshCollider>().enabled = true;
 
-            // Wait for the interval before switching to the next attack
+            
             yield return new WaitForSeconds(attackInterval);
         }
     }
@@ -68,6 +72,7 @@ public class BossController : MonoBehaviour
         slidingPunchScript.enabled = true;
         bossLaserScript.enabled = false;
         daiPanScript.enabled = false;
+        shootingRocketScript.enabled = false; 
     }
 
     void ExecuteBossLaser()
@@ -76,6 +81,7 @@ public class BossController : MonoBehaviour
         slidingPunchScript.enabled = false;
         bossLaserScript.enabled = true;
         daiPanScript.enabled = false;
+        shootingRocketScript.enabled = false; 
     }
 
     void ExecuteDaiPan()
@@ -84,5 +90,15 @@ public class BossController : MonoBehaviour
         slidingPunchScript.enabled = false;
         bossLaserScript.enabled = false;
         daiPanScript.enabled = true;
+        shootingRocketScript.enabled = false; 
+    }
+
+    void ExecuteShootingRocket() // New
+    {
+        // Start the ShootingRocket attack
+        slidingPunchScript.enabled = false;
+        bossLaserScript.enabled = false;
+        daiPanScript.enabled = false;
+        shootingRocketScript.enabled = true;
     }
 }
