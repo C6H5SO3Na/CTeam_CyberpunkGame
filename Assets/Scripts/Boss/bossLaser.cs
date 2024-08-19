@@ -86,17 +86,19 @@ public class bossLaser : MonoBehaviour
         if (rotatingLeft)
         {
             currentRotationAngle -= rotationThisFrame;
-            if (currentRotationAngle <= (-sweepAngle + 180))
+            if (currentRotationAngle <= (-sweepAngle + 45))
             {
                 rotatingLeft = false; // Switch direction
+                
             }
         }
         else
         {
             currentRotationAngle += rotationThisFrame;
-            if (currentRotationAngle >= (sweepAngle + 180))
+            if (currentRotationAngle >= (sweepAngle + 45))
             {
                 rotatingLeft = true; // Switch direction
+                
             }
         }
 
