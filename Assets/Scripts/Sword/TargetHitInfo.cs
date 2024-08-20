@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IEventSource { }
 
-public class TargetHitInfo : MonoBehaviour
+public class TargetHitInfo
 {
     public TargetHitInfo(IEventSource _hitSource)
     {

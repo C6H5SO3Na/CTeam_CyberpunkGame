@@ -18,6 +18,7 @@ public class EnemyDetect : MonoBehaviour, ISwordTarget
     // Update is called once per frame
     void Update()
     {
-        
+        //“G‚ª“®‚¢‚Ä‚¢‚éó‹µ‚ÉƒZƒbƒg‚·‚é
+        GetComponent<Rigidbody>().MovePosition(transform.position + new Vector3(0, 0, -0.001f));
     }
 }
