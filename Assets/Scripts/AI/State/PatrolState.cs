@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+ï»¿using UnityEngine.AI;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class PatrolState : IAIState
 {
     private AIScript ai;
-    private List<Vector3> patrolPoints;
     private int currentPatrolIndex = 0;
-    private float idleTime = 2f; // Šeƒ|ƒCƒ“ƒg‚Å‚ÌŠî–{‘Ò‹@ŠÔ
+    private float idleTime = 2f;
     private float idleTimer = 0f;
     private bool isIdle = false;
     private float stuckTimer = 0f;
-    private const float stuckThreshold = 2f; // Time to consider the agent stuck
+    private const float stuckThreshold = 2f;
 
     public void Enter(AIScript ai)
     {
@@ -21,13 +18,13 @@ public class PatrolState : IAIState
         ai.isRunning = false;
         ai.isAttackingmelee = false;
 
-        // ƒpƒgƒ[ƒ‹ƒ|ƒCƒ“ƒg‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Í‰Šú‰»‚·‚é
-        if (patrolPoints == null || patrolPoints.Count == 0)
+        if (ai.patrolPoints == null || ai.patrolPoints.Count == 0)
         {
-            InitializePatrolPoints();
+            Debug.LogError("ãƒ‘ãƒˆãƒ­ãƒ¼ãƒ«ãƒã‚¤ãƒ³ãƒˆã¯ã¾ã è¨­å®šã—ãªã„ã€‚");
+            return;
         }
 
-        ai.agent.speed = Random.Range(1.5f, 3f); // •às‘¬“x‚ğƒ‰ƒ“ƒ_ƒ€‚Éİ’è‚·‚é
+        ai.agent.speed = Random.Range(1.5f, 3f);
         MoveToNextPatrolPoint();
     }
 
@@ -70,18 +67,16 @@ public class PatrolState : IAIState
             if (!ai.agent.pathPending && ai.agent.remainingDistance < 0.5f)
             {
                 isIdle = true;
-                idleTime = Random.Range(1f, 3f); 
+                idleTime = Random.Range(1f, 3f);
                 idleTimer = 0f;
             }
             else
             {
-                
-                if (ai.agent.velocity.sqrMagnitude < 0.01f) 
+                if (ai.agent.velocity.sqrMagnitude < 0.01f)
                 {
                     stuckTimer += Time.deltaTime;
                     if (stuckTimer > stuckThreshold)
                     {
-                       
                         stuckTimer = 0f;
                         MoveToNextPatrolPoint();
                     }
@@ -94,41 +89,39 @@ public class PatrolState : IAIState
         }
     }
 
-    private void InitializePatrolPoints()
-    {
-        patrolPoints = new List<Vector3>();
-
-        patrolPoints.Add(new Vector3(10, 0, 10));
-        patrolPoints.Add(new Vector3(20, 0, 10));
-        patrolPoints.Add(new Vector3(20, 0, 20));
-        patrolPoints.Add(new Vector3(10, 0, 20));
-
-        for (int i = 0; i < patrolPoints.Count; i++)
-        {
-            Vector3 temp = patrolPoints[i];
-            int randomIndex = Random.Range(0, patrolPoints.Count);
-            patrolPoints[i] = patrolPoints[randomIndex];
-            patrolPoints[randomIndex] = temp;
-        }
-    }
-
     private void MoveToNextPatrolPoint()
     {
-        if (patrolPoints.Count == 0)
+        if (ai.patrolPoints.Count == 0)
             return;
 
-        Vector3 nextPatrolPoint = patrolPoints[currentPatrolIndex];
+        bool pathFound = false;
+        int attempts = 0;
+        int maxAttempts = ai.patrolPoints.Count;
 
-        NavMeshPath path = new NavMeshPath();
-        if (ai.agent.CalculatePath(nextPatrolPoint, path) && path.status == NavMeshPathStatus.PathComplete)
+        while (!pathFound && attempts < maxAttempts)
         {
-            ai.agent.SetDestination(nextPatrolPoint);
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
+            GameObject nextPatrolPoint = ai.patrolPoints[currentPatrolIndex];
+
+            NavMeshPath path = new NavMeshPath();
+            if (ai.agent.CalculatePath(nextPatrolPoint.transform.position, path) && path.status == NavMeshPathStatus.PathComplete)
+            {
+                ai.agent.SetDestination(nextPatrolPoint.transform.position);
+                pathFound = true;
+            }
+            else
+            {
+                currentPatrolIndex = (currentPatrolIndex + 1) % ai.patrolPoints.Count;
+                attempts++;
+            }
+        }
+
+        if (!pathFound)
+        {
+            Debug.LogWarning("è¡Œãå ´æ‰€ãŒãªã„");
         }
         else
         {
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
-            MoveToNextPatrolPoint();
+            currentPatrolIndex = (currentPatrolIndex + 1) % ai.patrolPoints.Count;
         }
     }
 }

@@ -48,6 +48,8 @@ public class AIScript : MonoBehaviour
     public bool canMeleeAttack;
     public bool canRangedAttack;
 
+    public List<GameObject> patrolPoints;
+
     private IAIState currentState;
 
     private void Awake()
