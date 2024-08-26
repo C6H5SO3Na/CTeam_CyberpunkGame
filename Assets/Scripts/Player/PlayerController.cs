@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour, IEventSource //IEventSourceを継承
         bool isRun = false; //入力があるかどうか
         if (Input.GetAxis("Vertical") != 0.0f || Input.GetAxis("Horizontal") != 0.0f)
         {
-            //isRun = true;
+            isRun = true;
             Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             if (input.magnitude > 1.0f)
                 input = input.normalized; //長さを1.0以内に収める
@@ -85,19 +85,19 @@ public class PlayerController : MonoBehaviour, IEventSource //IEventSourceを継承
         Camera.main.transform.position = transform.position + Quaternion.Euler(0, charaDir, 0) * defaultCameraOffset;
 
         //走っているかどうかのアニメーション設定
-        //animator.SetBool("Run", isRun);
+        animator.SetBool("Run", isRun);
 
         //アニメーション速度を調整（アニメーション名で判別）
         string anim_name = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-        //if (anim_name.Contains("Run") && isRun)
-        //{
-        //    Vector3 vel_xz = new Vector3(moveDirection.x, 0, moveDirection.z);
-        //    animator.speed = vel_xz.magnitude / runForce;
-        //}
-        //else
-        //{
+        if (anim_name.Contains("Run") && isRun)
+        {
+            Vector3 vel_xz = new Vector3(moveDirection.x, 0, moveDirection.z);
+            animator.speed = vel_xz.magnitude / runForce;
+        }
+        else
+        {
             animator.speed = 1.0f;
-        //}
+        }
     }
 
 }
