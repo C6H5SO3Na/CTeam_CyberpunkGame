@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IEventSource //IEventSourceを継承する
 {
     CharacterController controller;
     Animator animator;
@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     float charaDir = 0;             //キャラクターの方向
 
     Vector3 defaultPosition;        //リセット時のキャラクター位置
+    SwordComponent swordComponent;  //swordComponentにアクセスできるようにする
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
         defaultCameraOffset = Camera.main.transform.position - transform.position;
 
         defaultPosition = transform.position;
+        swordComponent = GetComponent<SwordComponent>();
     }
 
     // Update is called once per frame
@@ -40,8 +42,9 @@ public class PlayerController : MonoBehaviour
         }
 
         //攻撃
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
+            swordComponent.SetSwordActive();  //攻撃時にswordComponentの関数を呼ぶ
             animator.SetTrigger("Hit");
         }
 

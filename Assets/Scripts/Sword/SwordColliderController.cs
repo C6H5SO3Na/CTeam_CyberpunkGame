@@ -22,10 +22,10 @@ public class SwordColliderController : MonoBehaviour
         ISwordTarget target = _collision.gameObject.GetComponent<ISwordTarget>();
         if (target != null)
         {
-            Debug.Log("target != null");
+            Debug.Log("Detected Target");
             if (eventSource != null)
             {
-                Debug.Log("eventSource != null");
+                Debug.Log("Start Collision Event");
                 OnSwordCollisionEvent?.Invoke(eventSource, target);
             }
             else Debug.LogWarning("SwordCollider hit a SwordTarget, but there was no source - Collision will be ignored");

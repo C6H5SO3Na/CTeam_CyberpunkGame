@@ -6,7 +6,7 @@ public class EnemyDetect : MonoBehaviour, ISwordTarget
 {
     public void OnTargetHit(TargetHitInfo _info)
     {
-        Debug.Log("Ouch");
+        Debug.Log("Hit Target");
         return;
     }
     // Start is called before the first frame update
