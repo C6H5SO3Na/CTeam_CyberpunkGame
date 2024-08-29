@@ -41,6 +41,12 @@ public class PlayerController : MonoBehaviour, IEventSource //IEventSourceを継承
             transform.position = defaultPosition;
         }
 
+        //仮攻撃モーションテスト
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            animator.SetTrigger("Attack");
+        }
+
         //攻撃
         if (Input.GetKeyDown(KeyCode.Z))
         {
