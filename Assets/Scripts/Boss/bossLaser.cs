@@ -64,7 +64,7 @@ public class bossLaser : MonoBehaviour
             yield return null;
         }
 
-        this.enabled = false; // Disable the script after completing the attack (though this is unlikely to run in the current loop structure)
+        //this.enabled = false; // Disable the script after completing the attack (though this is unlikely to run in the current loop structure)
     }
 
     void FireLaserAtPlayer()
