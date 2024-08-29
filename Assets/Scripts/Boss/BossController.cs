@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class BossController : MonoBehaviour
 
     public GameObject bossHitBox;
 
+    public Text HpText;
+
     void Start()
     {
         // Get references to the attack scripts attached to this GameObject
@@ -28,6 +31,11 @@ public class BossController : MonoBehaviour
 
         // Start the attack pattern cycle
         StartCoroutine(AttackPatternCycle());
+    }
+
+    private void Update()
+    {
+        HpText.text = "BossHP : " + HP;
     }
 
     IEnumerator AttackPatternCycle()
