@@ -5,7 +5,7 @@ public class ShootingRocket : MonoBehaviour
 {
     public GameObject rocketPrefab;
     public Transform[] launchPoints; // Array of points from where rockets will be launched
-    public float heightAbovePlayer = 15.0f; // Height at which the rockets will begin to fall
+    public float heightAbovePlayer = 30.0f; // Height at which the rockets will begin to fall
     public float spreadRadius = 5.0f; // The radius around the player where rockets will spread
     public float ascentSpeed = 5.0f; // Speed at which the rockets ascend
     public float descentDelay = 1.0f; // Delay before rockets start falling after reaching the peak
@@ -50,7 +50,7 @@ public class ShootingRocket : MonoBehaviour
             Vector3 targetPosition = player.transform.position + randomOffset;
 
             // Instantiate the rocket at the launch point
-            GameObject rocketInstance = Instantiate(rocketPrefab, launchPoints[i].position, Quaternion.identity);
+            GameObject rocketInstance = Instantiate(rocketPrefab, launchPoints[i].position, Quaternion.Euler(0, 0, 90));
 
             // Add a RocketCollisionHandler script to handle collisions
             RocketCollisionHandler collisionHandler = rocketInstance.AddComponent<RocketCollisionHandler>();
@@ -87,6 +87,9 @@ public class ShootingRocket : MonoBehaviour
 
         if (rocket != null)
         {
+            // Rotate the rocket by 180 degrees on the Z-axis
+            rocket.transform.Rotate(0, 0, 180);
+
             rb.useGravity = true;
             rb.velocity = Vector3.zero;  // Reset velocity to allow natural fall
         }
