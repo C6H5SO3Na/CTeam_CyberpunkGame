@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IEventSource //IEventSourceを継承する
@@ -41,10 +42,20 @@ public class PlayerController : MonoBehaviour, IEventSource //IEventSourceを継承
             transform.position = defaultPosition;
         }
 
-        //仮攻撃モーションテスト
-        if (Input.GetKeyDown(KeyCode.V))
+        //仮モーションテスト
+        if (Input.GetKeyDown(KeyCode.X))
         {
             animator.SetTrigger("Attack");
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            animator.SetTrigger("Attack2");
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            animator.SetTrigger("Damage");
         }
 
         //攻撃
@@ -61,7 +72,7 @@ public class PlayerController : MonoBehaviour, IEventSource //IEventSourceを継承
             isRun = true;
             Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             if (input.magnitude > 1.0f)
-                input = input.normalized; //長さを1.0以内に収める
+            input = input.normalized; //長さを1.0以内に収める
             moveDirection.z = input.z * runForce; //この後のMoveメソッドでTime.deltaTimeを行う
             moveDirection.x = input.x * runForce;
 
