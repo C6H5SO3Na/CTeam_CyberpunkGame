@@ -6,7 +6,7 @@ public class RangedAttackState : IAIState
     private float projectileCooldown;
     public RangedAttackState()
     {
-        projectileCooldown = 3f;
+        projectileCooldown = 4.0f;
     }
 
     public void Enter(AIScript ai)
@@ -32,7 +32,8 @@ public class RangedAttackState : IAIState
         }
         else
         {
-            Attack();
+            ai.enemyAnim.SetTrigger("isAttack");
+            //RangedAttack();
             ai.ChangeState(new ChaseState());
         }
     }
@@ -41,22 +42,22 @@ public class RangedAttackState : IAIState
     {
     }
 
-    private void Attack()
-    {
-        ai.agent.SetDestination(ai.transform.position);
-        Vector3 direction = (ai.player.position - ai.transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        ai.transform.rotation = Quaternion.Slerp(ai.transform.rotation, lookRotation, Time.deltaTime * 5f);
+    //public void RangedAttack()
+    //{
+    //    ai.agent.SetDestination(ai.transform.position);
+    //    Vector3 direction = (ai.player.position - ai.transform.position).normalized;
+    //    Quaternion lookRotation = Quaternion.LookRotation(direction);
+    //    ai.transform.rotation = Quaternion.Slerp(ai.transform.rotation, lookRotation, Time.deltaTime * 5f);
 
-        Vector3 projectileSpawnOffset = ai.transform.forward * 2.0f;
-        Vector3 projectileSpawnPosition = ai.Firepoint.transform.position;
-        GameObject projectile = GameObject.Instantiate(ai.projectilePrefab, projectileSpawnPosition, Quaternion.identity);
-        Vector3 directionToPlayer = (ai.player.position - projectileSpawnPosition);
-        projectile.transform.forward = directionToPlayer;
-        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
-        projectileRb.velocity = directionToPlayer * ai.projectileSpeed;
-        float forceFactor = 1f;
-        projectileRb.AddForce(Vector3.up * forceFactor, ForceMode.Impulse);
-    }
+    //    Vector3 projectileSpawnOffset = ai.transform.forward * 2.0f;
+    //    Vector3 projectileSpawnPosition = ai.Firepoint.transform.position;
+    //    GameObject projectile = GameObject.Instantiate(ai.projectilePrefab, projectileSpawnPosition, Quaternion.identity);
+    //    Vector3 directionToPlayer = (ai.player.position - projectileSpawnPosition);
+    //    projectile.transform.forward = directionToPlayer;
+    //    Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+    //    projectileRb.velocity = directionToPlayer * ai.projectileSpeed;
+    //    float forceFactor = 1f;
+    //    projectileRb.AddForce(Vector3.up * forceFactor, ForceMode.Impulse);
+    //}
 }
 
