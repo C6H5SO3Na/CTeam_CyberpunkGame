@@ -118,7 +118,23 @@ public class AIScript : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    public void RangedAttack()
+    {
+        agent.SetDestination(transform.position);
+        Vector3 direction = (player.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 
+        Vector3 projectileSpawnOffset = transform.forward * 2.0f;
+        Vector3 projectileSpawnPosition = Firepoint.transform.position;
+        GameObject projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPosition, Quaternion.identity);
+        Vector3 directionToPlayer = (player.position - projectileSpawnPosition);
+        projectile.transform.forward = directionToPlayer;
+        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+        projectileRb.velocity = directionToPlayer * projectileSpeed;
+        float forceFactor = 1f;
+        projectileRb.AddForce(Vector3.up * forceFactor, ForceMode.Impulse);
+    }
     public void GetHurt(Vector3 hitPosition)
     {
         if (!meDead && !isHurt)

@@ -540,7 +540,7 @@ MonoBehaviour:
   - {fileID: 617452860}
   - {fileID: 1567312240}
   - {fileID: 2018992251}
-  heightAbovePlayer: 10
+  heightAbovePlayer: 30
   spreadRadius: 3
   ascentSpeed: 20
   descentDelay: 1
