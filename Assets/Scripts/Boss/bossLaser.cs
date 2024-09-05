@@ -37,7 +37,10 @@ public class bossLaser : MonoBehaviour
 
     void OnDisable()
     {
-        bossHitBox.GetComponent<MeshCollider>().enabled = false;
+        if (bossHitBox != null)
+        { 
+            bossHitBox.GetComponent<MeshCollider>().enabled = false;
+        }
 
         if (attackCoroutine != null)
         {
