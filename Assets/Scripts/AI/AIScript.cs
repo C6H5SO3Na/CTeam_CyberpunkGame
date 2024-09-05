@@ -52,6 +52,17 @@ public class AIScript : MonoBehaviour
 
     private IAIState currentState;
 
+    [Header("Laser")]
+    public GameObject laserPrefab; 
+    private LineRenderer laser;
+    private bool isFiringLaser = false;
+    public float laserDuration = 2f; 
+    public float laserDamageRate = 0.5f; 
+    private float laserDamageTimer = 0f; 
+    public float predictionFactor = 0.5f; 
+    public float laserRotationSpeed = 3f; 
+
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -120,21 +131,99 @@ public class AIScript : MonoBehaviour
     }
     public void RangedAttack()
     {
-        agent.SetDestination(transform.position);
+        agent.SetDestination(transform.position); 
         Vector3 direction = (player.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 
-        Vector3 projectileSpawnOffset = transform.forward * 2.0f;
-        Vector3 projectileSpawnPosition = Firepoint.transform.position;
-        GameObject projectile = GameObject.Instantiate(projectilePrefab, projectileSpawnPosition, Quaternion.identity);
-        Vector3 directionToPlayer = (player.position - projectileSpawnPosition);
-        projectile.transform.forward = directionToPlayer;
-        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
-        projectileRb.velocity = directionToPlayer * projectileSpeed;
-        float forceFactor = 1f;
-        projectileRb.AddForce(Vector3.up * forceFactor, ForceMode.Impulse);
+        if (!isFiringLaser)
+        {
+            // Directly start firing the laser
+            StartCoroutine(FireLaser());
+        }
     }
+
+    private IEnumerator FireLaser()
+    {
+        isFiringLaser = true;
+
+        // Instantiate or activate laser
+        if (laser == null)
+        {
+            GameObject laserObject = Instantiate(laserPrefab, Firepoint.transform.position, Quaternion.identity);
+            laser = laserObject.GetComponent<LineRenderer>();
+        }
+
+        laser.enabled = true;
+
+        
+        Vector3 predictedPlayerPosition = PredictPlayerPosition();
+
+        float timer = 0f;
+
+     
+        while (timer < laserDuration)
+        {
+          
+            Vector3 laserDirection = (predictedPlayerPosition - Firepoint.transform.position).normalized;
+
+            
+            Quaternion targetRotation = Quaternion.LookRotation(laserDirection);
+            Firepoint.transform.rotation = Quaternion.Slerp(Firepoint.transform.rotation, targetRotation, Time.deltaTime * laserRotationSpeed);
+
+            
+            laser.SetPosition(0, Firepoint.transform.position); 
+            laser.SetPosition(1, predictedPlayerPosition);  
+
+            
+            laserDamageTimer += Time.deltaTime;
+            if (laserDamageTimer >= laserDamageRate)
+            {
+                ApplyLaserDamage();
+                laserDamageTimer = 0f; 
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        laser.enabled = false;
+        isFiringLaser = false;
+    }
+
+    private Vector3 PredictPlayerPosition()
+    {
+       
+        Rigidbody playerRb = player.GetComponent<Rigidbody>();
+        Vector3 predictedPosition = player.position + playerRb.velocity * predictionFactor;
+
+        
+        return Vector3.Lerp(player.position, predictedPosition, predictionFactor);
+    }
+
+    private void ApplyLaserDamage()
+    {
+       
+        Vector3 laserStartPoint = Firepoint.transform.position;
+
+       
+        Vector3 laserDirection = (player.position - laserStartPoint).normalized;
+
+        
+        float laserMaxDistance = 100f;
+
+        
+        RaycastHit hit;
+        if (Physics.Raycast(laserStartPoint, laserDirection, out hit, laserMaxDistance))
+        {
+            // Check if the ray hit the player
+            if (hit.collider.CompareTag("Player"))
+            {
+                Debug.Log("PlayerHit");
+            }
+        }
+    }
+
     public void GetHurt(Vector3 hitPosition)
     {
         if (!meDead && !isHurt)

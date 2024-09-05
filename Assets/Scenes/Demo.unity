@@ -24148,6 +24148,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8153722766622035545, guid: cbf8e5bbf154ac44d9df3465aca057cb, type: 3}
+      propertyPath: laserPrefab
+      value: 
+      objectReference: {fileID: 4837816738422439823, guid: fab32f7fc89990349b97fce3e0065f6f, type: 3}
+    - target: {fileID: 8153722766622035545, guid: cbf8e5bbf154ac44d9df3465aca057cb, type: 3}
       propertyPath: patrolPoints.Array.data[0]
       value: 
       objectReference: {fileID: 1716889369}
