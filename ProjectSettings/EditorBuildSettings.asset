@@ -9,9 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/TItle.unity
     guid: ad164ef9abe2fb848b9303b5b3f4590b
   - enabled: 1
-    path: Assets/Scenes/Map.unity
-    guid: bfc60f9d68bd7f84ab804663155133a9
+    path: Assets/Scenes/Stage1.unity
+    guid: d37ec55ad6c78e744ade9f5ef1011d53
   - enabled: 1
-    path: Assets/Scenes/Map2.unity
-    guid: 09c8f0314b2a4704581d6f294a873f46
+    path: Assets/Scenes/Stage2.unity
+    guid: 875335fe4a3ccb5429b8947c2c9afbe8
+  - enabled: 1
+    path: Assets/Scenes/Stage3.unity
+    guid: 32a49cee85fab1f4da9b3d2c59ec2e1a
+  - enabled: 1
+    path: Assets/Scenes/BossMap.unity
+    guid: 5f16b6fcbe07f6d41816205ef06c15c1
   m_configObjects: {}
