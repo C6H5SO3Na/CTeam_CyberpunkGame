@@ -3,17 +3,41 @@
     {
       "uiType": "Text",
       "uiID": "101",
-      "uiContent": "Welcome to the App"
+      "uiContent": "Welcome to the App",
+      "position": {
+                "x": 500,
+                "y": 200
+            },
+      "scale": {
+                "x": 1.5,
+                "y": 1.5
+      }
     },
     {
       "uiType": "Button",
       "uiID": "102",
-      "uiContent": "Submit"
+      "uiContent": "886644",
+      "position": {
+                "x": 500,
+                "y": 200
+      },
+      "scale": {
+               "x": 1.5,
+               "y": 1.5
+      }
     },
     {
       "uiType": "Image",
       "uiID": "103",
-      "uiContent": "0"
+      "uiContent": "88633",
+      "position": {
+                "x": 500,
+                "y": 200
+      },
+      "scale": {
+                "x": 1.5,
+                "y": 1.5
+      }
     }
   ]
 }

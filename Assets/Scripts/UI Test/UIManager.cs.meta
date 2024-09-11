@@ -3,7 +3,11 @@ guid: c6175e42f498e1a4aaec4aadbc657d94
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - canvas: {instanceID: 0}
+  - textPrefab: {instanceID: 0}
+  - imagePrefab: {fileID: 4656533036287203034, guid: 8ca71d460114f7c4d8d16d705c4441f8, type: 3}
+  - buttonPrefab: {fileID: 1770888940465619101, guid: 8d8772c2897752348b965cf50e60e95d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
