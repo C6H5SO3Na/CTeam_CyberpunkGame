@@ -57,7 +57,7 @@ public class TitleManager : MonoBehaviour
     {
         timeSecCnt += Time.deltaTime;
         if (timeSecCnt < 2.0f) { return; }
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadScene("Stage1");
     }
 
     /// <summary>

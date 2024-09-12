@@ -11,6 +11,8 @@ public class AIScript : MonoBehaviour
     public GameObject projectilePrefab;
     public Animator enemyAnim;
     public Rigidbody rb;
+    public LineRenderer laser;
+    public GameObject beamsource;
 
     [Header("Layers")]
     public LayerMask whatIsGround, whatIsPlayer;
@@ -50,7 +52,9 @@ public class AIScript : MonoBehaviour
 
     public List<GameObject> patrolPoints;
 
+
     private IAIState currentState;
+
 
     private void Awake()
     {
@@ -58,6 +62,7 @@ public class AIScript : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         enemyAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        laser = GetComponent<LineRenderer>();
         ChangeState(new IdleState());
     }
 
@@ -117,6 +122,13 @@ public class AIScript : MonoBehaviour
     public void DestroyEnemy()
     {
         Destroy(gameObject);
+    }
+    public void TriggerFireLaser()
+    {
+        if (currentState is RangedAttackState rangedAttackState)
+        {
+            rangedAttackState.FireLaser();
+        }
     }
 
     public void GetHurt(Vector3 hitPosition)
