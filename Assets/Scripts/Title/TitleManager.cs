@@ -7,12 +7,13 @@ using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI pressButton;
+    [SerializeField] Image pressAnyButton;
+    [SerializeField] Fade fade;
     float timeSecCnt = 0.0f;//秒単位
 
     enum Phase
     {
-        BeforePressButton, AfterPressButton
+        Fadein, BeforePressButton, AfterPressButton, Fadeout, ToGameScene
     }
 
     Phase phase;
@@ -21,8 +22,9 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 60;
+        Cursor.visible = false;
         timeSecCnt = 0.0f;
-        phase = Phase.BeforePressButton;
+        phase = Phase.Fadein;
     }
 
     // Update is called once per frame
@@ -35,16 +37,41 @@ public class TitleManager : MonoBehaviour
 
         switch (phase)
         {
+            case Phase.Fadein:
+                fade.Fadein();
+
+                if (!fade.IsFade())
+                {
+                    phase = Phase.BeforePressButton;
+                }
+                break;
+
             case Phase.BeforePressButton:
-                if (Input.GetKeyDown(KeyCode.A))
+                if (Input.anyKeyDown)
                 {
                     //ボタンが押されると点滅が速くなる
-                    pressButton.GetComponent<PressButtonController>().changeAmount = 8.0f;
+                    pressAnyButton.GetComponent<PressAnyButtonController>().changeAmount = 8.0f;
                     phase = Phase.AfterPressButton;
                 }
                 break;
 
             case Phase.AfterPressButton:
+                timeSecCnt += Time.deltaTime;
+                if (timeSecCnt >= 2.0f)
+                {
+                    phase = Phase.Fadeout;
+                }
+                break;
+
+            case Phase.Fadeout:
+                fade.Fadeout();
+                if (!fade.IsFade())
+                {
+                    phase = Phase.ToGameScene;
+                }
+                break;
+
+            case Phase.ToGameScene:
                 ToGameScene();
                 break;
         }
@@ -55,8 +82,6 @@ public class TitleManager : MonoBehaviour
     /// </summary>
     void ToGameScene()
     {
-        timeSecCnt += Time.deltaTime;
-        if (timeSecCnt < 2.0f) { return; }
         SceneManager.LoadScene("Stage1");
     }
 
