@@ -22,6 +22,7 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 60;
+        Cursor.visible = false;
         timeSecCnt = 0.0f;
         phase = Phase.Fadein;
     }
