@@ -13,7 +13,7 @@ public class TitleManager : MonoBehaviour
 
     enum Phase
     {
-        BeforePressButton, AfterPressButton
+        Fadein, BeforePressButton, AfterPressButton, Fadeout, ToGameScene
     }
 
     Phase phase;
@@ -23,7 +23,7 @@ public class TitleManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         timeSecCnt = 0.0f;
-        phase = Phase.BeforePressButton;
+        phase = Phase.Fadein;
     }
 
     // Update is called once per frame
@@ -36,6 +36,15 @@ public class TitleManager : MonoBehaviour
 
         switch (phase)
         {
+            case Phase.Fadein:
+                fade.Fadein();
+
+                if (!fade.IsFade())
+                {
+                    phase = Phase.BeforePressButton;
+                }
+                break;
+
             case Phase.BeforePressButton:
                 if (Input.anyKeyDown)
                 {
@@ -46,6 +55,22 @@ public class TitleManager : MonoBehaviour
                 break;
 
             case Phase.AfterPressButton:
+                timeSecCnt += Time.deltaTime;
+                if (timeSecCnt >= 2.0f)
+                {
+                    phase = Phase.Fadeout;
+                }
+                break;
+
+            case Phase.Fadeout:
+                fade.Fadeout();
+                if (!fade.IsFade())
+                {
+                    phase = Phase.ToGameScene;
+                }
+                break;
+
+            case Phase.ToGameScene:
                 ToGameScene();
                 break;
         }
@@ -56,10 +81,6 @@ public class TitleManager : MonoBehaviour
     /// </summary>
     void ToGameScene()
     {
-        timeSecCnt += Time.deltaTime;
-        if (timeSecCnt < 2.0f) { return; }
-        if (fade.IsFade()) { return; }
-        fade.Fadeout();
         SceneManager.LoadScene("Stage1");
     }
 

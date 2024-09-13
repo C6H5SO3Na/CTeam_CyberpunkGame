@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(-1)]
 public class Fade : MonoBehaviour
 {
     Image image;
     [SerializeField] float changeAmount;//1•b–ˆ‚Ì•Ï‰»—Ê
+    bool isFade = false;
 
     public enum State
     {
@@ -34,6 +36,7 @@ public class Fade : MonoBehaviour
                 {
                     image.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
                     state = State.Idle;
+                    isFade = false;
                 }
                 break;
 
@@ -44,24 +47,26 @@ public class Fade : MonoBehaviour
                 {
                     image.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
                     state = State.Idle;
+                    isFade = false;
                 }
                 break;
         }
-        Debug.Log(image.color);
     }
 
     public void Fadein()
     {
-        if (state == State.Fadein) { return; }
+        if (image.color == new Color(0.0f, 0.0f, 0.0f, 0.0f)) { return; }
         state = State.Fadein;
+        isFade = true;
     }
     public void Fadeout()
     {
-        if (state == State.Fadeout) { return; }
+        if (image.color == new Color(0.0f, 0.0f, 0.0f, 1.0f)) { return; }
         state = State.Fadeout;
+        isFade = true;
     }
     public bool IsFade()
     {
-        return state != State.Idle;
+        return isFade;
     }
 }
