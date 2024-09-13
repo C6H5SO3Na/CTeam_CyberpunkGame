@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StageClearColliderController : MonoBehaviour
 {
-    public static int stage = 1;
-    const int maxStage = 3;
-    bool isClear = false;
+    public bool isClear = false;
+
+    [SerializeField] TextMeshProUGUI text;
 
     void OnTriggerEnter(Collider other)
     {
+        text.gameObject.SetActive(true);
         if (isClear) { return; }
         if (other.gameObject.CompareTag("Player"))
         {
@@ -21,14 +23,14 @@ public class StageClearColliderController : MonoBehaviour
 
     void NextStage()
     {
-        ++stage;
-        if (stage > maxStage)
+        ++GameManager.stage;
+        if (GameManager.stage > GameManager.maxStage)
         {
             SceneManager.LoadScene("BossStage");
         }
         else
         {
-            SceneManager.LoadScene("Stage" + stage);
+            SceneManager.LoadScene("Stage" + GameManager.stage);
         }
     }
 }
