@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class TitleManager : MonoBehaviour
 {
     [SerializeField] Image pressAnyButton;
+    [SerializeField] Fade fade;
     float timeSecCnt = 0.0f;//•b’PˆÊ
 
     enum Phase
@@ -57,6 +58,8 @@ public class TitleManager : MonoBehaviour
     {
         timeSecCnt += Time.deltaTime;
         if (timeSecCnt < 2.0f) { return; }
+        if (fade.IsFade()) { return; }
+        fade.Fadeout();
         SceneManager.LoadScene("Stage1");
     }
 
