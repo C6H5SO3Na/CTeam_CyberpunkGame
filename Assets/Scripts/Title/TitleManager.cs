@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI pressButton;
+    [SerializeField] Image pressAnyButton;
     float timeSecCnt = 0.0f;//秒単位
 
     enum Phase
@@ -36,10 +36,10 @@ public class TitleManager : MonoBehaviour
         switch (phase)
         {
             case Phase.BeforePressButton:
-                if (Input.GetKeyDown(KeyCode.A))
+                if (Input.anyKeyDown)
                 {
                     //ボタンが押されると点滅が速くなる
-                    pressButton.GetComponent<PressButtonController>().changeAmount = 8.0f;
+                    pressAnyButton.GetComponent<PressAnyButtonController>().changeAmount = 8.0f;
                     phase = Phase.AfterPressButton;
                 }
                 break;

@@ -4,17 +4,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PressButtonController : MonoBehaviour
+public class PressAnyButtonController : MonoBehaviour
 {
-    TextMeshProUGUI text;//‰¼
-    //Image image;–{”Ô—p
+    Image image;
     float alpha;
     public float changeAmount;//1•b–ˆ‚Ì•Ï‰»—Ê
     // Start is called before the first frame update
     void Start()
     {
-        text = GetComponent<TextMeshProUGUI>();
-        //image = GetComponent<Image>();
+        image = GetComponent<Image>();
         alpha = 1.0f;
         changeAmount = 1.0f;
     }
@@ -29,6 +27,6 @@ public class PressButtonController : MonoBehaviour
             changeAmount = -changeAmount;
         }
         //image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
-        text.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
     }
 }
