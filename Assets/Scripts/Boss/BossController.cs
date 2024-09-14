@@ -8,9 +8,9 @@ public class BossController : MonoBehaviour
     int HP = 10;
 
     // References to the attack scripts
-    private slidingPunch slidingPunchScript;
+    //private slidingPunch slidingPunchScript;
     private bossLaser bossLaserScript;
-    private DaiPan daiPanScript;
+    //private DaiPan daiPanScript;
     private ShootingRocket shootingRocketScript; 
 
     public float attackInterval = 5.0f; // Time between attacks
@@ -24,9 +24,9 @@ public class BossController : MonoBehaviour
     void Start()
     {
         // Get references to the attack scripts attached to this GameObject
-        slidingPunchScript = GetComponent<slidingPunch>();
+        //slidingPunchScript = GetComponent<slidingPunch>();
+        //daiPanScript = GetComponent<DaiPan>();
         bossLaserScript = GetComponent<bossLaser>();
-        daiPanScript = GetComponent<DaiPan>();
         shootingRocketScript = GetComponent<ShootingRocket>(); 
 
         // Start the attack pattern cycle
@@ -45,14 +45,14 @@ public class BossController : MonoBehaviour
             int attackChoice;
             do
             {
-            attackChoice = Random.Range(0, 4); 
+            attackChoice = Random.Range(0, 2); 
             } while (attackChoice == lastAttack);
 
             // Execute the chosen attack
             switch (attackChoice)
             {
                 case 0:
-                    ExecuteSlidingPunch();
+                    ExecuteShootingRocket();
                     break;
                 case 1:
                     ExecuteBossLaser();
@@ -60,8 +60,10 @@ public class BossController : MonoBehaviour
                 case 2:
                     ExecuteDaiPan();
                     break;
-                case 3: 
-                    ExecuteShootingRocket();
+                case 3:
+                    ExecuteSlidingPunch();
+                    break;
+                default:
                     break;
             }
 
@@ -77,36 +79,36 @@ public class BossController : MonoBehaviour
     void ExecuteSlidingPunch()
     {
         // Start the sliding punch attack
-        slidingPunchScript.enabled = true;
+        //slidingPunchScript.enabled = true;
         bossLaserScript.enabled = false;
-        daiPanScript.enabled = false;
+        //daiPanScript.enabled = false;
         shootingRocketScript.enabled = false; 
     }
 
     void ExecuteBossLaser()
     {
         // Start the laser attack
-        slidingPunchScript.enabled = false;
+       //slidingPunchScript.enabled = false;
         bossLaserScript.enabled = true;
-        daiPanScript.enabled = false;
+        //daiPanScript.enabled = false;
         shootingRocketScript.enabled = false; 
     }
 
     void ExecuteDaiPan()
     {
         // Start the DaiPan attack
-        slidingPunchScript.enabled = false;
+        //slidingPunchScript.enabled = false;
         bossLaserScript.enabled = false;
-        daiPanScript.enabled = true;
+        //daiPanScript.enabled = true;
         shootingRocketScript.enabled = false; 
     }
 
     void ExecuteShootingRocket() // New
     {
         // Start the ShootingRocket attack
-        slidingPunchScript.enabled = false;
+        //slidingPunchScript.enabled = false;
         bossLaserScript.enabled = false;
-        daiPanScript.enabled = false;
+        //daiPanScript.enabled = false;
         shootingRocketScript.enabled = true;
     }
 }
