@@ -38,7 +38,7 @@ public class bossLaser : MonoBehaviour
     void OnDisable()
     {
         if (bossHitBox != null)
-        { 
+        {
             bossHitBox.GetComponent<MeshCollider>().enabled = false;
         }
 
@@ -92,7 +92,7 @@ public class bossLaser : MonoBehaviour
             if (currentRotationAngle <= (-sweepAngle + 45))
             {
                 rotatingLeft = false; // Switch direction
-                
+
             }
         }
         else
@@ -101,7 +101,7 @@ public class bossLaser : MonoBehaviour
             if (currentRotationAngle >= (sweepAngle + 45))
             {
                 rotatingLeft = true; // Switch direction
-                
+
             }
         }
 
