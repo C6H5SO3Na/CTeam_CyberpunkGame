@@ -10,13 +10,12 @@ public class RangedAttackState : IAIState
 
     // Laser-related variables
     private float laserDuration = 2f;
-    private float laserDamageRate = 0.5f;
-    private float predictionFactor = 0.5f;
-    private float laserRotationSpeed = 3f;
+    private float laserDamageRate = 0.1f;
+
 
     public RangedAttackState()
     {
-        projectileCooldown = 4.0f; // Cooldown between attacks
+        projectileCooldown = 4.0f;
     }
 
     public void Enter(AIScript ai)
@@ -45,7 +44,7 @@ public class RangedAttackState : IAIState
         }
         else if (!ai.playerInSightRange)
         {
-            ai.ChangeState(new PatrolState()); 
+            ai.ChangeState(new PatrolState());
         }
         else if (ai.canRangeattack && !isFiringLaser)
         {
@@ -55,11 +54,10 @@ public class RangedAttackState : IAIState
 
     public void Exit(AIScript ai)
     {
-        // Logic to handle exit from RangedAttackState
         ai.isAttackingranged = false;
+
     }
 
-    // Method to be triggered by the animation event
     public void FireLaser()
     {
         if (!isFiringLaser)
@@ -72,100 +70,124 @@ public class RangedAttackState : IAIState
     {
         isFiringLaser = true;
 
-        // Enable the pre-existing laser (LineRenderer)
         if (ai.laser != null)
         {
-            ai.laser.enabled = true;
+            ai.laser.enabled = true;  // Turn on the laser only when firing starts
         }
 
-        // Instantiate the beamsource prefab as a child of the Firepoint, so it moves with the Firepoint
         GameObject spawnedBeamSource = null;
         if (ai.beamsource != null)
         {
-            // Instantiate and set it as a child of Firepoint to follow its movement
+            // Create the beam source at the firepoint
             spawnedBeamSource = GameObject.Instantiate(ai.beamsource, ai.Firepoint.transform.position, ai.Firepoint.transform.rotation, ai.Firepoint.transform);
 
-            // Activate particle system inside the instantiated object
             ParticleSystem beamParticles = spawnedBeamSource.GetComponentInChildren<ParticleSystem>();
             if (beamParticles != null)
             {
-                beamParticles.Play(); // Play the particle effect
+                beamParticles.Play();  // Play particle effects for the laser
             }
         }
 
-        Vector3 predictedPlayerPosition = PredictPlayerPosition();
+        // Calculate the laser direction only once at the start
+        Vector3 playerPosition = SmoothPredictPlayerPosition();
+        Vector3 laserDirection = (playerPosition - ai.Firepoint.transform.position).normalized;
+
+        // Set the laser's direction/rotation based on the calculated direction
+        Quaternion targetRotation = Quaternion.LookRotation(laserDirection);
+        ai.Firepoint.transform.rotation = targetRotation;
 
         float timer = 0f;
         while (timer < laserDuration)
         {
-            Vector3 laserDirection = (predictedPlayerPosition - ai.Firepoint.transform.position).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(laserDirection);
-            ai.Firepoint.transform.rotation = Quaternion.Slerp(ai.Firepoint.transform.rotation, targetRotation, Time.deltaTime * laserRotationSpeed);
+            // The laser will keep firing in the same direction
+            Vector3 laserEndPoint = CalculateLaserEndPoint(laserDirection);
 
             if (ai.laser != null)
             {
-                ai.laser.SetPosition(0, ai.Firepoint.transform.position); // Laser start point
-                ai.laser.SetPosition(1, predictedPlayerPosition);          // Laser end point
+                ai.laser.SetPosition(0, ai.Firepoint.transform.position);  // Set laser start position
+                ai.laser.SetPosition(1, laserEndPoint);  // Set laser end position
             }
 
-            // Apply laser damage periodically
-            laserDamageTimer += Time.deltaTime;
-            if (laserDamageTimer >= laserDamageRate)
+            // Apply damage if the laser is hitting the player
+            if (HitPlayer(laserDirection))
             {
-                ApplyLaserDamage();
-                laserDamageTimer = 0f;
+                laserDamageTimer += Time.deltaTime;
+                if (laserDamageTimer >= laserDamageRate)
+                {
+                    ApplyLaserDamage();
+                    laserDamageTimer = 0f;  // Reset damage timer after applying damage
+                }
             }
 
             timer += Time.deltaTime;
             yield return null;
         }
 
-        
+        // Turn the laser off and clean up after firing
         if (ai.laser != null)
         {
-            ai.laser.enabled = false;
+            ai.laser.enabled = false;  // Disable the laser after the attack is over
         }
+
+        // Destroy the spawned beam source (if any) after the laser attack is done
         if (spawnedBeamSource != null)
         {
             ParticleSystem beamParticles = spawnedBeamSource.GetComponentInChildren<ParticleSystem>();
             if (beamParticles != null)
             {
-                beamParticles.Stop(); 
+                beamParticles.Stop();  // Stop beam particle effects
             }
-            GameObject.Destroy(spawnedBeamSource); 
+            GameObject.Destroy(spawnedBeamSource);  // Destroy the beam source
         }
 
+        // Reset the firing state and return to idle
         isFiringLaser = false;
-
-        ai.ChangeState(new IdleState());
+        ai.ChangeState(new IdleState());  // Switch to IdleState after the laser attack is over
     }
 
-
-
-    private Vector3 PredictPlayerPosition()
+    // Check if the laser is hitting the player
+    private bool HitPlayer(Vector3 laserDirection)
     {
-        Rigidbody playerRb = ai.player.GetComponent<Rigidbody>();
-        Vector3 predictedPosition = ai.player.position + playerRb.velocity * predictionFactor;
+        float laserMaxDistance = 150f;
+        if (Physics.Raycast(ai.Firepoint.transform.position, laserDirection, out RaycastHit hit, laserMaxDistance))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Vector3 SmoothPredictPlayerPosition()
+    {
+        Vector3 currentPosition = ai.player.position;
 
         float playerHeight = ai.player.GetComponent<Collider>().bounds.extents.y;
-        predictedPosition.y += playerHeight * 2f; 
+        currentPosition.y = ai.player.position.y + playerHeight;
 
-        return Vector3.Lerp(ai.player.position, predictedPosition, predictionFactor);
+        return currentPosition;
+    }
+
+    private Vector3 CalculateLaserEndPoint(Vector3 laserDirection)
+    {
+        float laserMaxDistance = 150f;
+        if (Physics.Raycast(ai.Firepoint.transform.position, laserDirection, out RaycastHit hit, laserMaxDistance))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                return ai.player.position + Vector3.up * hit.collider.bounds.extents.y;
+            }
+            else
+            {
+                return hit.point;
+            }
+        }
+        return ai.Firepoint.transform.position + laserDirection * laserMaxDistance;
     }
 
     private void ApplyLaserDamage()
     {
-        Vector3 laserStartPoint = ai.Firepoint.transform.position;
-        Vector3 laserDirection = (ai.player.position - laserStartPoint).normalized;
-        float laserMaxDistance = 100f;
-
-        if (Physics.Raycast(laserStartPoint, laserDirection, out RaycastHit hit, laserMaxDistance))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                Debug.Log("PlayerHit");
-                // Apply damage to the player here
-            }
-        }
+        Debug.Log("PlayerHit! Applying damage...");
     }
 }
