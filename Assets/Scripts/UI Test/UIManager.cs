@@ -13,11 +13,11 @@ public class UIManager : MonoBehaviour
     public GameObject imagePrefab;//画像を生成するためのprefab
     public GameObject buttonPrefab;  //ボタンを生成するためのprefab
 
-    private string jsonFilePath = "Assets/Scenes/ui TEST/UIText.josn";
+    private string jsonFilePath = "Assets/Scenes/ui TEST/UIText.json";
 
     void Start()
     {
-        LoadUIFromJSON(jsonFilePath);
+       // LoadUIFromJSON(jsonFilePath);
     }
 
     //JSONを読み取り
