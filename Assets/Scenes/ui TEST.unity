@@ -417,7 +417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 321330125}
   textPrefab: {fileID: 8385450289706502089, guid: 4d1706e82d1dd544b953ada39b190e31, type: 3}
-  imagePrefab: {fileID: 3392330223805421848, guid: 6ebbc5857b1aa454393d5c11a0642059, type: 3}
+  imagePrefab: {fileID: 4656533036287203034, guid: 8ca71d460114f7c4d8d16d705c4441f8, type: 3}
   buttonPrefab: {fileID: 1770888940465619101, guid: 8d8772c2897752348b965cf50e60e95d, type: 3}
 --- !u!4 &571621708
 Transform:
