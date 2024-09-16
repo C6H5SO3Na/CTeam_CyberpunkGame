@@ -1,0 +1,29 @@
+{
+  "soundElements": [
+    {
+      "soundID": "201",
+      "soundType": "BGM",
+      "soundPath": "Futuristic User Interface SFX/Cancel/UIMisc_Cancel_CFS_FutUI_01",
+      "loop": true
+    },
+    {
+      "soundID": "202",
+      "soundType": "SE",
+      "soundPath": "Futuristic User Interface SFX/Cancel/UIMisc_Cancel_CFS_FutUI_02",
+      "loop": false,
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 5
+      },
+      "playAtObjectPosition": false
+    },
+    {
+      "soundID": "203",
+      "soundType": "SE",
+      "soundPath": "Futuristic User Interface SFX/Cancel/UIMisc_Cancel_CFS_FutUI_03",
+      "loop": false,
+      "playAtObjectPosition": true
+    }
+  ]
+}
