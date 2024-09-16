@@ -1,37 +1,71 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class bossLaser : MonoBehaviour
 {
-    private LineRenderer lr;
-    public Transform startpoint;
+    public GameObject laserPrefab; // Prefab with the LineRenderer component
+    public Transform[] startpoints; // Array of startpoints for multiple lasers
     public Transform player; // Reference to the player's transform
 
-    private Vector3 initialShotDirection; // Direction towards the player when the laser is first fired
-    private bool laserFired = false; // Flag to check if the laser has been fired
-
+    private List<GameObject> instantiatedLasers = new List<GameObject>(); // List to store instantiated prefabs
+    private List<Vector3> shotDirections = new List<Vector3>(); // List to store directions for each laser
+    private List<float> initialPlayerXPositions = new List<float>(); // List to store the initial randomized X position of the player
+    private List<float> initialPlayerZPositions = new List<float>(); // List to store the initial Z position of the player
     public float rotationSpeed = 0.0f; // Speed at which the laser rotates
     public float sweepAngle = 45f; // Half-angle for the sweep (left and right)
-    private float currentRotationAngle = 0f;
-    private bool rotatingLeft = true; // Direction of rotation
-
-    private float playerDistance; // Distance from startpoint to player
+    private List<float> currentRotationAngles = new List<float>(); // Current rotation angles for each laser
+    private List<bool> rotatingLeft = new List<bool>(); // Whether each laser is rotating left
 
     private Coroutine attackCoroutine; // Store the coroutine
 
     public GameObject bossHitBox;
 
+    // Damage related variables
+    public float damageRate = 0.5f; // How often damage is applied when player is hit by the laser
+    public int laserDamage = 10; // Amount of damage dealt by the laser
+    private List<float> lastDamageTimes = new List<float>(); // Track the last time damage was applied for each laser
+
     void OnEnable()
     {
-        lr = GetComponent<LineRenderer>();
-        rotationSpeed = Random.Range(40.0f, 70.0f);
+        // Clear the lists as we will re-initialize them when the script is enabled
+        initialPlayerXPositions.Clear();
+        initialPlayerZPositions.Clear();
+        lastDamageTimes.Clear(); // Clear last damage time tracking
 
-        // Calculate the initial direction and distance to the player
-        initialShotDirection = (player.position - startpoint.position).normalized;
-        playerDistance = Vector3.Distance(startpoint.position, player.position);
+        // Initialize rotation speed for each laser and instantiate the prefabs
+        rotationSpeed = Random.Range(5.0f, 8.0f);
 
-        lr.enabled = true;
-        laserFired = false; // Reset the laserFired flag when the attack starts
+        for (int i = 0; i < startpoints.Length; i++)
+        {
+            Transform startpoint = startpoints[i];
+
+            // Instantiate the laser prefab at each startpoint
+            GameObject laserInstance = Instantiate(laserPrefab, startpoint.position, startpoint.rotation);
+            instantiatedLasers.Add(laserInstance);
+
+            // Store a random X position (randomized once when script is enabled) and player's current Z position
+            initialPlayerXPositions.Add(Random.Range(player.position.x - 5.0f, player.position.x + 5.0f));
+            initialPlayerZPositions.Add(player.position.z);
+
+            // Initialize sweeping parameters for each laser
+            shotDirections.Add((player.position - startpoint.position).normalized);
+            currentRotationAngles.Add(0f);
+
+            // Initialize the last damage time for each laser (start at 0)
+            lastDamageTimes.Add(0f);
+
+            // Set the sweeping direction based on whether the laser index is even or odd
+            if (i % 2 == 0)
+            {
+                rotatingLeft.Add(true); // Even-numbered lasers start by sweeping left
+            }
+            else
+            {
+                rotatingLeft.Add(false); // Odd-numbered lasers start by sweeping right
+            }
+        }
+
         attackCoroutine = StartCoroutine(LaserRoutine());
     }
 
@@ -47,89 +81,98 @@ public class bossLaser : MonoBehaviour
             StopCoroutine(attackCoroutine);
         }
 
-        lr.enabled = false; // Disable the laser line renderer when the attack stops
+        // Destroy all instantiated lasers and clear the list
+        foreach (GameObject laser in instantiatedLasers)
+        {
+            Destroy(laser);
+        }
+        instantiatedLasers.Clear();
     }
 
     IEnumerator LaserRoutine()
     {
         while (true)
         {
-            if (!laserFired)
+            for (int i = 0; i < startpoints.Length; i++)
             {
-                FireLaserAtPlayer(); // Fire at the player first
+                SweepLaserOnGround(i); // Sweep the laser for each startpoint
+                UpdateLaser(i); // Update the laser for each startpoint
             }
-            else
-            {
-                SweepLaserOnGround(); // Rotate the laser to shoot at different ground points
-                UpdateLaser();
-            }
-
             yield return null;
         }
-
-        //this.enabled = false; // Disable the script after completing the attack (though this is unlikely to run in the current loop structure)
     }
 
-    void FireLaserAtPlayer()
-    {
-        // Calculate the initial direction to the player
-        initialShotDirection = (player.position - startpoint.position).normalized;
-        playerDistance = Vector3.Distance(startpoint.position, player.position); // Calculate the distance to the player
-        laserFired = true; // Set the flag to true so this only happens once
-
-        lr.SetPosition(0, startpoint.position);
-        UpdateLaser(); // Initial update for the laser position
-    }
-
-    void SweepLaserOnGround()
+    void SweepLaserOnGround(int index)
     {
         float rotationThisFrame = rotationSpeed * Time.deltaTime;
 
-        // Rotate left and right within the sweep angle in the front
-        if (rotatingLeft)
+        // Rotate left and right within the sweep angle for each startpoint
+        if (rotatingLeft[index])
         {
-            currentRotationAngle -= rotationThisFrame;
-            if (currentRotationAngle <= (-sweepAngle + 45))
+            currentRotationAngles[index] -= rotationThisFrame;
+            if (currentRotationAngles[index] <= -sweepAngle)
             {
-                rotatingLeft = false; // Switch direction
-
+                rotatingLeft[index] = false; // Switch direction
             }
         }
         else
         {
-            currentRotationAngle += rotationThisFrame;
-            if (currentRotationAngle >= (sweepAngle + 45))
+            currentRotationAngles[index] += rotationThisFrame;
+            if (currentRotationAngles[index] >= sweepAngle)
             {
-                rotatingLeft = true; // Switch direction
-
+                rotatingLeft[index] = true; // Switch direction
             }
         }
 
-        // Calculate the next ground target point based on front-facing rotation
-        Vector3 groundTargetPoint = startpoint.position + Quaternion.Euler(0, currentRotationAngle, 0) * startpoint.forward * playerDistance;
-        groundTargetPoint.y = 0; // Ensure the target point is on the ground
+        // Calculate the target point for each laser based on the stored X and Z positions
+        Vector3 targetPoint = new Vector3(
+            initialPlayerXPositions[index], // Use the stored randomized X position (fixed when first enabled)
+            0, // Ground level (y = 0)
+            initialPlayerZPositions[index] // Use the stored Z position (fixed when first enabled)
+        );
 
-        // Update the shot direction to point towards the ground target
-        initialShotDirection = (groundTargetPoint - startpoint.position).normalized;
+        // Apply the sweep rotation to the target point
+        Vector3 sweepDirection = Quaternion.Euler(0, currentRotationAngles[index], 0) * (targetPoint - startpoints[index].position).normalized;
+        shotDirections[index] = sweepDirection;
     }
 
-    void UpdateLaser()
+    void UpdateLaser(int index)
     {
-        RaycastHit hit;
+        // Get the LineRenderer from the instantiated laser prefab
+        LineRenderer lr = instantiatedLasers[index].GetComponent<LineRenderer>();
 
-        if (Physics.Raycast(startpoint.position, initialShotDirection, out hit))
+        // Set the start of the laser at the startpoint
+        lr.SetPosition(0, startpoints[index].position);
+
+        RaycastHit hit;
+        if (Physics.Raycast(startpoints[index].position, shotDirections[index], out hit))
         {
+            // Set the end of the laser at the point where it hits an object (ground or player)
             lr.SetPosition(1, hit.point);
 
             if (hit.transform.CompareTag("Player"))
             {
-                // Optionally destroy the player or apply damage
-                // Destroy(hit.transform.gameObject);
+                ApplyLaserDamage(index); // Apply damage to the player
             }
         }
         else
         {
-            lr.SetPosition(1, startpoint.position + initialShotDirection * 5000);
+            // If no hit, extend the laser far in the shot direction
+            lr.SetPosition(1, startpoints[index].position + shotDirections[index] * 5000);
+        }
+    }
+
+    void ApplyLaserDamage(int index)
+    {
+        // Check if enough time has passed since the last damage application for this laser
+        if (Time.time >= lastDamageTimes[index] + damageRate)
+        {
+            //player.GetComponent<PlayerHealth>().ApplyDamage(laserDamage);
+
+            // Update the last damage time for this laser
+            lastDamageTimes[index] = Time.time;
+
+            Debug.Log("Player hit by laser, applying " + laserDamage + " damage.");
         }
     }
 }
