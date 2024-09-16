@@ -29,6 +29,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
     private bool isFloor;
     private bool isRun;
     private bool isAttacking;
+    private PlayerManager playerManager;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
         defaultPosition = transform.position;
         swordComponent = GetComponent<SwordComponent>();
         isAttacking = false;
+        playerManager = GetComponent<PlayerManager>();
 }
 
     // Update is called once per frame
@@ -70,18 +72,20 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
         {
             isAttacking = true;
             TriggerAttack1("Attack");
+            playerManager.PlayerSPAdd(1);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
             isAttacking = true;
             TriggerAttack2("Attack2");
+            playerManager.PlayerSPReset();
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             animator.SetTrigger("Damage");
-
+            playerManager.PlayerDamage(1);
         }
 
         //çUåÇ
