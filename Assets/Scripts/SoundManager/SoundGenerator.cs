@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
-public class SoundGanerator : MonoBehaviour
+
+public class SoundGenerator : MonoBehaviour
 {
     public GameObject sePrefab;  // Prefab for Sound Effect (SFX)
-    public GameObject bgmPrefab;  // Prefab for BGM (optional if BGM uses a different prefab)
+    public GameObject bgmPrefab;  // Prefab for BGM
     private string jsonFilePath = "Assets/Scenes/SoundManager/soundData.json"; // Path to JSON file
-    private List<GameObject> sfxList = new List<GameObject>();  // List to manage SFX objects
-    private GameObject bgmObject; // BGM object for handling BGM playback
+
+    private Dictionary<string, GameObject> soundDictionary = new Dictionary<string, GameObject>(); // Dictionary to manage both SFX and BGM objects
 
     // Generate Sound by ID
     public void GenerateSoundByID(string soundID, GameObject obj = null)
@@ -25,7 +26,7 @@ public class SoundGanerator : MonoBehaviour
                 {
                     if (element.soundType == "BGM")
                     {
-                        CreateBGM(element.soundPath, element.loop);
+                        CreateSound(soundID, element.soundPath, element.loop, bgmPrefab);
                     }
                     else if (element.soundType == "SE")
                     {
@@ -40,7 +41,7 @@ public class SoundGanerator : MonoBehaviour
                             playPosition = element.position.Value;
                         }
 
-                        CreateSE(element.soundPath, element.loop, playPosition);
+                        CreateSound(soundID, element.soundPath, element.loop, sePrefab, playPosition);
                     }
                     break;
                 }
@@ -52,13 +53,20 @@ public class SoundGanerator : MonoBehaviour
         }
     }
 
-    // Create SFX
-    void CreateSE(string path, bool loop, Vector3 position)
+    // Create Sound (either SE or BGM)
+    void CreateSound(string soundID, string path, bool loop, GameObject prefab, Vector3? position = null)
     {
-        if (sePrefab != null)
+        if (prefab != null)
         {
-            GameObject seObj = Instantiate(sePrefab, this.transform);
-            AudioSource audioSource = seObj.GetComponent<AudioSource>();
+            // Check if sound with the same ID already exists
+            if (soundDictionary.ContainsKey(soundID))
+            {
+                Debug.LogWarning("Sound with soundID " + soundID + " already exists. Skipping creation.");
+                return;
+            }
+
+            GameObject soundObj = Instantiate(prefab, this.transform);
+            AudioSource audioSource = soundObj.GetComponent<AudioSource>();
 
             if (audioSource != null)
             {
@@ -71,7 +79,7 @@ public class SoundGanerator : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("SFX audio clip not found at path: " + path);
+                    Debug.LogError("Audio clip not found at path: " + path);
                 }
             }
             else
@@ -79,54 +87,47 @@ public class SoundGanerator : MonoBehaviour
                 Debug.LogError("The instantiated prefab does not contain an AudioSource component.");
             }
 
-            seObj.transform.position = position;
-            sfxList.Add(seObj);
+            // Set position if provided
+            if (position.HasValue)
+            {
+                soundObj.transform.position = position.Value;
+            }
+
+            // Add to dictionary
+            soundDictionary[soundID] = soundObj;
         }
         else
         {
-            Debug.LogError("SFX prefab is not assigned.");
+            Debug.LogError("Prefab is not assigned.");
         }
     }
 
-    // Create BGM
-    void CreateBGM(string path, bool loop)
+    // Delete Sound by ID (works for both SE and BGM)
+    public void DeleteSoundByID(string soundID)
     {
-        if (bgmPrefab != null)
+        if (soundDictionary.ContainsKey(soundID))
         {
-            // Destroy existing BGM if already playing
-            if (bgmObject != null)
-            {
-                Destroy(bgmObject);
-            }
-
-            bgmObject = Instantiate(bgmPrefab, this.transform);
-            AudioSource audioSource = bgmObject.GetComponent<AudioSource>();
-
-            if (audioSource != null)
-            {
-                AudioClip clip = Resources.Load<AudioClip>(path);
-                if (clip != null)
-                {
-                    audioSource.clip = clip;
-                    audioSource.loop = loop;
-                    audioSource.Play();
-                }
-                else
-                {
-                    Debug.LogError("BGM audio clip not found at path: " + path);
-                }
-            }
-            else
-            {
-                Debug.LogError("The instantiated prefab does not contain an AudioSource component.");
-            }
+            GameObject soundObj = soundDictionary[soundID];
+            Destroy(soundObj);
+            soundDictionary.Remove(soundID);
         }
         else
         {
-            Debug.LogError("BGM prefab is not assigned.");
+            Debug.LogWarning("No sound found with soundID: " + soundID);
         }
+    }
+
+    // Delete all sounds
+    public void DeleteAllSounds()
+    {
+        foreach (KeyValuePair<string, GameObject> kvp in soundDictionary)
+        {
+            Destroy(kvp.Value);
+        }
+        soundDictionary.Clear();
     }
 }
+
 // JSON Data Classes
 [System.Serializable]
 public class SoundData
