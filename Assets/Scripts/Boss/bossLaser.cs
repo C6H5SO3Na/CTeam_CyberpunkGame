@@ -4,65 +4,65 @@ using UnityEngine;
 
 public class bossLaser : MonoBehaviour
 {
-    public GameObject laserPrefab; // Prefab with the LineRenderer component
-    public Transform[] startpoints; // Array of startpoints for multiple lasers
-    public Transform player; // Reference to the player's transform
+    public GameObject laserPrefab; // LineRendererコンポーネントを持つPrefab
+    public Transform[] startpoints; // 複数のレーザーの発射点の配列
+    public Transform player; // プレイヤーのTransformへの参照
 
-    private List<GameObject> instantiatedLasers = new List<GameObject>(); // List to store instantiated prefabs
-    private List<Vector3> shotDirections = new List<Vector3>(); // List to store directions for each laser
-    private List<float> initialPlayerXPositions = new List<float>(); // List to store the initial randomized X position of the player
-    private List<float> initialPlayerZPositions = new List<float>(); // List to store the initial Z position of the player
-    public float rotationSpeed = 0.0f; // Speed at which the laser rotates
-    public float sweepAngle = 45f; // Half-angle for the sweep (left and right)
-    private List<float> currentRotationAngles = new List<float>(); // Current rotation angles for each laser
-    private List<bool> rotatingLeft = new List<bool>(); // Whether each laser is rotating left
+    private List<GameObject> instantiatedLasers = new List<GameObject>(); // 生成されたPrefabを格納するリスト
+    private List<Vector3> shotDirections = new List<Vector3>(); // 各レーザーの方向を格納するリスト
+    private List<float> initialPlayerXPositions = new List<float>(); // プレイヤーの初期X位置を格納するリスト
+    private List<float> initialPlayerZPositions = new List<float>(); // プレイヤーの初期Z位置を格納するリスト
+    public float rotationSpeed = 0.0f; // レーザーの回転速度
+    public float sweepAngle = 45f; // レーザーが左右にスイープする角度の半分
+    private List<float> currentRotationAngles = new List<float>(); // 各レーザーの現在の回転角度
+    private List<bool> rotatingLeft = new List<bool>(); // 各レーザーが左に回転しているかどうか
 
-    private Coroutine attackCoroutine; // Store the coroutine
+    private Coroutine attackCoroutine; // コルーチンを格納
 
     public GameObject bossHitBox;
 
-    // Damage related variables
-    public float damageRate = 0.5f; // How often damage is applied when player is hit by the laser
-    public int laserDamage = 10; // Amount of damage dealt by the laser
-    private List<float> lastDamageTimes = new List<float>(); // Track the last time damage was applied for each laser
+    // ダメージに関連する変数
+    public float damageRate = 0.5f; // レーザーがプレイヤーに当たった際にダメージが適用される間隔
+    public int laserDamage = 10; // レーザーが与えるダメージ量
+    private List<float> lastDamageTimes = new List<float>(); // 各レーザーが最後にダメージを適用した時間を追跡するリスト
 
     void OnEnable()
     {
-        // Clear the lists as we will re-initialize them when the script is enabled
+        // スクリプトが有効化された際にリストを再初期化
         initialPlayerXPositions.Clear();
         initialPlayerZPositions.Clear();
-        lastDamageTimes.Clear(); // Clear last damage time tracking
+        lastDamageTimes.Clear(); // 最後のダメージ適用時間の追跡をクリア
 
-        // Initialize rotation speed for each laser and instantiate the prefabs
+        // 各レーザーの回転速度を初期化し、Prefabを生成
         rotationSpeed = Random.Range(5.0f, 8.0f);
 
         for (int i = 0; i < startpoints.Length; i++)
         {
             Transform startpoint = startpoints[i];
 
-            // Instantiate the laser prefab at each startpoint
+            // 各スタートポイントでレーザーのPrefabを生成
             GameObject laserInstance = Instantiate(laserPrefab, startpoint.position, startpoint.rotation);
             instantiatedLasers.Add(laserInstance);
 
-            // Store a random X position (randomized once when script is enabled) and player's current Z position
+            // スクリプトが有効化された時点でランダムなX位置とプレイヤーの現在のZ位置を保存
             initialPlayerXPositions.Add(Random.Range(player.position.x - 5.0f, player.position.x + 5.0f));
             initialPlayerZPositions.Add(player.position.z);
 
-            // Initialize sweeping parameters for each laser
+            // 各レーザーのスイープパラメータを初期化
             shotDirections.Add((player.position - startpoint.position).normalized);
             currentRotationAngles.Add(0f);
 
-            // Initialize the last damage time for each laser (start at 0)
+            // 各レーザーの最後のダメージ適用時間を初期化（0でスタート）
             lastDamageTimes.Add(0f);
 
-            // Set the sweeping direction based on whether the laser index is even or odd
+            // レーザーのインデックスが偶数か奇数かでスイープ方向を設定
             if (i % 2 == 0)
             {
-                rotatingLeft.Add(true); // Even-numbered lasers start by sweeping left
+                rotatingLeft.Add(true); // 偶数番号のレーザーは左にスイープ
             }
             else
             {
-                rotatingLeft.Add(false); // Odd-numbered lasers start by sweeping right
+                rotatingLeft.Add(false); // 奇数番号のレーザーは右にスイープ
             }
         }
 
@@ -81,7 +81,7 @@ public class bossLaser : MonoBehaviour
             StopCoroutine(attackCoroutine);
         }
 
-        // Destroy all instantiated lasers and clear the list
+        // 生成されたすべてのレーザーを破壊し、リストをクリア
         foreach (GameObject laser in instantiatedLasers)
         {
             Destroy(laser);
@@ -95,8 +95,8 @@ public class bossLaser : MonoBehaviour
         {
             for (int i = 0; i < startpoints.Length; i++)
             {
-                SweepLaserOnGround(i); // Sweep the laser for each startpoint
-                UpdateLaser(i); // Update the laser for each startpoint
+                SweepLaserOnGround(i); // 各発射点でレーザーをスイープ
+                UpdateLaser(i); // 各発射点でレーザーを更新
             }
             yield return null;
         }
@@ -106,13 +106,13 @@ public class bossLaser : MonoBehaviour
     {
         float rotationThisFrame = rotationSpeed * Time.deltaTime;
 
-        // Rotate left and right within the sweep angle for each startpoint
+        // 各発射点でスイープ角度内で左右に回転
         if (rotatingLeft[index])
         {
             currentRotationAngles[index] -= rotationThisFrame;
             if (currentRotationAngles[index] <= -sweepAngle)
             {
-                rotatingLeft[index] = false; // Switch direction
+                rotatingLeft[index] = false; // 方向を切り替え
             }
         }
         else
@@ -120,59 +120,59 @@ public class bossLaser : MonoBehaviour
             currentRotationAngles[index] += rotationThisFrame;
             if (currentRotationAngles[index] >= sweepAngle)
             {
-                rotatingLeft[index] = true; // Switch direction
+                rotatingLeft[index] = true; // 方向を切り替え
             }
         }
 
-        // Calculate the target point for each laser based on the stored X and Z positions
+        // 保存されたXおよびZ位置に基づいて各レーザーのターゲットポイントを計算
         Vector3 targetPoint = new Vector3(
-            initialPlayerXPositions[index], // Use the stored randomized X position (fixed when first enabled)
-            0, // Ground level (y = 0)
-            initialPlayerZPositions[index] // Use the stored Z position (fixed when first enabled)
+            initialPlayerXPositions[index], // 有効化時に保存されたランダムなX位置を使用
+            -5, // 地面のレベル (y = 0)
+            initialPlayerZPositions[index] // 有効化時に保存されたZ位置を使用
         );
 
-        // Apply the sweep rotation to the target point
+        // ターゲットポイントにスイープ回転を適用
         Vector3 sweepDirection = Quaternion.Euler(0, currentRotationAngles[index], 0) * (targetPoint - startpoints[index].position).normalized;
         shotDirections[index] = sweepDirection;
     }
 
     void UpdateLaser(int index)
     {
-        // Get the LineRenderer from the instantiated laser prefab
+        // 生成されたレーザーPrefabからLineRendererを取得
         LineRenderer lr = instantiatedLasers[index].GetComponent<LineRenderer>();
 
-        // Set the start of the laser at the startpoint
+        // レーザーの始点を発射点に設定
         lr.SetPosition(0, startpoints[index].position);
 
         RaycastHit hit;
         if (Physics.Raycast(startpoints[index].position, shotDirections[index], out hit))
         {
-            // Set the end of the laser at the point where it hits an object (ground or player)
+            // オブジェクト（地面またはプレイヤー）に当たった位置にレーザーの終点を設定
             lr.SetPosition(1, hit.point);
 
             if (hit.transform.CompareTag("Player"))
             {
-                ApplyLaserDamage(index); // Apply damage to the player
+                ApplyLaserDamage(index); // プレイヤーにダメージを適用
             }
         }
         else
         {
-            // If no hit, extend the laser far in the shot direction
+            // 当たらなければ、レーザーをショット方向に遠くまで延長
             lr.SetPosition(1, startpoints[index].position + shotDirections[index] * 5000);
         }
     }
 
     void ApplyLaserDamage(int index)
     {
-        // Check if enough time has passed since the last damage application for this laser
+        // 最後のダメージ適用から指定時間（damageRate）が経過しているかを確認
         if (Time.time >= lastDamageTimes[index] + damageRate)
         {
             //player.GetComponent<PlayerHealth>().ApplyDamage(laserDamage);
 
-            // Update the last damage time for this laser
+            // 各レーザーの最後のダメージ適用時間を更新
             lastDamageTimes[index] = Time.time;
 
-            Debug.Log("Player hit by laser, applying " + laserDamage + " damage.");
+            Debug.Log("レーザーがプレイヤーに当たり、" + laserDamage + " ダメージを適用");
         }
     }
 }

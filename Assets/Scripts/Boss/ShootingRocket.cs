@@ -4,11 +4,13 @@ using UnityEngine;
 public class ShootingRocket : MonoBehaviour
 {
     public GameObject rocketPrefab;
-    public Transform[] launchPoints; // Array of points from where rockets will be launched
-    public float heightAbovePlayer = 30.0f; // Height at which the rockets will begin to fall
-    public float spreadRadius = 5.0f; // The radius around the player where rockets will spread
-    public float ascentSpeed = 10.0f; // Speed at which the rockets ascend
-    public float descentDelay = 1.0f; // Delay before rockets start falling after reaching the peak
+    public Transform[] launchPoints; // ロケットを発射するポイントの配列
+    public float heightAbovePlayer = 30.0f; // プレイヤーの上にロケットが開始する高さ
+    public float spreadRadius = 5.0f; // プレイヤー周りにロケットが広がる半径
+    public float ascentSpeed = 10.0f; // ロケットが上昇する速度
+    public float descentDelay = 1.0f; // ロケットが頂点に到達した後、下降を開始するまでの遅延時間
+    public float rocketLifetime = 10.0f; // ロケットの寿命（破壊されるまでの時間）
+    public float rotationSpeed = 360.0f; // ロケットが下向きに回転する速度
 
     private Coroutine attackCoroutine;
 
@@ -34,14 +36,14 @@ public class ShootingRocket : MonoBehaviour
 
         for (int i = 0; i < launchPoints.Length; i++)
         {
-            // Calculate a random position around the player within the spread radius
+            // プレイヤーの周りでランダムなオフセット位置を計算し、ロケットを拡散させる
             Vector3 randomOffset = new Vector3(
                 Random.Range(-spreadRadius, spreadRadius),
                 0,
                 Random.Range(-spreadRadius, spreadRadius)
             );
 
-            // If it's the first launch point, set offset to zero
+            // 最初の発射ポイントの場合は、オフセットをゼロに設定する
             if (i == 0)
             {
                 randomOffset = Vector3.zero;
@@ -49,68 +51,117 @@ public class ShootingRocket : MonoBehaviour
 
             Vector3 targetPosition = player.transform.position + randomOffset;
 
-            // Instantiate the rocket at the launch point
-            GameObject rocketInstance = Instantiate(rocketPrefab, launchPoints[i].position, Quaternion.identity);
+            // 発射ポイントでロケットを生成し、X軸を-90度に設定して生成する
+            GameObject rocketInstance = Instantiate(rocketPrefab, launchPoints[i].position, Quaternion.Euler(-90, 0, 0));
 
-            // Add a RocketCollisionHandler script to handle collisions
+            // 衝突処理用にRocketCollisionHandlerスクリプトを追加
             RocketCollisionHandler collisionHandler = rocketInstance.AddComponent<RocketCollisionHandler>();
             collisionHandler.SetDestroyOnCollision();
 
-            // Move the rocket upwards to a point directly above the target position
-            StartCoroutine(MoveRocketUpwards(rocketInstance, targetPosition));
+            // ロケットを上方に移動させ、目標位置の上に配置する
+            StartCoroutine(MoveRocketUpwardsAndRotate(rocketInstance, targetPosition));
 
-            // Destroy the rocket after a set time if it hasn't already been destroyed
-            Destroy(rocketInstance, 10.0f);
+            // ロケットの破壊はすぐには行わず、後で処理する
         }
 
-        // Ensure the script is disabled after the attack
+        // 攻撃が終了したら、スクリプトを無効にする
         yield return new WaitForSeconds(10.0f);
         this.enabled = false;
     }
 
-    IEnumerator MoveRocketUpwards(GameObject rocket, Vector3 targetPosition)
+    IEnumerator MoveRocketUpwardsAndRotate(GameObject rocket, Vector3 targetPosition)
     {
         Rigidbody rb = rocket.GetComponent<Rigidbody>();
         rb.useGravity = false;
 
         Vector3 peakPosition = targetPosition + Vector3.up * heightAbovePlayer;
 
-        // Ascend to the peak position
+        // ロケットを頂点位置に向かって上昇させる
         while (rocket != null && Vector3.Distance(rocket.transform.position, peakPosition) > 0.1f)
         {
-            rocket.transform.position = Vector3.MoveTowards(rocket.transform.position, peakPosition, ascentSpeed * Time.deltaTime);
+            // ロケットを頂点位置に向けて移動させる
+            Vector3 moveDirection = (peakPosition - rocket.transform.position).normalized;
+            rocket.transform.position += moveDirection * ascentSpeed * Time.deltaTime;
+
+            // 上昇中にロケットを移動方向に合わせて回転させる
+            RotateRocketTowardsDirection(rocket, moveDirection);
+
             yield return null;
         }
 
-        // Wait for a moment before falling down
+        // 下降を開始する前に少し待つ
         yield return new WaitForSeconds(descentDelay);
 
+        // ロケットを下向きに回転させる
         if (rocket != null)
         {
-            // Rotate the rocket by 180 degrees on the Z-axis
-            rocket.transform.Rotate(0, 0, 180);
+            yield return StartCoroutine(RotateRocketToFaceDown(rocket));
 
-            rb.useGravity = true;
-            rb.velocity = Vector3.zero;  // Reset velocity to allow natural fall
+            // 重力を有効にしてロケットを落下させる
+            if (rocket != null)
+            {
+                rb = rocket.GetComponent<Rigidbody>(); // ロケットとRigidbodyが存在するか再確認
+                if (rb != null)
+                {
+                    rb.useGravity = true;
+                    rb.velocity = Vector3.zero;  // 速度をリセットして自然な落下を可能にする
+                }
+
+                // 残りの寿命の後にロケットを破壊する
+                yield return new WaitForSeconds(rocketLifetime - descentDelay);
+                if (rocket != null)
+                {
+                    Destroy(rocket);
+                }
+            }
         }
+    }
+
+    IEnumerator RotateRocketToFaceDown(GameObject rocket)
+    {
+        Vector3 downwardDirection = Vector3.down;
+
+        // ロケットが下向きになるまで回転を続ける
+        while (rocket != null && Vector3.Angle(rocket.transform.forward, downwardDirection) > 1f)
+        {
+            // ロケットを滑らかに下向きに回転させる
+            Quaternion targetRotation = Quaternion.LookRotation(downwardDirection);
+            rocket.transform.rotation = Quaternion.RotateTowards(rocket.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            yield return null; // 次のフレームまで待つ
+        }
+    }
+
+    void RotateRocketTowardsDirection(GameObject rocket, Vector3 direction)
+    {
+        // ロケットを移動方向に合わせるための回転を計算する
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        rocket.transform.rotation = Quaternion.RotateTowards(rocket.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }
 
-// This script handles collisions for the rockets
+// このスクリプトはロケットの衝突を処理します
 public class RocketCollisionHandler : MonoBehaviour
 {
+    private bool isDestroyed = false;
+
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the rocket hits the ground or player
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Ground"))
+        // ロケットが地面またはプレイヤーに衝突した場合
+        if (!isDestroyed && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Ground")))
         {
-            Destroy(gameObject); // Destroy the rocket
+           if(collision.gameObject.CompareTag("Player"))
+           { 
+              Debug.Log("プレイヤーをヒットｘｘダメージ");
+           }
+            isDestroyed = true;
+            Destroy(gameObject);
         }
     }
 
     public void SetDestroyOnCollision()
     {
-        // Ensure the rocket has a collider component and it's set as a trigger if using OnTriggerEnter
+        // ロケットにコライダーがあり、OnTriggerEnterを使用する場合はトリガーとして設定されていることを確認する
         Collider collider = GetComponent<CapsuleCollider>();
     }
 }
