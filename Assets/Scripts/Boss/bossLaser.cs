@@ -127,7 +127,7 @@ public class bossLaser : MonoBehaviour
         // 保存されたXおよびZ位置に基づいて各レーザーのターゲットポイントを計算
         Vector3 targetPoint = new Vector3(
             initialPlayerXPositions[index], // 有効化時に保存されたランダムなX位置を使用
-            -5, // 地面のレベル (y = 0)
+            0, // 地面のレベル (y = 0)
             initialPlayerZPositions[index] // 有効化時に保存されたZ位置を使用
         );
 
