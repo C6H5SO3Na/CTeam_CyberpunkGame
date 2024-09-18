@@ -184,6 +184,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedEnemy Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9d0cc40e2ba24274facc588e30159864, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1304721162405613351, guid: 9d0cc40e2ba24274facc588e30159864, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0.0000018273648
@@ -259,6 +263,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d0cc40e2ba24274facc588e30159864, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6200216290880853544}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d0cc40e2ba24274facc588e30159864, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2787666087910500222}
   m_SourcePrefab: {fileID: 100100000, guid: 9d0cc40e2ba24274facc588e30159864, type: 3}
 --- !u!1 &4197348406803617077 stripped
 GameObject:
@@ -283,6 +290,8 @@ MonoBehaviour:
   enemyAnim: {fileID: 0}
   rb: {fileID: 0}
   laser: {fileID: 0}
+  beamsource: {fileID: 6445180479758110211, guid: db7d6358dfd7ae84cb65061d87847e2e, type: 3}
+  explosionEffect: {fileID: 2043486959, guid: 6f407116a37091c4496cf57df2fb6371, type: 3}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 63
@@ -327,7 +336,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4197348406803617077}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.09
+  m_Radius: 0.99
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -336,8 +345,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.15
-  m_BaseOffset: -0.073
+  m_Height: 1.6
+  m_BaseOffset: -0.94
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!95 &8001382652368534631
@@ -492,6 +501,29 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!136 &2787666087910500222
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4197348406803617077}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.8, z: 0}
 --- !u!1 &7566344818097063021 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6917420677642513417, guid: 9d0cc40e2ba24274facc588e30159864, type: 3}

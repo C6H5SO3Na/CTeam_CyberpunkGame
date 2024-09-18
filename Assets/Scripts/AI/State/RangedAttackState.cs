@@ -8,14 +8,14 @@ public class RangedAttackState : IAIState
     private bool isFiringLaser = false;
     private float laserDamageTimer = 0f;
 
-    // Laser-related variables
-    private float laserDuration = 2f;
-    private float laserDamageRate = 0.1f;
+    // レーザー関連の変数
+    private float laserDuration = 2f; // レーザーの継続時間
+    private float laserDamageRate = 0.1f; // レーザーのダメージを与える頻度
 
 
     public RangedAttackState()
     {
-        projectileCooldown = 4.0f;
+        projectileCooldown = 4.0f; // 射撃クールダウン時間
     }
 
     public void Enter(AIScript ai)
@@ -30,39 +30,38 @@ public class RangedAttackState : IAIState
 
         if (ai.laser != null)
         {
-            ai.laser.enabled = false;
+            ai.laser.enabled = false; // レーザーを無効にする
         }
 
-        ai.enemyAnim.SetTrigger("isAttack");
+        ai.enemyAnim.SetTrigger("isAttack"); // 攻撃アニメーションを開始する
     }
 
     public void Execute(AIScript ai)
     {
         if (ai.isHurt)
         {
-            ai.ChangeState(new HurtState());
+            ai.ChangeState(new HurtState()); // ダメージを受けたらHurtStateに移行
         }
         else if (!ai.playerInSightRange)
         {
-            ai.ChangeState(new PatrolState());
+            ai.ChangeState(new PatrolState()); // プレイヤーが視界外ならPatrolStateに移行
         }
         else if (ai.canRangeattack && !isFiringLaser)
         {
-            FireLaser();
+            FireLaser(); // レーザー攻撃を開始
         }
     }
 
     public void Exit(AIScript ai)
     {
-        ai.isAttackingranged = false;
-
+        ai.isAttackingranged = false; // 遠距離攻撃の状態を終了
     }
 
     public void FireLaser()
     {
         if (!isFiringLaser)
         {
-            ai.StartCoroutine(FireLaserCoroutine());
+            ai.StartCoroutine(FireLaserCoroutine()); // レーザー発射コルーチンを開始
         }
     }
 
@@ -72,50 +71,50 @@ public class RangedAttackState : IAIState
 
         if (ai.laser != null)
         {
-            ai.laser.enabled = true;  // Turn on the laser only when firing starts
+            ai.laser.enabled = true;  // レーザーを有効にする（発射時のみ）
         }
 
         GameObject spawnedBeamSource = null;
         if (ai.beamsource != null)
         {
-            // Create the beam source at the firepoint
+            // 発射ポイントにビームソースを生成する
             spawnedBeamSource = GameObject.Instantiate(ai.beamsource, ai.Firepoint.transform.position, ai.Firepoint.transform.rotation, ai.Firepoint.transform);
 
             ParticleSystem beamParticles = spawnedBeamSource.GetComponentInChildren<ParticleSystem>();
             if (beamParticles != null)
             {
-                beamParticles.Play();  // Play particle effects for the laser
+                beamParticles.Play();  // レーザーのパーティクルエフェクトを再生
             }
         }
 
-        // Calculate the laser direction only once at the start
+        // プレイヤーの位置を一度だけ計算する
         Vector3 playerPosition = SmoothPredictPlayerPosition();
         Vector3 laserDirection = (playerPosition - ai.Firepoint.transform.position).normalized;
 
-        // Set the laser's direction/rotation based on the calculated direction
+        // 計算された方向に基づいてレーザーの方向と回転を設定
         Quaternion targetRotation = Quaternion.LookRotation(laserDirection);
         ai.Firepoint.transform.rotation = targetRotation;
 
         float timer = 0f;
         while (timer < laserDuration)
         {
-            // The laser will keep firing in the same direction
+            // レーザーを同じ方向に発射し続ける
             Vector3 laserEndPoint = CalculateLaserEndPoint(laserDirection);
 
             if (ai.laser != null)
             {
-                ai.laser.SetPosition(0, ai.Firepoint.transform.position);  // Set laser start position
-                ai.laser.SetPosition(1, laserEndPoint);  // Set laser end position
+                ai.laser.SetPosition(0, ai.Firepoint.transform.position);  // レーザーの開始位置を設定
+                ai.laser.SetPosition(1, laserEndPoint);  // レーザーの終了位置を設定
             }
 
-            // Apply damage if the laser is hitting the player
+            // レーザーがプレイヤーにヒットしている場合、ダメージを与える
             if (HitPlayer(laserDirection))
             {
                 laserDamageTimer += Time.deltaTime;
                 if (laserDamageTimer >= laserDamageRate)
                 {
-                    ApplyLaserDamage();
-                    laserDamageTimer = 0f;  // Reset damage timer after applying damage
+                    ApplyLaserDamage(); // ダメージを適用
+                    laserDamageTimer = 0f;  // ダメージタイマーをリセット
                 }
             }
 
@@ -123,29 +122,29 @@ public class RangedAttackState : IAIState
             yield return null;
         }
 
-        // Turn the laser off and clean up after firing
+        // レーザーを無効にし、攻撃後にクリーンアップ
         if (ai.laser != null)
         {
-            ai.laser.enabled = false;  // Disable the laser after the attack is over
+            ai.laser.enabled = false;  // 攻撃が終了したらレーザーを無効にする
         }
 
-        // Destroy the spawned beam source (if any) after the laser attack is done
+        // レーザー攻撃が終了した後、ビームソースを破壊する
         if (spawnedBeamSource != null)
         {
             ParticleSystem beamParticles = spawnedBeamSource.GetComponentInChildren<ParticleSystem>();
             if (beamParticles != null)
             {
-                beamParticles.Stop();  // Stop beam particle effects
+                beamParticles.Stop();  // ビームのパーティクルエフェクトを停止
             }
-            GameObject.Destroy(spawnedBeamSource);  // Destroy the beam source
+            GameObject.Destroy(spawnedBeamSource);  // ビームソースを破壊
         }
 
-        // Reset the firing state and return to idle
+        // 発射状態をリセットし、アイドル状態に戻る
         isFiringLaser = false;
-        ai.ChangeState(new IdleState());  // Switch to IdleState after the laser attack is over
+        ai.ChangeState(new IdleState());  // レーザー攻撃終了後、IdleStateに移行
     }
 
-    // Check if the laser is hitting the player
+    // レーザーがプレイヤーにヒットしているか確認
     private bool HitPlayer(Vector3 laserDirection)
     {
         float laserMaxDistance = 150f;
@@ -159,6 +158,7 @@ public class RangedAttackState : IAIState
         return false;
     }
 
+    // プレイヤーの位置を予測してスムーズに補正
     private Vector3 SmoothPredictPlayerPosition()
     {
         Vector3 currentPosition = ai.player.position;
@@ -169,6 +169,7 @@ public class RangedAttackState : IAIState
         return currentPosition;
     }
 
+    // レーザーの終点を計算
     private Vector3 CalculateLaserEndPoint(Vector3 laserDirection)
     {
         float laserMaxDistance = 150f;
@@ -176,18 +177,19 @@ public class RangedAttackState : IAIState
         {
             if (hit.collider.CompareTag("Player"))
             {
-                return ai.player.position + Vector3.up * hit.collider.bounds.extents.y;
+                return ai.player.position + Vector3.up * hit.collider.bounds.extents.y; // プレイヤーの中心点を狙う
             }
             else
             {
-                return hit.point;
+                return hit.point; // プレイヤー以外のオブジェクトにヒットした場合
             }
         }
-        return ai.Firepoint.transform.position + laserDirection * laserMaxDistance;
+        return ai.Firepoint.transform.position + laserDirection * laserMaxDistance; // ヒットしない場合、最大距離までレーザーを飛ばす
     }
 
+    // レーザーのダメージを適用
     private void ApplyLaserDamage()
     {
-        Debug.Log("PlayerHit! Applying damage...");
+        Debug.Log("プレイヤーにヒット! ダメージを適用中...");
     }
 }
