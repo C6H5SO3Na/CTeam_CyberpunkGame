@@ -19,12 +19,12 @@ public class PlayerAnimationController : MonoBehaviour
         isRun = animator.GetBool("Run");
 
         //仮モーションテスト
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Normal_Attack"))
         {
             animator.SetTrigger("Attack");
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) || Input.GetButtonDown("Special_Attack"))
         {
             animator.SetTrigger("Attack2");
         }
