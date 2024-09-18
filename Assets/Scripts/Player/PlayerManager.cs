@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] public int maxHP;
-    [SerializeField] public int maxSP;
+    [SerializeField] public int maxHP = 100;
+    [SerializeField] public int maxSP = 100;
     [SerializeField] public int nowHP;
     [SerializeField] public int nowSP;
 
