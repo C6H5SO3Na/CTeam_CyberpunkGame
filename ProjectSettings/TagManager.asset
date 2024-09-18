@@ -9,6 +9,7 @@ TagManager:
   - PlayerWeapon
   - EnemyAttack
   - Ground
+  - Sun
   layers:
   - Default
   - TransparentFX
