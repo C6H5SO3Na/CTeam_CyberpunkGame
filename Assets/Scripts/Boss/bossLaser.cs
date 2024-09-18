@@ -34,7 +34,7 @@ public class bossLaser : MonoBehaviour
         lastDamageTimes.Clear(); // 最後のダメージ適用時間の追跡をクリア
 
         // 各レーザーの回転速度を初期化し、Prefabを生成
-        rotationSpeed = Random.Range(5.0f, 8.0f);
+        rotationSpeed = Random.Range(10.0f, 15.0f);
 
         for (int i = 0; i < startpoints.Length; i++)
         {
