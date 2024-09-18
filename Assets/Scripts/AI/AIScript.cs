@@ -13,6 +13,7 @@ public class AIScript : MonoBehaviour
     public Rigidbody rb;
     public LineRenderer laser;
     public GameObject beamsource;
+    public GameObject explosionEffect;
 
     [Header("Layers")]
     public LayerMask whatIsGround, whatIsPlayer;
