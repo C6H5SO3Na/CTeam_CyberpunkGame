@@ -7,7 +7,7 @@ public class ShootingRocket : MonoBehaviour
     public Transform[] launchPoints; // ロケットを発射するポイントの配列
     public float heightAbovePlayer = 30.0f; // プレイヤーの上にロケットが開始する高さ
     public float spreadRadius = 5.0f; // プレイヤー周りにロケットが広がる半径
-    public float ascentSpeed = 10.0f; // ロケットが上昇する速度
+    public float ascentSpeed = 20.0f; // ロケットが上昇する速度
     public float descentDelay = 1.0f; // ロケットが頂点に到達した後、下降を開始するまでの遅延時間
     public float rocketLifetime = 10.0f; // ロケットの寿命（破壊されるまでの時間）
     public float rotationSpeed = 360.0f; // ロケットが下向きに回転する速度
@@ -74,16 +74,21 @@ public class ShootingRocket : MonoBehaviour
         Rigidbody rb = rocket.GetComponent<Rigidbody>();
         rb.useGravity = false;
 
+        MeshRenderer rocketRenderer = rocket.GetComponentInChildren<MeshRenderer>();
+        if (rocketRenderer != null)
+        {
+            // ロケットが発射され、上昇中はシャドウを無効にする
+            rocketRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        }
+
         Vector3 peakPosition = targetPosition + Vector3.up * heightAbovePlayer;
 
         // ロケットを頂点位置に向かって上昇させる
         while (rocket != null && Vector3.Distance(rocket.transform.position, peakPosition) > 0.1f)
         {
-            // ロケットを頂点位置に向けて移動させる
             Vector3 moveDirection = (peakPosition - rocket.transform.position).normalized;
             rocket.transform.position += moveDirection * ascentSpeed * Time.deltaTime;
 
-            // 上昇中にロケットを移動方向に合わせて回転させる
             RotateRocketTowardsDirection(rocket, moveDirection);
 
             yield return null;
@@ -97,17 +102,23 @@ public class ShootingRocket : MonoBehaviour
         {
             yield return StartCoroutine(RotateRocketToFaceDown(rocket));
 
+            // ロケットが回転し、下降を開始した後にシャドウを有効にする
+            if (rocketRenderer != null)
+            {
+                rocketRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+            }
+
             // 重力を有効にしてロケットを落下させる
             if (rocket != null)
             {
-                rb = rocket.GetComponent<Rigidbody>(); // ロケットとRigidbodyが存在するか再確認
+                rb = rocket.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
                     rb.useGravity = true;
-                    rb.velocity = Vector3.zero;  // 速度をリセットして自然な落下を可能にする
+                    rb.velocity = Vector3.zero;
                 }
 
-                // 残りの寿命の後にロケットを破壊する
+                // ロケットの寿命が尽きるまで待ってから破壊する
                 yield return new WaitForSeconds(rocketLifetime - descentDelay);
                 if (rocket != null)
                 {
@@ -116,6 +127,7 @@ public class ShootingRocket : MonoBehaviour
             }
         }
     }
+
 
     IEnumerator RotateRocketToFaceDown(GameObject rocket)
     {
