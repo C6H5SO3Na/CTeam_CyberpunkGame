@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class BossController : MonoBehaviour
 {
     [SerializeField]
-    int HP = 10;
+    public int HP = 10;
 
     // References to the attack scripts
     //private slidingPunch slidingPunchScript;
@@ -19,7 +20,11 @@ public class BossController : MonoBehaviour
 
     public GameObject bossHitBox;
 
+    public GameObject Explosion;
+
     public Text HpText;
+
+    private bool gameClear;
 
     void Start()
     {
@@ -31,11 +36,27 @@ public class BossController : MonoBehaviour
 
         // Start the attack pattern cycle
         StartCoroutine(AttackPatternCycle());
+        gameClear = false;
     }
 
     private void Update()
     {
         HpText.text = "BossHP : " + HP;
+        if(HP <= 0 && gameClear == false) //&&GameManager.isClear == false)
+        {
+            Vector3 spawnpos = gameObject.transform.position;
+            spawnpos.y -= 5.0f;
+            GameObject explosion = Instantiate(Explosion, spawnpos, bossHitBox.transform.rotation);
+            explosion.transform.SetParent(gameObject.transform);
+            Invoke("DestroyObject", 1.0f);
+            gameClear = true;
+            //GameManager.isClear = true;
+        }
+    }
+
+    void DestroyObject()
+    {
+        Destroy(gameObject);
     }
 
     IEnumerator AttackPatternCycle()

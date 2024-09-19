@@ -16763,7 +16763,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 256
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
@@ -16797,6 +16797,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &363394306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363394303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab1589293955514ba6af18e5d421c03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss: {fileID: 670188297}
 --- !u!1001 &368617894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33009,6 +33022,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7027301036561478697, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
       insertIndex: -1
       addedObject: {fileID: 363394304}
+    - targetCorrespondingSourceObject: {fileID: 7027301036561478697, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 363394306}
   m_SourcePrefab: {fileID: 100100000, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
 --- !u!4 &633581875 stripped
 Transform:
@@ -34707,9 +34723,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c4cf3fa42c13741b642892a16e0d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 10
+  HP: 1
   attackInterval: 5
   bossHitBox: {fileID: 363394303}
+  Explosion: {fileID: 2043486959, guid: 960f3e3371dc65d409a82b48fd9f4059, type: 3}
   HpText: {fileID: 1842538057}
 --- !u!65 &670188301
 BoxCollider:
@@ -34730,7 +34747,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 15, y: 2, z: 4.3}
+  m_Size: {x: 15, y: 2, z: 4.2}
   m_Center: {x: 0, y: 3.8, z: -0.56058806}
 --- !u!1001 &672138664
 PrefabInstance:
