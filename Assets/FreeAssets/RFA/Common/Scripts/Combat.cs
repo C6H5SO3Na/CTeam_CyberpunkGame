@@ -55,7 +55,7 @@ namespace Retro.ThirdPersonCharacter
 
         private void SpecialAttack()
         {
-            swordComponent.SetSwordActive();
+            swordComponent.SetSwordActive(3);
             Debug.Log("Attack");
             _animator.SetTrigger(specialAttackTriggerName);
             

@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour, IEventSource //IEventSource‚ğŒp³
         //UŒ‚
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            swordComponent.SetSwordActive();  //UŒ‚‚ÉswordComponent‚ÌŠÖ”‚ğŒÄ‚Ô
+            swordComponent.SetSwordActive(0);  //UŒ‚‚ÉswordComponent‚ÌŠÖ”‚ğŒÄ‚Ô
             animator.SetTrigger("Hit");
         }
 

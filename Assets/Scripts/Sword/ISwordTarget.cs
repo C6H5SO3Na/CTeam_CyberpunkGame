@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ISwordTarget 
 { 
-    void OnTargetHit(TargetHitInfo _info); 
+    void OnTargetHit(TargetHitInfo _info,int _AttackType); 
 }
 
 //public class ISwordTarget : MonoBehaviour
