@@ -67,31 +67,33 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ğ
             transform.position = defaultPosition;
         }
 
-        //‰¼ƒ‚[ƒVƒ‡ƒ“ƒeƒXƒg
+        //UŒ‚
         if (Input.GetKeyDown(KeyCode.X))
         {
+            swordComponent.SetSwordActive(1);
             isAttacking = true;
             TriggerAttack1("Attack");
-            playerManager.PlayerSPAdd(1);
+            //playerManager.PlayerSPAdd(1);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
+            swordComponent.SetSwordActive(2);
             isAttacking = true;
             TriggerAttack2("Attack2");
-            playerManager.PlayerSPReset();
+            //playerManager.PlayerSPReset();
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             animator.SetTrigger("Damage");
-            playerManager.PlayerDamage(1);
+           // playerManager.PlayerDamage(1);
         }
 
         //UŒ‚
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            swordComponent.SetSwordActive();  //UŒ‚‚ÉswordComponent‚ÌŠÖ”‚ğŒÄ‚Ô
+            swordComponent.SetSwordActive(0);  //UŒ‚‚ÉswordComponent‚ÌŠÖ”‚ğŒÄ‚Ô
         }
     }
 

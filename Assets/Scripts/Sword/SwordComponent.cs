@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 //public interface MeleeSwordTrail{}
 public class SwordComponent : MonoBehaviour
 {
     public float swordActiveTime;
+    int AttackType;
 
     SwordColliderController swordCollider;
     //MeleeSwordTrail swordTrail;
 
     public float swordActiveTimer;
+
+    public List<TargetHitInfo> targetList = new List<TargetHitInfo>();
 
     // Start is called before the first frame update
     void Start()
@@ -48,21 +52,30 @@ public class SwordComponent : MonoBehaviour
         //}
     }
 
-    public void SetSwordActive()
+    public void SetSwordActive(int _AttactType)
     {
         swordActiveTimer = swordActiveTime;
+        AttackType = _AttactType;
     }
 
     public void OnSwordCollision(IEventSource _source, ISwordTarget _target)
     {
         Debug.Log("OnSwordCollision called");
 
-        swordActiveTime = 0.5f;
+        swordActiveTime = 3f;
         if (swordActiveTimer > 0)
         {
             TargetHitInfo hitInfo = new TargetHitInfo(_source);
-            _target.OnTargetHit(hitInfo);
-            Debug.Log("Target hit processed");
+            if (!targetList.Contains(hitInfo))
+            {
+                _target.OnTargetHit(hitInfo, AttackType);
+                targetList.Add(hitInfo);
+                Debug.Log("Target hit processed");
+            }
+        }
+        else
+        {
+            targetList.Clear();
         }
     }
 

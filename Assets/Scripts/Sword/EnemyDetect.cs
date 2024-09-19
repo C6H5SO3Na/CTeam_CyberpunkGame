@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemyDetect : MonoBehaviour, ISwordTarget
 {
-    public void OnTargetHit(TargetHitInfo _info)
+    public void OnTargetHit(TargetHitInfo _info, int _AttackType)
     {
         Debug.Log("Hit Target");
+        Debug.Log(_AttackType);
         return;
     }
     // Start is called before the first frame update
