@@ -55,11 +55,14 @@ public class SwordComponent : MonoBehaviour
 
     public void OnSwordCollision(IEventSource _source, ISwordTarget _target)
     {
+        Debug.Log("OnSwordCollision called");
+
         swordActiveTime = 0.5f;
         if (swordActiveTimer > 0)
         {
             TargetHitInfo hitInfo = new TargetHitInfo(_source);
             _target.OnTargetHit(hitInfo);
+            Debug.Log("Target hit processed");
         }
     }
 

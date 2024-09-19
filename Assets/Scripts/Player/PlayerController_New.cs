@@ -92,7 +92,6 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         if (Input.GetKeyDown(KeyCode.Z))
         {
             swordComponent.SetSwordActive();  //攻撃時にswordComponentの関数を呼ぶ
-            animator.SetTrigger("Hit");
         }
     }
 
@@ -129,7 +128,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         RigidBd.MovePosition(RigidBd.position + globalDirection * Time.deltaTime);
 
         //カメラ位置を現在のキャラクター位置基準に設定する
-        Camera.main.transform.position = transform.position + Quaternion.Euler(0, charaDir, 0) * defaultCameraOffset;
+        //Camera.main.transform.position = transform.position + Quaternion.Euler(0, charaDir, 0) * defaultCameraOffset;
 
         //走っているかどうかのアニメーション設定
         animator.SetBool("Run", isRun);

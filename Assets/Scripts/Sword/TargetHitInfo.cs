@@ -6,12 +6,13 @@ public interface IEventSource { }
 
 public class TargetHitInfo
 {
+    public IEventSource hitSource;
     public TargetHitInfo(IEventSource _hitSource)
     {
         hitSource = _hitSource;
     }
 
-    public IEventSource hitSource;
+    
     // Start is called before the first frame update
     //void Start()
     //{
