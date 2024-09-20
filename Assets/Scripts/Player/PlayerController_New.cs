@@ -62,13 +62,13 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
     {
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * moveSpeed;
 
-        if (Input.GetKey(KeyCode.Q))        //リセットボタン
-        {
-            transform.position = defaultPosition;
-        }
+        //if (Input.GetKey(KeyCode.Q))        //リセットボタン
+        //{
+        //    transform.position = defaultPosition;
+        //}
 
-        //攻撃
-        if (Input.GetKeyDown(KeyCode.X))
+        //普通攻撃
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Normal_Attack"))
         {
             swordComponent.SetSwordActive(1);
             isAttacking = true;
@@ -76,7 +76,8 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
             //playerManager.PlayerSPAdd(1);
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        //大技
+        if (Input.GetKeyDown(KeyCode.C) || Input.GetButtonDown("Special_Attack"))
         {
             swordComponent.SetSwordActive(2);
             isAttacking = true;
@@ -90,11 +91,11 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
            // playerManager.PlayerDamage(1);
         }
 
-        //攻撃
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            swordComponent.SetSwordActive(0);  //攻撃時にswordComponentの関数を呼ぶ
-        }
+        ////攻撃
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    swordComponent.SetSwordActive(0);  //攻撃時にswordComponentの関数を呼ぶ
+        //}
     }
 
     private void PlayerMovement()
