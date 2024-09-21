@@ -491,7 +491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.3283064e-10
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -499,7 +499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.387
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -543,6 +543,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300002, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
       propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -590,6 +594,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5444794729977896453, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444794729977896453, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0213bf70c398d2a40965a3fa1d37673c, type: 2}
     - target: {fileID: 5724376134024001222, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -688,7 +700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7205048225252868620, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 124
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 7205048225252868620, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
       propertyPath: m_LocalPosition.z
@@ -893,15 +905,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.1641532e-10
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.003422e-10
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.3869998
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -945,6 +957,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300002, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
       propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: b257b50b0d0618f4fb5a22c6bc3e95a0, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
