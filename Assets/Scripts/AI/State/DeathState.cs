@@ -15,6 +15,7 @@ public class DeathState : IAIState
         ai.isRunning = false;
         ai.isWalking = false;
 
+        ai.StartCoroutine(ai.FadeOutAndDestroy());
         DeathExplosion(); // 爆発エフェクトを生成
     }
 
@@ -28,8 +29,7 @@ public class DeathState : IAIState
 
     public void Execute(AIScript ai)
     {
-        // 0.5秒後に敵を破壊する
-        ai.Invoke(nameof(ai.DestroyEnemy), 0.8f);
+        
     }
 
     public void Exit(AIScript ai)
