@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
@@ -44,11 +45,10 @@ public class BossController : MonoBehaviour
         HpText.text = "BossHP : " + HP;
         if(HP <= 0 && gameClear == false) //&&GameManager.isClear == false)
         {
-            Vector3 spawnpos = gameObject.transform.position;
-            spawnpos.y -= 5.0f;
+            Vector3 spawnpos = new Vector3(bossHitBox.transform.position.x, bossHitBox.transform.position.y + 5.0f, bossHitBox.transform.position.z - 10.0f);
             GameObject explosion = Instantiate(Explosion, spawnpos, bossHitBox.transform.rotation);
             explosion.transform.SetParent(gameObject.transform);
-            Invoke("DestroyObject", 1.0f);
+            Invoke("DestroyObject", 5.0f);
             gameClear = true;
             //GameManager.isClear = true;
         }
@@ -61,7 +61,8 @@ public class BossController : MonoBehaviour
 
     IEnumerator AttackPatternCycle()
     {
-        while (true)
+        yield return new WaitForSeconds(attackInterval);
+        while (!gameClear)
         {
             int attackChoice;
             do
