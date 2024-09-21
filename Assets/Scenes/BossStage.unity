@@ -306,37 +306,13 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1744438106133436630, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6319705827008871734, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6319705827008871734, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6460493135002515637, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
-      propertyPath: jumpInput
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6460493135002515637, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
-      propertyPath: rotateCameraXInput
-      value: Horizontal_R
-      objectReference: {fileID: 0}
-    - target: {fileID: 6460493135002515637, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
-      propertyPath: rotateCameraYInput
-      value: Vertical_R
-      objectReference: {fileID: 0}
-    - target: {fileID: 6580250492285701823, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
-      propertyPath: freeSpeed.walkSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6580250492285701823, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
-      propertyPath: freeSpeed.runningSpeed
-      value: 4
+    - target: {fileID: 7958049612200112844, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
+      propertyPath: m_TagString
+      value: PlayerWeapon
       objectReference: {fileID: 0}
     - target: {fileID: 8360556149192319942, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
       propertyPath: jumpAndRotate
@@ -856,6 +832,7 @@ MonoBehaviour:
   bossHitBox: {fileID: 363394303}
   Explosion: {fileID: 3023628428471086990, guid: 738500261c2be38478cb20a3962c6ab3, type: 3}
   HpText: {fileID: 1842538057}
+  gameManager: {fileID: 161149210}
 --- !u!65 &670188301
 BoxCollider:
   m_ObjectHideFlags: 0
