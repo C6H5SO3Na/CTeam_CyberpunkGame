@@ -32,6 +32,8 @@ public class BossController : MonoBehaviour
 
     private float fadeDuration = 5.0f; 
 
+    public GameObject gameManager;
+
     void Start()
     {
         // Get references to the attack scripts attached to this GameObject
@@ -104,7 +106,7 @@ public class BossController : MonoBehaviour
 
             yield return null;
         }
-
+        gameManager.GetComponent<GameManager>().isClear = true;
         Destroy(gameObject);
     }
 
