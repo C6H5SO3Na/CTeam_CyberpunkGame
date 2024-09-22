@@ -11,13 +11,13 @@ public class UIManager : MonoBehaviour
     public GameObject canvas;  //UICanvas
     public GameObject textPrefab;  //文字を生成するためのprefab
     public GameObject imagePrefab;//画像を生成するためのprefab
-    public GameObject buttonPrefab;  //ボタンを生成するためのprefab
+    public GameObject firstintoPrefab;  //firstintoを生成するためのprefab
 
     private string jsonFilePath = "Assets/Scenes/ui TEST/UIText.json";
 
     void Start()
     {
-       // LoadUIFromJSON(jsonFilePath);
+        // LoadUIFromJSON(jsonFilePath);
     }
 
     //JSONを読み取り
@@ -38,9 +38,9 @@ public class UIManager : MonoBehaviour
                 {
                     CreateText(element.uiContent, element.position, element.scale);
                 }
-                else if (element.uiType == "Button")
+                else if (element.uiType == "firstinto")
                 {
-                    CreateButton(element.uiContent, element.position, element.scale);
+                    Createfirstinto(element.uiContent, element.position, element.scale);
                 }
                 else if (element.uiType == "Image")
                 {
@@ -71,9 +71,9 @@ public class UIManager : MonoBehaviour
                     {
                         CreateText(element.uiContent, element.position, element.scale);
                     }
-                    else if (element.uiType == "Button")
+                    else if (element.uiType == "firstinto")
                     {
-                        CreateButton(element.uiContent, element.position, element.scale);
+                        Createfirstinto(element.uiContent, element.position, element.scale);
                     }
                     else if (element.uiType == "Image")
                     {
@@ -114,7 +114,7 @@ public class UIManager : MonoBehaviour
             {
                 rectTransform.anchoredPosition = position.HasValue ? position.Value : Vector2.zero; //座標を設定されたら設定
                 Vector2 scaleValue = scale ?? new Vector2(1, 1);　                                  //スケール
-                rectTransform.localScale = new Vector3(scaleValue.x, scaleValue.y, 1); 
+                rectTransform.localScale = new Vector3(scaleValue.x, scaleValue.y, 1);
             }
         }
         else
@@ -142,22 +142,14 @@ public class UIManager : MonoBehaviour
             rectTransform.localScale = new Vector3(scaleValue.x, scaleValue.y, 1);
         }
     }
-    //ボタンUIの生成
-    void CreateButton(string content, Vector2? position, Vector2? scale)
+    //firstintoUIの生成
+    void Createfirstinto(string content, Vector2? position, Vector2? scale)
     {
-        GameObject buttonObj = Instantiate(buttonPrefab, canvas.transform);
+        GameObject buttonObj = Instantiate(firstintoPrefab, canvas.transform);
         Button buttonComponent = buttonObj.GetComponent<Button>();
-        TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
         //座標とスケールを取得
         RectTransform rectTransform = buttonObj.GetComponent<RectTransform>();
-        if (buttonText != null)
-        {
-            buttonText.text = content;
-        }
-        else
-        {
-            Debug.LogError("The button prefab does not contain a TextMeshProUGUI component.");
-        }
+
         //座標とスケールを設定されたら
         if (rectTransform != null)
         {
@@ -165,15 +157,6 @@ public class UIManager : MonoBehaviour
             Vector2 scaleValue = scale.HasValue ? scale.Value : new Vector2(1, 1);                       //スケール
             rectTransform.localScale = new Vector3(scaleValue.x, scaleValue.y, 1);
         }
-
-        //クリック
-        buttonComponent.onClick.AddListener(() => OnButtonClick(content));
-    }
-
-    //クリック
-    void OnButtonClick(string content)
-    {
-        Debug.Log("Button clicked: " + content);
     }
 }
 

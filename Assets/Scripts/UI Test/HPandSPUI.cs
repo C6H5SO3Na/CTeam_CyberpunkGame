@@ -6,15 +6,16 @@ public class HPandSPUI : MonoBehaviour
 {
     public RectTransform HPRectTransform;
     public RectTransform SPRectTransform;
-    public float longPerPercent = 7f; //1%ごとにUIの変更量
-    public float HPpercent;
-    public float SPpercent;
+    float longPerPercent = 7f; //1%ごとにUIの変更量
+    float HPpercent;
+    float SPpercent;
+    public PlayerManager playerManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        HPpercent = 80;
-        SPpercent = 60;
+        HPpercent = playerManager.nowHP;
+        SPpercent = playerManager.maxSP;
     }
 
     void Update()
