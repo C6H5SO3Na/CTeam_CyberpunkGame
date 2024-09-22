@@ -29,6 +29,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
     private bool isFloor;
     private bool isRun;
     private bool isAttacking;
+    public bool isDamaged;
     private PlayerManager playerManager;
     //private float AnimTime;
 
@@ -39,18 +40,19 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
         RigidBd = GetComponent<Rigidbody>();
         RigidBd.freezeRotation = true; //ÉvÉåÉCÉÑÅ[ÇÃâÒì]ñhé~
         animator = GetComponent<Animator>();
-        defaultCameraDir = Camera.main.transform.rotation;
-        defaultCameraOffset = Camera.main.transform.position - transform.position;
-        defaultPosition = transform.position;
+        //defaultCameraDir = Camera.main.transform.rotation;
+        //defaultCameraOffset = Camera.main.transform.position - transform.position;
+        //defaultPosition = transform.position;
         swordComponent = GetComponent<SwordComponent>();
         isAttacking = false;
+        isDamaged = false;
         playerManager = GetComponent<PlayerManager>();
 }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isAttacking)
+        if (!isAttacking && !isDamaged)
         {
             PlayerInput();
             PlayerMovement();
@@ -79,20 +81,22 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
         }
 
         //ëÂãZ
-        if (Input.GetKeyDown(KeyCode.C) || Input.GetButtonDown("Special_Attack"))
-        {
-            swordComponent.SetSwordActive(2);
-            isAttacking = true;
-            TriggerAttack("Attack2", 2.133f);
-            playerManager.PlayerSPReset();
-        }
+        //if(playerManager.nowSP == 100)
+        //{
+            if (Input.GetKeyDown(KeyCode.C) || Input.GetButtonDown("Special_Attack"))
+            {
+                swordComponent.SetSwordActive(2);
+                isAttacking = true;
+                TriggerAttack("Attack2", 2.133f);
+                playerManager.PlayerSPReset();
+            }
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            animator.SetTrigger("Damage");
-           // playerManager.PlayerDamage(1);
-        }
-
+            //if (Input.GetKeyDown(KeyCode.F))
+            //{
+            //    animator.SetTrigger("Damage");
+            //    playerManager.PlayerDamage(1);
+            //}
+        //}
     }
 
     private void PlayerMovement()
