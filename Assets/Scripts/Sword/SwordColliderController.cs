@@ -51,14 +51,4 @@ public class SwordColliderController : MonoBehaviour
             else Debug.LogWarning("SwordCollider hit a SwordTarget, but there was no source - Collision will be ignored");
         }
     }
-    //void Start()
-    //{
-
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
 }

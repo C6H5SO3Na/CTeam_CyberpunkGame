@@ -5,17 +5,17 @@ using UnityEngine;
 public class ShootingRocket : MonoBehaviour
 {
     public GameObject rocketPrefab;
-    public GameObject explosionPrefab; // ”š”­‚ÌƒvƒŒƒnƒu
-    public float heightAbovePlayer = 30.0f; // ƒvƒŒƒCƒ„[‚Ìã‚ÉƒƒPƒbƒg‚ªŠJn‚·‚é‚‚³
-    public float spreadRadius = 7.0f; // ƒvƒŒƒCƒ„[ü‚è‚ÉƒƒPƒbƒg‚ªL‚ª‚é”¼Œa
-    public float delayBeforeSpawn = 3.0f; // ƒƒPƒbƒg‚ªƒXƒ|[ƒ“‚·‚é‚Ü‚Å‚Ì’x‰„ŠÔ
-    public int rocketCount = 6; // ƒXƒ|[ƒ“‚·‚éƒƒPƒbƒg‚Ì”
-    public float rocketLifetime = 10.0f; // ƒƒPƒbƒg‚Ìõ–½i”j‰ó‚³‚ê‚é‚Ü‚Å‚ÌŠÔj
+    public GameObject explosionPrefab; // çˆ†ç™ºã®ãƒ—ãƒ¬ãƒãƒ–
+    public float heightAbovePlayer = 30.0f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä¸Šã«ãƒ­ã‚±ãƒƒãƒˆãŒé–‹å§‹ã™ã‚‹é«˜ã•
+    public float spreadRadius = 7.0f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å‘¨ã‚Šã«ãƒ­ã‚±ãƒƒãƒˆãŒåºƒãŒã‚‹åŠå¾„
+    public float delayBeforeSpawn = 3.0f; // ãƒ­ã‚±ãƒƒãƒˆãŒã‚¹ãƒãƒ¼ãƒ³ã™ã‚‹ã¾ã§ã®é…å»¶æ™‚é–“
+    public int rocketCount = 6; // ã‚¹ãƒãƒ¼ãƒ³ã™ã‚‹ãƒ­ã‚±ãƒƒãƒˆã®æ•°
+    public float rocketLifetime = 10.0f; // ãƒ­ã‚±ãƒƒãƒˆã®å¯¿å‘½ï¼ˆç ´å£Šã•ã‚Œã‚‹ã¾ã§ã®æ™‚é–“ï¼‰
 
     private Coroutine attackCoroutine;
 
     public GameObject bossHitBox;
-    public List<GameObject> bossArm; // ƒ{ƒX‚Ì˜r‚ÌƒŠƒXƒg
+    public List<GameObject> bossArm; // ãƒœã‚¹ã®è…•ã®ãƒªã‚¹ãƒˆ
 
     void OnEnable()
     {
@@ -34,9 +34,9 @@ public class ShootingRocket : MonoBehaviour
     IEnumerator HandleShootingRocket()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        List<Vector3> spawnPositions = new List<Vector3>(); // ƒXƒ|[ƒ“‚µ‚½ˆÊ’u‚ğ’ÇÕ
+        List<Vector3> spawnPositions = new List<Vector3>(); // ã‚¹ãƒãƒ¼ãƒ³ã—ãŸä½ç½®ã‚’è¿½è·¡
 
-        // ƒ{ƒX‚Ì˜r‚ÌƒAƒjƒ[ƒ^[‚É‘Î‚µ‚ÄƒgƒŠƒK[‚ğİ’è
+        // ãƒœã‚¹ã®è…•ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚¿ãƒ¼ã«å¯¾ã—ã¦ãƒˆãƒªã‚¬ãƒ¼ã‚’è¨­å®š
         foreach (GameObject arm in bossArm)
         {
             Animator armAnimator = arm.GetComponent<Animator>();
@@ -46,17 +46,17 @@ public class ShootingRocket : MonoBehaviour
             }
         }
 
-        // ƒXƒ|[ƒ“‚·‚é‚Ü‚Å‚Ì’x‰„
+        // ã‚¹ãƒãƒ¼ãƒ³ã™ã‚‹ã¾ã§ã®é…å»¶
         yield return new WaitForSeconds(delayBeforeSpawn);
 
         for (int i = 0; i < rocketCount; i++)
         {
             Vector3 spawnPosition;
             bool validPosition = false;
-            int maxAttempts = 10; // Å‘ås‰ñ”
+            int maxAttempts = 10; // æœ€å¤§è©¦è¡Œå›æ•°
             int attempt = 0;
 
-            // ƒƒPƒbƒg‚ª\•ª—£‚ê‚½ˆÊ’u‚ÉƒXƒ|[ƒ“‚·‚é‚Ü‚Ås
+            // ãƒ­ã‚±ãƒƒãƒˆãŒååˆ†é›¢ã‚ŒãŸä½ç½®ã«ã‚¹ãƒãƒ¼ãƒ³ã™ã‚‹ã¾ã§è©¦è¡Œ
             do
             {
                 Vector3 randomOffset = new Vector3(
@@ -68,10 +68,10 @@ public class ShootingRocket : MonoBehaviour
                 spawnPosition = player.transform.position + randomOffset + Vector3.up * heightAbovePlayer;
                 validPosition = true;
 
-                // Šù‘¶‚ÌƒƒPƒbƒg‚Æ‚Ì‹——£‚ğƒ`ƒFƒbƒN
+                // æ—¢å­˜ã®ãƒ­ã‚±ãƒƒãƒˆã¨ã®è·é›¢ã‚’ãƒã‚§ãƒƒã‚¯
                 foreach (Vector3 pos in spawnPositions)
                 {
-                    if (Vector3.Distance(pos, spawnPosition) < 3.0f) // Å¬‹——£‚ğİ’èi—á: 3.0fj
+                    if (Vector3.Distance(pos, spawnPosition) < 3.0f) // æœ€å°è·é›¢ã‚’è¨­å®šï¼ˆä¾‹: 3.0fï¼‰
                     {
                         validPosition = false;
                         break;
@@ -81,17 +81,17 @@ public class ShootingRocket : MonoBehaviour
                 attempt++;
             } while (!validPosition && attempt < maxAttempts);
 
-            // —LŒø‚ÈƒXƒ|[ƒ“ˆÊ’u‚ğ’Ç‰Á
+            // æœ‰åŠ¹ãªã‚¹ãƒãƒ¼ãƒ³ä½ç½®ã‚’è¿½åŠ 
             spawnPositions.Add(spawnPosition);
 
             GameObject rocketInstance = Instantiate(rocketPrefab, spawnPosition, Quaternion.Euler(90, 0, 0));
 
-            // Õ“Ëˆ——p‚ÉRocketCollisionHandlerƒXƒNƒŠƒvƒg‚ğ’Ç‰Á
+            // è¡çªå‡¦ç†ç”¨ã«RocketCollisionHandlerã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’è¿½åŠ 
             RocketCollisionHandler collisionHandler = rocketInstance.AddComponent<RocketCollisionHandler>();
-            collisionHandler.explosionPrefab = explosionPrefab; // ”š”­ƒvƒŒƒnƒu‚ğİ’è
+            collisionHandler.explosionPrefab = explosionPrefab; // çˆ†ç™ºãƒ—ãƒ¬ãƒãƒ–ã‚’è¨­å®š
             collisionHandler.SetDestroyOnCollision();
 
-            // ƒƒPƒbƒg‚Ìõ–½‚ªs‚«‚é‚Ü‚Å‘Ò‚Á‚Ä‚©‚ç”j‰ó‚·‚é
+            // ãƒ­ã‚±ãƒƒãƒˆã®å¯¿å‘½ãŒå°½ãã‚‹ã¾ã§å¾…ã£ã¦ã‹ã‚‰ç ´å£Šã™ã‚‹
             Destroy(rocketInstance, rocketLifetime);
         }
 
@@ -105,27 +105,50 @@ public class ShootingRocket : MonoBehaviour
     public class RocketCollisionHandler : MonoBehaviour
 {
     private bool isDestroyed = false;
-    public GameObject explosionPrefab; // ”š”­‚ÌƒvƒŒƒnƒu
+    public GameObject explosionPrefab; // çˆ†ç™ºã®ãƒ—ãƒ¬ãƒãƒ–
+
+    private PlayerManager playerManager; //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPæƒ…å ±
+
+    void Start()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player"); //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æ¢ã™
+        if (player != null)
+        {
+            playerManager = player.GetComponent<PlayerManager>();
+
+            if (playerManager == null)
+            {
+                Debug.LogError("Player component not found on GameObject with 'Player' tag.");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameObject with 'Player' tag not found.");
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (!isDestroyed && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Ground")))
         {
+
             if (collision.gameObject.CompareTag("Player"))
             {
-                Debug.Log("ƒvƒŒƒCƒ„[‚ğƒqƒbƒg‚˜‚˜ƒ_ƒ[ƒW");
+                playerManager.PlayerDamage(10);//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ€ãƒ¡ãƒ¼ã‚¸
+                Debug.Log("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ãƒ’ãƒƒãƒˆ10ãƒ€ãƒ¡ãƒ¼ã‚¸");
+                Debug.Log("Player HP now: " + playerManager.nowHP);
             }
 
-            // Õ“ËˆÊ’u‚ğæ“¾
+            // è¡çªä½ç½®ã‚’å–å¾—
             Vector3 collisionPoint = collision.contacts[0].point;
             collisionPoint.y -= 2f;
 
-            // ”š”­ƒGƒtƒFƒNƒg‚ğÕ“ËˆÊ’u‚ÉƒXƒ|[ƒ“
+            // çˆ†ç™ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡çªä½ç½®ã«ã‚¹ãƒãƒ¼ãƒ³
             if (explosionPrefab != null)
             {
                 Instantiate(explosionPrefab, collisionPoint, Quaternion.identity);
             }
-
+            
             isDestroyed = true;
             Destroy(gameObject);
         }

@@ -24,6 +24,30 @@
       "soundPath": "Futuristic User Interface SFX/Cancel/UIMisc_Cancel_CFS_FutUI_03",
       "loop": false,
       "playAtObjectPosition": true
+    },
+    {
+      "soundID": "101",
+      "soundType": "BGM",
+      "soundPath": "BGM/Title",
+      "loop": true
+    },
+    {
+      "soundID": "102",
+      "soundType": "BGM",
+      "soundPath": "BGM/Game",
+      "loop": true
+    },
+    {
+      "soundID": "103",
+      "soundType": "BGM",
+      "soundPath": "BGM/Boss",
+      "loop": true
+    },
+    {
+      "soundID": "104",
+      "soundType": "BGM",
+      "soundPath": "BGM/Ending",
+      "loop": true
     }
   ]
 }

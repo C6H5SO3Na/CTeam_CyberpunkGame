@@ -12,7 +12,25 @@ public class RangedAttackState : IAIState
     private float laserDuration = 2f; // レーザーの継続時間
     private float laserDamageRate = 0.1f; // レーザーのダメージを与える頻度
 
+    private PlayerManager playerManager; //プレイヤーのHP情報
 
+    void Start()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player"); //プレイヤーを探す
+        if (player != null)
+        {
+            playerManager = player.GetComponent<PlayerManager>();
+
+            if (playerManager == null)
+            {
+                Debug.LogError("Player component not found on GameObject with 'Player' tag.");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameObject with 'Player' tag not found.");
+        }
+    }
     public RangedAttackState()
     {
         projectileCooldown = 4.0f; // 射撃クールダウン時間
@@ -223,6 +241,8 @@ public class RangedAttackState : IAIState
     // レーザーのダメージを適用
     private void ApplyLaserDamage()
     {
-        Debug.Log("プレイヤーにヒット! ダメージを適用中...");
+        playerManager.PlayerDamage(10);//プレイヤーのダメージ
+        Debug.Log("プレイヤーにヒット! 10ダメージを適用中...");
+        Debug.Log("Player HP now: " + playerManager.nowHP);
     }
 }
