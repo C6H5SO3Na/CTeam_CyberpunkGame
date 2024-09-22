@@ -10,7 +10,7 @@ public class testcreate : MonoBehaviour
     int i = 0;
     void Start()
     {
-        uiManager.GenerateUIByID("101");
+        uiManager.GenerateUIByID("103");
         soundGanerator.GenerateSoundByID("201");
         soundGanerator.GenerateSoundByID("202");
         soundGanerator.GenerateSoundByID("203");

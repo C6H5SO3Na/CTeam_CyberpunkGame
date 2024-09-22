@@ -14,30 +14,18 @@
       }
     },
     {
-      "uiType": "Button",
+      "uiType": "firstinto",
       "uiID": "102",
-      "uiContent": "886644",
-      "position": {
-                "x": 500,
-                "y": 200
-      },
-      "scale": {
-               "x": 1.5,
-               "y": 1.5
-      }
+      "uiContent": "0",
+           "position": {
+                "x": -545,
+                "y": 330
+            }
     },
     {
       "uiType": "Image",
       "uiID": "103",
-      "uiContent": "88633",
-      "position": {
-                "x": 500,
-                "y": 200
-      },
-      "scale": {
-                "x": 1.5,
-                "y": 1.5
-      }
+      "uiContent": "88633"
     }
   ]
 }
