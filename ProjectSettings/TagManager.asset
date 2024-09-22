@@ -10,6 +10,7 @@ TagManager:
   - EnemyAttack
   - Ground
   - Sun
+  - DontDestroyOnLoad
   layers:
   - Default
   - TransparentFX

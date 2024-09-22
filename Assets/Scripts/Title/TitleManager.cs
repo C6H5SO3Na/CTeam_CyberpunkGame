@@ -10,7 +10,7 @@ public class TitleManager : MonoBehaviour
     [SerializeField] Image pressAnyButton;
     [SerializeField] Fade fade;
     float timeSecCnt = 0.0f;//•b’PˆÊ
-
+    [SerializeField] public SoundGenerator sound;
     enum Phase
     {
         Fadein, BeforePressButton, AfterPressButton, Fadeout, ToGameScene
@@ -25,6 +25,7 @@ public class TitleManager : MonoBehaviour
         Cursor.visible = false;
         timeSecCnt = 0.0f;
         phase = Phase.Fadein;
+        sound.GenerateSoundByID("101");
     }
 
     // Update is called once per frame
