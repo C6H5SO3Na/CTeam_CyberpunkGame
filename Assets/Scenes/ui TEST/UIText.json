@@ -29,15 +29,7 @@
     {
       "uiType": "Image",
       "uiID": "103",
-      "uiContent": "88633",
-      "position": {
-                "x": 500,
-                "y": 200
-      },
-      "scale": {
-                "x": 1.5,
-                "y": 1.5
-      }
+      "uiContent": "88633"
     }
   ]
 }
