@@ -41,8 +41,8 @@ InputManager:
     m_Name: Normal_Attack
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: z
+    negativeButton: joystick button 11
+    positiveButton: joystick button 14
     altNegativeButton: 
     altPositiveButton: mouse 0
     gravity: 1000
@@ -58,7 +58,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: x
+    positiveButton: joystick button 12
     altNegativeButton: 
     altPositiveButton: mouse 1
     gravity: 1000

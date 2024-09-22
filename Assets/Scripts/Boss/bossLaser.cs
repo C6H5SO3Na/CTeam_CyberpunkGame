@@ -26,6 +26,26 @@ public class bossLaser : MonoBehaviour
     public int laserDamage = 10; // レーザーが与えるダメージ量
     private List<float> lastDamageTimes = new List<float>(); // 各レーザーが最後にダメージを適用した時間を追跡するリスト
 
+    private PlayerManager playerManager; //プレイヤーのHP情報
+
+    void Start()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player"); //プレイヤーを探す
+        if (player != null)
+        {
+            playerManager = player.GetComponent<PlayerManager>();
+
+            if (playerManager == null)
+            {
+                Debug.LogError("Player component not found on GameObject with 'Player' tag.");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameObject with 'Player' tag not found.");
+        }
+    }
+
     void OnEnable()
     {
         // スクリプトが有効化された際にリストを再初期化
@@ -171,8 +191,9 @@ public class bossLaser : MonoBehaviour
 
             // 各レーザーの最後のダメージ適用時間を更新
             lastDamageTimes[index] = Time.time;
-
+            playerManager.PlayerDamage(index);//プレイヤーのダメージ
             Debug.Log("レーザーがプレイヤーに当たり、" + laserDamage + " ダメージを適用");
+            Debug.Log("Player HP now: " + playerManager.nowHP);
         }
     }
 }
