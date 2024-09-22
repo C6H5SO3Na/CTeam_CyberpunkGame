@@ -8,16 +8,20 @@ public class SoundGenerator : MonoBehaviour
 {
     public GameObject sePrefab;  // Prefab for Sound Effect (SFX)
     public GameObject bgmPrefab;  // Prefab for BGM
-    private string jsonFilePath = "Assets/Scenes/SoundManager/soundData.json"; // Path to JSON file
+    //private string jsonFilePath = "Assets/Resources/soundData.json";
+
 
     private Dictionary<string, GameObject> soundDictionary = new Dictionary<string, GameObject>(); // Dictionary to manage both SFX and BGM objects
 
     // Generate Sound by ID
     public void GenerateSoundByID(string soundID, GameObject obj = null)
     {
-        if (File.Exists(jsonFilePath))
+        TextAsset jsonFile = Resources.Load<TextAsset>("SoundData");// Path to JSON file
+        if (jsonFile != null)
+        //if (File.Exists(jsonFilePath))
         {
-            string jsonString = File.ReadAllText(jsonFilePath);
+            string jsonString = jsonFile.text;
+            //string jsonString = File.ReadAllText(jsonFilePath);
             SoundData soundData = JsonConvert.DeserializeObject<SoundData>(jsonString);
 
             foreach (SoundElement element in soundData.soundElements)
