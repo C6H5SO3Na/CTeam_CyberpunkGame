@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 //public interface MeleeSwordTrail{}
@@ -17,7 +18,7 @@ public class SwordComponent : MonoBehaviour
 
     private PlayerManager playerManager;
 
-    private int SwordPower;
+    public int SwordPower;
 
     // Start is called before the first frame update
     void Start()
