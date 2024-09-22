@@ -15,13 +15,16 @@ public class SwordComponent : MonoBehaviour
 
     public List<TargetHitInfo> targetList = new List<TargetHitInfo>();
 
+    private PlayerManager playerManager;
+
     // Start is called before the first frame update
     void Start()
     {
         swordCollider = GetComponentInChildren<SwordColliderController>();
         //swordTrail = GetComponentInChildren<MeleeSwordTrail>();
+        playerManager = GetComponentInParent<PlayerManager>();
 
-        if(swordCollider!=null)
+        if (swordCollider!=null)
         {
             Debug.Log("Start");
             swordCollider.OnSwordCollisionEvent += OnSwordCollision;
@@ -70,6 +73,12 @@ public class SwordComponent : MonoBehaviour
                 _target.OnTargetHit(hitInfo, AttackType);
                 targetList.Add(hitInfo);
                 Debug.Log("Target hit processed");
+
+                if (AttackType == 1 && playerManager != null)
+                {
+                    playerManager.PlayerSPAdd(20);
+                    Debug.Log("SP added to player.");
+                }
             }
         }
         else

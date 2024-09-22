@@ -29,7 +29,8 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
     private bool isFloor;
     private bool isRun;
     private bool isAttacking;
-    private PlayerManager playerManager;
+    //private PlayerManager playerManager;
+    //private float AnimTime;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +44,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
         defaultPosition = transform.position;
         swordComponent = GetComponent<SwordComponent>();
         isAttacking = false;
-        playerManager = GetComponent<PlayerManager>();
+        //playerManager = GetComponent<PlayerManager>();
 }
 
     // Update is called once per frame
@@ -72,7 +73,8 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
         {
             swordComponent.SetSwordActive(1);
             isAttacking = true;
-            TriggerAttack1("Attack");
+            TriggerAttack("Attack", 1.417f);
+            
             //playerManager.PlayerSPAdd(1);
         }
 
@@ -81,7 +83,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
         {
             swordComponent.SetSwordActive(2);
             isAttacking = true;
-            TriggerAttack2("Attack2");
+            TriggerAttack("Attack2", 2.133f);
             //playerManager.PlayerSPReset();
         }
 
@@ -211,27 +213,15 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
         }
         return Vector3.up;
     }
-    private void TriggerAttack1(string attackTrigger)
+    private void TriggerAttack(string attackTrigger, float AnimTime)
     {
         isAttacking = true;
         animator.SetTrigger(attackTrigger);
-        StartCoroutine(EndAttack1());
+        StartCoroutine(EndAttack(AnimTime));
     }
-    private IEnumerator EndAttack1()
+    private IEnumerator EndAttack(float AnimTime)
     {
-        yield return new WaitForSeconds(1.417f);
-        isAttacking = false;
-    }
-
-    private void TriggerAttack2(string attackTrigger)
-    {
-        isAttacking = true;
-        animator.SetTrigger(attackTrigger);
-        StartCoroutine(EndAttack2());
-    }
-    private IEnumerator EndAttack2()
-    {
-        yield return new WaitForSeconds(2.133f);
+        yield return new WaitForSeconds(AnimTime);
         isAttacking = false;
     }
 }
