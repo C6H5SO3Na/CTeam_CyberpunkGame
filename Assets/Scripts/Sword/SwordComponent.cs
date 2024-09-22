@@ -17,6 +17,8 @@ public class SwordComponent : MonoBehaviour
 
     private PlayerManager playerManager;
 
+    private int SwordPower;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +60,14 @@ public class SwordComponent : MonoBehaviour
     {
         swordActiveTimer = swordActiveTime;
         AttackType = _AttactType;
+        if (AttackType == 1)
+        {
+            SwordPower = 10;
+        }
+        if (AttackType == 2)
+        {
+            SwordPower = 20;
+        }
     }
 
     public void OnSwordCollision(IEventSource _source, ISwordTarget _target)

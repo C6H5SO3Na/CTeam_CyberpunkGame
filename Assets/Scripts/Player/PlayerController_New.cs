@@ -29,7 +29,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ğ
     private bool isFloor;
     private bool isRun;
     private bool isAttacking;
-    //private PlayerManager playerManager;
+    private PlayerManager playerManager;
     //private float AnimTime;
 
     // Start is called before the first frame update
@@ -44,7 +44,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ğ
         defaultPosition = transform.position;
         swordComponent = GetComponent<SwordComponent>();
         isAttacking = false;
-        //playerManager = GetComponent<PlayerManager>();
+        playerManager = GetComponent<PlayerManager>();
 }
 
     // Update is called once per frame
@@ -84,7 +84,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ğ
             swordComponent.SetSwordActive(2);
             isAttacking = true;
             TriggerAttack("Attack2", 2.133f);
-            //playerManager.PlayerSPReset();
+            playerManager.PlayerSPReset();
         }
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -93,11 +93,6 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ğ
            // playerManager.PlayerDamage(1);
         }
 
-        ////UŒ‚
-        //if (Input.GetKeyDown(KeyCode.Z))
-        //{
-        //    swordComponent.SetSwordActive(0);  //UŒ‚‚ÉswordComponent‚ÌŠÖ”‚ğŒÄ‚Ô
-        //}
     }
 
     private void PlayerMovement()
