@@ -1,20 +1,21 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootingRocket : MonoBehaviour
 {
     public GameObject rocketPrefab;
-    public Transform[] launchPoints; // ƒƒPƒbƒg‚ğ”­Ë‚·‚éƒ|ƒCƒ“ƒg‚Ì”z—ñ
-    public float heightAbovePlayer = 30.0f; // ƒvƒŒƒCƒ„[‚Ìã‚ÉƒƒPƒbƒg‚ªŠJn‚·‚é‚‚³
-    public float spreadRadius = 5.0f; // ƒvƒŒƒCƒ„[ü‚è‚ÉƒƒPƒbƒg‚ªL‚ª‚é”¼Œa
-    public float ascentSpeed = 20.0f; // ƒƒPƒbƒg‚ªã¸‚·‚é‘¬“x
-    public float descentDelay = 1.0f; // ƒƒPƒbƒg‚ª’¸“_‚É“’B‚µ‚½ŒãA‰º~‚ğŠJn‚·‚é‚Ü‚Å‚Ì’x‰„ŠÔ
-    public float rocketLifetime = 10.0f; // ƒƒPƒbƒg‚Ìõ–½i”j‰ó‚³‚ê‚é‚Ü‚Å‚ÌŠÔj
-    public float rotationSpeed = 360.0f; // ƒƒPƒbƒg‚ª‰ºŒü‚«‚É‰ñ“]‚·‚é‘¬“x
+    public GameObject explosionPrefab; // çˆ†ç™ºã®ãƒ—ãƒ¬ãƒãƒ–
+    public float heightAbovePlayer = 30.0f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä¸Šã«ãƒ­ã‚±ãƒƒãƒˆãŒé–‹å§‹ã™ã‚‹é«˜ã•
+    public float spreadRadius = 7.0f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å‘¨ã‚Šã«ãƒ­ã‚±ãƒƒãƒˆãŒåºƒãŒã‚‹åŠå¾„
+    public float delayBeforeSpawn = 3.0f; // ãƒ­ã‚±ãƒƒãƒˆãŒã‚¹ãƒãƒ¼ãƒ³ã™ã‚‹ã¾ã§ã®é…å»¶æ™‚é–“
+    public int rocketCount = 6; // ã‚¹ãƒãƒ¼ãƒ³ã™ã‚‹ãƒ­ã‚±ãƒƒãƒˆã®æ•°
+    public float rocketLifetime = 10.0f; // ãƒ­ã‚±ãƒƒãƒˆã®å¯¿å‘½ï¼ˆç ´å£Šã•ã‚Œã‚‹ã¾ã§ã®æ™‚é–“ï¼‰
 
     private Coroutine attackCoroutine;
 
     public GameObject bossHitBox;
+    public List<GameObject> bossArm; // ãƒœã‚¹ã®è…•ã®ãƒªã‚¹ãƒˆ
 
     void OnEnable()
     {
@@ -33,135 +34,84 @@ public class ShootingRocket : MonoBehaviour
     IEnumerator HandleShootingRocket()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        List<Vector3> spawnPositions = new List<Vector3>(); // ã‚¹ãƒãƒ¼ãƒ³ã—ãŸä½ç½®ã‚’è¿½è·¡
 
-        for (int i = 0; i < launchPoints.Length; i++)
+        // ãƒœã‚¹ã®è…•ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚¿ãƒ¼ã«å¯¾ã—ã¦ãƒˆãƒªã‚¬ãƒ¼ã‚’è¨­å®š
+        foreach (GameObject arm in bossArm)
         {
-            // ƒvƒŒƒCƒ„[‚Ìü‚è‚Åƒ‰ƒ“ƒ_ƒ€‚ÈƒIƒtƒZƒbƒgˆÊ’u‚ğŒvZ‚µAƒƒPƒbƒg‚ğŠgU‚³‚¹‚é
-            Vector3 randomOffset = new Vector3(
-                Random.Range(-spreadRadius, spreadRadius),
-                0,
-                Random.Range(-spreadRadius, spreadRadius)
-            );
-
-            // Å‰‚Ì”­Ëƒ|ƒCƒ“ƒg‚Ìê‡‚ÍAƒIƒtƒZƒbƒg‚ğƒ[ƒ‚Éİ’è‚·‚é
-            if (i == 0)
+            Animator armAnimator = arm.GetComponent<Animator>();
+            if (armAnimator != null)
             {
-                randomOffset = Vector3.zero;
+                armAnimator.SetTrigger("Shoot");
             }
-
-            Vector3 targetPosition = player.transform.position + randomOffset;
-
-            // ”­Ëƒ|ƒCƒ“ƒg‚ÅƒƒPƒbƒg‚ğ¶¬‚µAX²‚ğ-90“x‚Éİ’è‚µ‚Ä¶¬‚·‚é
-            GameObject rocketInstance = Instantiate(rocketPrefab, launchPoints[i].position, Quaternion.Euler(-90, 0, 0));
-
-            // Õ“Ëˆ——p‚ÉRocketCollisionHandlerƒXƒNƒŠƒvƒg‚ğ’Ç‰Á
-            RocketCollisionHandler collisionHandler = rocketInstance.AddComponent<RocketCollisionHandler>();
-            collisionHandler.SetDestroyOnCollision();
-
-            // ƒƒPƒbƒg‚ğã•û‚ÉˆÚ“®‚³‚¹A–Ú•WˆÊ’u‚Ìã‚É”z’u‚·‚é
-            StartCoroutine(MoveRocketUpwardsAndRotate(rocketInstance, targetPosition));
-
-            // ƒƒPƒbƒg‚Ì”j‰ó‚Í‚·‚®‚É‚Ís‚í‚¸AŒã‚Åˆ—‚·‚é
         }
 
-        // UŒ‚‚ªI—¹‚µ‚½‚çAƒXƒNƒŠƒvƒg‚ğ–³Œø‚É‚·‚é
+        // ã‚¹ãƒãƒ¼ãƒ³ã™ã‚‹ã¾ã§ã®é…å»¶
+        yield return new WaitForSeconds(delayBeforeSpawn);
+
+        for (int i = 0; i < rocketCount; i++)
+        {
+            Vector3 spawnPosition;
+            bool validPosition = false;
+            int maxAttempts = 10; // æœ€å¤§è©¦è¡Œå›æ•°
+            int attempt = 0;
+
+            // ãƒ­ã‚±ãƒƒãƒˆãŒååˆ†é›¢ã‚ŒãŸä½ç½®ã«ã‚¹ãƒãƒ¼ãƒ³ã™ã‚‹ã¾ã§è©¦è¡Œ
+            do
+            {
+                Vector3 randomOffset = new Vector3(
+                    Random.Range(-spreadRadius, spreadRadius),
+                    0,
+                    Random.Range(-spreadRadius, spreadRadius)
+                );
+
+                spawnPosition = player.transform.position + randomOffset + Vector3.up * heightAbovePlayer;
+                validPosition = true;
+
+                // æ—¢å­˜ã®ãƒ­ã‚±ãƒƒãƒˆã¨ã®è·é›¢ã‚’ãƒã‚§ãƒƒã‚¯
+                foreach (Vector3 pos in spawnPositions)
+                {
+                    if (Vector3.Distance(pos, spawnPosition) < 3.0f) // æœ€å°è·é›¢ã‚’è¨­å®šï¼ˆä¾‹: 3.0fï¼‰
+                    {
+                        validPosition = false;
+                        break;
+                    }
+                }
+
+                attempt++;
+            } while (!validPosition && attempt < maxAttempts);
+
+            // æœ‰åŠ¹ãªã‚¹ãƒãƒ¼ãƒ³ä½ç½®ã‚’è¿½åŠ 
+            spawnPositions.Add(spawnPosition);
+
+            GameObject rocketInstance = Instantiate(rocketPrefab, spawnPosition, Quaternion.Euler(90, 0, 0));
+
+            // è¡çªå‡¦ç†ç”¨ã«RocketCollisionHandlerã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’è¿½åŠ 
+            RocketCollisionHandler collisionHandler = rocketInstance.AddComponent<RocketCollisionHandler>();
+            collisionHandler.explosionPrefab = explosionPrefab; // çˆ†ç™ºãƒ—ãƒ¬ãƒãƒ–ã‚’è¨­å®š
+            collisionHandler.SetDestroyOnCollision();
+
+            // ãƒ­ã‚±ãƒƒãƒˆã®å¯¿å‘½ãŒå°½ãã‚‹ã¾ã§å¾…ã£ã¦ã‹ã‚‰ç ´å£Šã™ã‚‹
+            Destroy(rocketInstance, rocketLifetime);
+        }
+
         yield return new WaitForSeconds(10.0f);
         this.enabled = false;
     }
-
-    IEnumerator MoveRocketUpwardsAndRotate(GameObject rocket, Vector3 targetPosition)
-    {
-        Rigidbody rb = rocket.GetComponent<Rigidbody>();
-        rb.useGravity = false;
-
-        MeshRenderer rocketRenderer = rocket.GetComponentInChildren<MeshRenderer>();
-        if (rocketRenderer != null)
-        {
-            // ƒƒPƒbƒg‚ª”­Ë‚³‚êAã¸’†‚ÍƒVƒƒƒhƒE‚ğ–³Œø‚É‚·‚é
-            rocketRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        }
-
-        Vector3 peakPosition = targetPosition + Vector3.up * heightAbovePlayer;
-
-        // ƒƒPƒbƒg‚ğ’¸“_ˆÊ’u‚ÉŒü‚©‚Á‚Äã¸‚³‚¹‚é
-        while (rocket != null && Vector3.Distance(rocket.transform.position, peakPosition) > 0.1f)
-        {
-            Vector3 moveDirection = (peakPosition - rocket.transform.position).normalized;
-            rocket.transform.position += moveDirection * ascentSpeed * Time.deltaTime;
-
-            RotateRocketTowardsDirection(rocket, moveDirection);
-
-            yield return null;
-        }
-
-        // ‰º~‚ğŠJn‚·‚é‘O‚É­‚µ‘Ò‚Â
-        yield return new WaitForSeconds(descentDelay);
-
-        // ƒƒPƒbƒg‚ğ‰ºŒü‚«‚É‰ñ“]‚³‚¹‚é
-        if (rocket != null)
-        {
-            yield return StartCoroutine(RotateRocketToFaceDown(rocket));
-
-            // ƒƒPƒbƒg‚ª‰ñ“]‚µA‰º~‚ğŠJn‚µ‚½Œã‚ÉƒVƒƒƒhƒE‚ğ—LŒø‚É‚·‚é
-            if (rocketRenderer != null)
-            {
-                rocketRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-            }
-
-            // d—Í‚ğ—LŒø‚É‚µ‚ÄƒƒPƒbƒg‚ğ—‰º‚³‚¹‚é
-            if (rocket != null)
-            {
-                rb = rocket.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.useGravity = true;
-                    rb.velocity = Vector3.zero;
-                }
-
-                // ƒƒPƒbƒg‚Ìõ–½‚ªs‚«‚é‚Ü‚Å‘Ò‚Á‚Ä‚©‚ç”j‰ó‚·‚é
-                yield return new WaitForSeconds(rocketLifetime - descentDelay);
-                if (rocket != null)
-                {
-                    Destroy(rocket);
-                }
-            }
-        }
-    }
-
-
-    IEnumerator RotateRocketToFaceDown(GameObject rocket)
-    {
-        Vector3 downwardDirection = Vector3.down;
-
-        // ƒƒPƒbƒg‚ª‰ºŒü‚«‚É‚È‚é‚Ü‚Å‰ñ“]‚ğ‘±‚¯‚é
-        while (rocket != null && Vector3.Angle(rocket.transform.forward, downwardDirection) > 1f)
-        {
-            // ƒƒPƒbƒg‚ğŠŠ‚ç‚©‚É‰ºŒü‚«‚É‰ñ“]‚³‚¹‚é
-            Quaternion targetRotation = Quaternion.LookRotation(downwardDirection);
-            rocket.transform.rotation = Quaternion.RotateTowards(rocket.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-            yield return null; // Ÿ‚ÌƒtƒŒ[ƒ€‚Ü‚Å‘Ò‚Â
-        }
-    }
-
-    void RotateRocketTowardsDirection(GameObject rocket, Vector3 direction)
-    {
-        // ƒƒPƒbƒg‚ğˆÚ“®•ûŒü‚É‡‚í‚¹‚é‚½‚ß‚Ì‰ñ“]‚ğŒvZ‚·‚é
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        rocket.transform.rotation = Quaternion.RotateTowards(rocket.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-    }
 }
 
-// ‚±‚ÌƒXƒNƒŠƒvƒg‚ÍƒƒPƒbƒg‚ÌÕ“Ë‚ğˆ—‚µ‚Ü‚·
-public class RocketCollisionHandler : MonoBehaviour
+
+
+    public class RocketCollisionHandler : MonoBehaviour
 {
     private bool isDestroyed = false;
+    public GameObject explosionPrefab; // çˆ†ç™ºã®ãƒ—ãƒ¬ãƒãƒ–
 
-    private PlayerManager playerManager; //ƒvƒŒƒCƒ„[‚ÌHPî•ñ
+    private PlayerManager playerManager; //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPæƒ…å ±
 
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player"); //ƒvƒŒƒCƒ„[‚ğ’T‚·
+        GameObject player = GameObject.FindGameObjectWithTag("Player"); //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æ¢ã™
         if (player != null)
         {
             playerManager = player.GetComponent<PlayerManager>();
@@ -179,15 +129,26 @@ public class RocketCollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // ƒƒPƒbƒg‚ª’n–Ê‚Ü‚½‚ÍƒvƒŒƒCƒ„[‚ÉÕ“Ë‚µ‚½ê‡
         if (!isDestroyed && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Ground")))
         {
-           if(collision.gameObject.CompareTag("Player"))
-           {
-                playerManager.PlayerDamage(10);//ƒvƒŒƒCƒ„[‚Ìƒ_ƒ[ƒW
-                Debug.Log("ƒvƒŒƒCƒ„[‚ğƒqƒbƒg10ƒ_ƒ[ƒW");
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                playerManager.PlayerDamage(10);//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ€ãƒ¡ãƒ¼ã‚¸
+                Debug.Log("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ãƒ’ãƒƒãƒˆ10ãƒ€ãƒ¡ãƒ¼ã‚¸");
                 Debug.Log("Player HP now: " + playerManager.nowHP);
             }
+
+            // è¡çªä½ç½®ã‚’å–å¾—
+            Vector3 collisionPoint = collision.contacts[0].point;
+            collisionPoint.y -= 2f;
+
+            // çˆ†ç™ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡çªä½ç½®ã«ã‚¹ãƒãƒ¼ãƒ³
+            if (explosionPrefab != null)
+            {
+                Instantiate(explosionPrefab, collisionPoint, Quaternion.identity);
+            }
+            
             isDestroyed = true;
             Destroy(gameObject);
         }
@@ -195,7 +156,9 @@ public class RocketCollisionHandler : MonoBehaviour
 
     public void SetDestroyOnCollision()
     {
-        // ƒƒPƒbƒg‚ÉƒRƒ‰ƒCƒ_[‚ª‚ ‚èAOnTriggerEnter‚ğg—p‚·‚éê‡‚ÍƒgƒŠƒK[‚Æ‚µ‚Äİ’è‚³‚ê‚Ä‚¢‚é‚±‚Æ‚ğŠm”F‚·‚é
         Collider collider = GetComponent<CapsuleCollider>();
     }
 }
+
+
+
