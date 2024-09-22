@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,12 @@ public class BossController : MonoBehaviour
 
     private bool gameClear;
 
+    private Animator animator;
+
+    private float fadeDuration = 5.0f; 
+
+    public GameObject gameManager;
+
     void Start()
     {
         // Get references to the attack scripts attached to this GameObject
@@ -34,6 +41,7 @@ public class BossController : MonoBehaviour
         //daiPanScript = GetComponent<DaiPan>();
         bossLaserScript = GetComponent<bossLaser>();
         shootingRocketScript = GetComponent<ShootingRocket>(); 
+        animator = GetComponent<Animator>();
 
         // Start the attack pattern cycle
         StartCoroutine(AttackPatternCycle());
@@ -45,19 +53,63 @@ public class BossController : MonoBehaviour
         HpText.text = "BossHP : " + HP;
         if(HP <= 0 && gameClear == false) //&&GameManager.isClear == false)
         {
+            StartCoroutine(FadeOutAndDestroy());
             Vector3 spawnpos = new Vector3(bossHitBox.transform.position.x, bossHitBox.transform.position.y + 5.0f, bossHitBox.transform.position.z - 10.0f);
             GameObject explosion = Instantiate(Explosion, spawnpos, bossHitBox.transform.rotation);
-            explosion.transform.SetParent(gameObject.transform);
-            Invoke("DestroyObject", 5.0f);
+            explosion.transform.SetParent(bossHitBox.transform);
             gameClear = true;
+            animator.SetBool("gameClear", gameClear);
+            bossLaserScript.enabled = false;
+            shootingRocketScript.enabled = false;
             //GameManager.isClear = true;
         }
     }
 
-    void DestroyObject()
+    IEnumerator FadeOutAndDestroy()
     {
+        float elapsedTime = 0f;
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+
+        List<Material> materials = new List<Material>();
+        foreach (Renderer renderer in renderers)
+        {
+            materials.AddRange(renderer.materials);
+        }
+
+
+        foreach (Material mat in materials)
+        {
+            mat.SetFloat("_Surface", 1); 
+            mat.SetOverrideTag("RenderType", "Transparent");
+            mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            mat.SetInt("_ZWrite", 0);
+            mat.renderQueue = 3000;
+            mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            mat.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+        }
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+
+            foreach (Material mat in materials)
+            {
+                if (mat.HasProperty("_BaseColor"))
+                {
+                    Color baseColor = mat.GetColor("_BaseColor");
+                    mat.SetColor("_BaseColor", new Color(baseColor.r, baseColor.g, baseColor.b, alpha));
+                }
+            }
+
+            yield return null;
+        }
+        gameManager.GetComponent<GameManager>().isClear = true;
         Destroy(gameObject);
     }
+
 
     IEnumerator AttackPatternCycle()
     {

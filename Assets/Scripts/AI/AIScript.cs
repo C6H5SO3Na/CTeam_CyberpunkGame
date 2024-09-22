@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class AIScript : MonoBehaviour
     [Header("Hurt")]
     public float knockbackForce;
     public Vector3 lastHitPosition;
+    public float fadeDuration = 1.7f;
 
     [Header("Health")]
     public int health = 3;
@@ -132,6 +134,49 @@ public class AIScript : MonoBehaviour
         }
     }
 
+    public IEnumerator FadeOutAndDestroy()
+    {
+        float elapsedTime = 0f;
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+
+        List<Material> materials = new List<Material>();
+        foreach (Renderer renderer in renderers)
+        {
+            materials.AddRange(renderer.materials);
+        }
+
+
+        foreach (Material mat in materials)
+        {
+            mat.SetFloat("_Surface", 1);
+            mat.SetOverrideTag("RenderType", "Transparent");
+            mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            mat.SetInt("_ZWrite", 0);
+            mat.renderQueue = 3000;
+            mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            mat.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+        }
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+
+            foreach (Material mat in materials)
+            {
+                if (mat.HasProperty("_BaseColor"))
+                {
+                    Color baseColor = mat.GetColor("_BaseColor");
+                    mat.SetColor("_BaseColor", new Color(baseColor.r, baseColor.g, baseColor.b, alpha));
+                }
+            }
+
+            yield return null;
+        }
+        Destroy(gameObject);
+    }
     public void GetHurt(Vector3 hitPosition)
     {
         if (!meDead && !isHurt)
@@ -144,12 +189,21 @@ public class AIScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerWeapon")
         {
             Vector3 hitPosition = collision.contacts[0].point;
             Debug.Log("Collision detected with PlayerWeapon at position: " + hitPosition);
             GetHurt(hitPosition);
         }
+    }
+
+    public void OnMeleeCollider()
+    {
+        GetComponentInChildren<BoxCollider>().enabled = true;
+    }
+    public void OffMeleeCollider()
+    {
+        GetComponentInChildren<BoxCollider>().enabled = false;
     }
 
 

@@ -19,7 +19,7 @@ public class bossHitBox : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("PlayerWeapon"))
         {
             boss.GetComponent<BossController>().HP -= 1;
         }
