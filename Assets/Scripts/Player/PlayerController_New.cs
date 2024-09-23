@@ -7,7 +7,9 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
 {
     Animator animator;
     public LayerMask floorLayer;
+    public LayerMask stairLayer;
     public Vector3 moveDirection = Vector3.zero;
+    public GameObject raycasto;
 
     public float gravity = 8f;
     public float rotateForce = 200f;   //‰ñ“]—Ê
@@ -194,10 +196,15 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
     private bool OnSlope()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.5f))
+        if (Physics.Raycast(raycasto.transform.position, Vector3.forward, out hit, Mathf.Infinity, stairLayer))
         {
+            Debug.Log("hitstair");
             float angle = Vector3.Angle(hit.normal, Vector3.up);
             return angle > 0 && angle <= slopeLimit;
+        }
+        else
+        {
+            Debug.DrawRay(raycasto.transform.position, transform.TransformDirection(Vector3.forward) * 10000, Color.white);
         }
         return false;
     }
