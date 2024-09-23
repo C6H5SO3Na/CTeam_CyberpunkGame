@@ -16,11 +16,29 @@ public class MeleeDamage : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("PlayerHit");
+        }
+    }
+
+    public void OnMeleeCollider()
+    {
+        CapsuleCollider[] colliders = GetComponentsInChildren<CapsuleCollider>();
+        foreach (CapsuleCollider collider in colliders)
+        {
+            collider.enabled = true;
+        }
+    }
+
+    public void OffMeleeCollider()
+    {
+        CapsuleCollider[] colliders = GetComponentsInChildren<CapsuleCollider>();
+        foreach (CapsuleCollider collider in colliders)
+        {
+            collider.enabled = false;
         }
     }
 }
