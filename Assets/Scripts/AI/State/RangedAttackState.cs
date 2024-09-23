@@ -241,8 +241,8 @@ public class RangedAttackState : IAIState
     // レーザーのダメージを適用
     private void ApplyLaserDamage()
     {
-        playerManager.PlayerDamage(10);//プレイヤーのダメージ
+        PlayerManager.PlayerDamage(10);//プレイヤーのダメージ
         Debug.Log("プレイヤーにヒット! 10ダメージを適用中...");
-        Debug.Log("Player HP now: " + playerManager.nowHP);
+        Debug.Log("Player HP now: " + PlayerManager.nowHP);
     }
 }

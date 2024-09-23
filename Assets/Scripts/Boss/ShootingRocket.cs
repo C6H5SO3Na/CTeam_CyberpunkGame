@@ -134,9 +134,9 @@ public class ShootingRocket : MonoBehaviour
 
             if (collision.gameObject.CompareTag("Player"))
             {
-                playerManager.PlayerDamage(10);//プレイヤーのダメージ
+                PlayerManager.PlayerDamage(10);//プレイヤーのダメージ
                 Debug.Log("プレイヤーをヒット10ダメージ");
-                Debug.Log("Player HP now: " + playerManager.nowHP);
+                Debug.Log("Player HP now: " + PlayerManager.nowHP);
             }
 
             // 衝突位置を取得
