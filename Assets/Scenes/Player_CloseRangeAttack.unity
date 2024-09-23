@@ -3077,6 +3077,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   moveDirection: {x: 0, y: 0, z: 0}
+  raycasto: {fileID: 0}
   gravity: 8
   rotateForce: 200
   runForce: 3
