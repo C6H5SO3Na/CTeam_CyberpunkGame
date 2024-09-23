@@ -11,6 +11,7 @@ TagManager:
   - Ground
   - Sun
   - DontDestroyOnLoad
+  - Sound
   layers:
   - Default
   - TransparentFX

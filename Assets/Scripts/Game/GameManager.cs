@@ -10,9 +10,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] public static int remaining;
     [SerializeField] Fade fade;
     [SerializeField] TextMeshProUGUI text;
+    SoundGenerator sound;
     public static int stage = 1;
     public const int maxStage = 3;
     public bool isClear = false;
+    public bool isDead = false;
     float timeSecCnt = 0.0f;//•b’PˆÊ
     public enum Phase
     {
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         phase = Phase.Fadein;
         timeSecCnt = 0.0f;
+        sound = GameObject.Find("SoundManager").GetComponent<SoundGenerator>();
     }
 
     // Update is called once per frame
@@ -43,6 +46,7 @@ public class GameManager : MonoBehaviour
             case Phase.Game:
                 if (isClear)
                 {
+                    sound.GenerateSoundByID("302");
                     phase = Phase.AfterClear;
                 }
                 break;
