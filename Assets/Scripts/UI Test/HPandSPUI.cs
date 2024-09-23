@@ -14,8 +14,8 @@ public class HPandSPUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HPpercent = playerManager.nowHP;
-        SPpercent = playerManager.maxSP;
+        HPpercent = PlayerManager.nowHP;
+        SPpercent = PlayerManager.maxSP;
     }
 
     void Update()

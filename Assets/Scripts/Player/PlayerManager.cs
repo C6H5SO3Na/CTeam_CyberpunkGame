@@ -1,23 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] public int maxHP = 100;
-    [SerializeField] public int maxSP = 100;
-    [SerializeField] public int nowHP;
-    [SerializeField] public int nowSP;
-
-    private void Start()
+    private static PlayerManager _instance;
+    public static PlayerManager Instance
     {
+        get
         {
-            nowHP = maxHP;
-            nowSP = 0;
+            if (_instance == null)
+                Debug.LogError("PlayerManager instance is not initialized yet.");
+            return _instance;
         }
     }
 
-    public void PlayerDamage(int damage)
+    public static int maxHP = 100;
+    public static int maxSP = 100;
+
+    public static int nowHP { get; private set; }
+    public static int nowSP { get; private set; }
+
+    void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        ResetPlayerStates();
+    }
+
+    public static void ResetPlayerStates()
+    {
+        nowHP = maxHP;
+        nowSP = 0;
+    }
+    public static void PlayerDamage(int damage)
     {
         nowHP -= damage;
         if(nowHP <= 0)
@@ -27,22 +51,22 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void PlayerSPAdd(int SP)
+    public static void PlayerSPAdd(int SP)
     {
         nowSP += SP;
-        if (nowHP <= maxSP)
+        if (nowSP > maxSP)
         {
-            nowHP = maxSP;
+            nowSP = maxSP;
             //ëÂãZÇ™Ç≈Ç´ÇÈ
         }
     }
 
-    public void PlayerSPReset()
+    public static void PlayerSPReset()
     {
         nowSP = 0;
     }
 
-    void GameOver()
+    private static void GameOver()
     {
         Debug.Log("GameOver");
         //éÄñSèàóù

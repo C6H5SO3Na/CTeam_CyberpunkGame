@@ -30,14 +30,12 @@ public class bossLaser : MonoBehaviour
 
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player"); //プレイヤーを探す
+        GameObject player = GameObject.FindGameObjectWithTag("Player"); // Find the player object
         if (player != null)
         {
-            playerManager = player.GetComponent<PlayerManager>();
-
-            if (playerManager == null)
+            if (PlayerManager.Instance == null) // Check if the Singleton instance is available
             {
-                Debug.LogError("Player component not found on GameObject with 'Player' tag.");
+                Debug.LogError("PlayerManager instance not found.");
             }
         }
         else
@@ -191,9 +189,9 @@ public class bossLaser : MonoBehaviour
 
             // 各レーザーの最後のダメージ適用時間を更新
             lastDamageTimes[index] = Time.time;
-            playerManager.PlayerDamage(index);//プレイヤーのダメージ
+            PlayerManager.PlayerDamage(laserDamage);//プレイヤーのダメージ
             Debug.Log("レーザーがプレイヤーに当たり、" + laserDamage + " ダメージを適用");
-            Debug.Log("Player HP now: " + playerManager.nowHP);
+            Debug.Log("Player HP now: " + PlayerManager.nowHP);
         }
     }
 }

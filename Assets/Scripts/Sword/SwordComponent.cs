@@ -87,7 +87,7 @@ public class SwordComponent : MonoBehaviour
 
                 if (AttackType == 1 && playerManager != null)
                 {
-                    playerManager.PlayerSPAdd(20);
+                    PlayerManager.PlayerSPAdd(20);
                     Debug.Log("SP added to player.");
                 }
             }
