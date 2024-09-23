@@ -48,6 +48,13 @@
       "soundType": "BGM",
       "soundPath": "BGM/Ending",
       "loop": true
+    },
+    {
+      "soundID": "301",
+      "soundType": "SE",
+      "soundPath": "SE/PressButton",
+      "loop": false,
+      "playAtObjectPosition": false
     }
   ]
 }
