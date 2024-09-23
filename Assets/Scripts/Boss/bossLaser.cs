@@ -30,18 +30,24 @@ public class bossLaser : MonoBehaviour
 
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player"); // Find the player object
+        GameObject player = GameObject.FindGameObjectWithTag("Player"); // プレイヤーオブジェクトを探す
         if (player != null)
         {
-            if (PlayerManager.Instance == null) // Check if the Singleton instance is available
+            if (PlayerManager.Instance == null) // シングルトンインスタンスが利用可能か確認
             {
-                Debug.LogError("PlayerManager instance not found.");
+                Debug.LogWarning("PlayerManager instance not found.");
+                // You can continue executing further logic here if needed
+            }
+            else
+            {
+                // Proceed with logic that requires PlayerManager.Instance
             }
         }
         else
         {
             Debug.LogError("GameObject with 'Player' tag not found.");
         }
+
     }
 
     void OnEnable()
