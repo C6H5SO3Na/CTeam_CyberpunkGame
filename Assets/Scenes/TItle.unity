@@ -942,6 +942,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4221346925712917454, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: sePrefab
+      value: 
+      objectReference: {fileID: 4296953690378176555, guid: be3ebd98ae360744ea67c42dfac51ed7, type: 3}
+    - target: {fileID: 4221346925712917454, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: bgmPrefab
+      value: 
+      objectReference: {fileID: 4296953690378176555, guid: 26e359365aea34b40874baa09b69d346, type: 3}
     - target: {fileID: 6753418062341332407, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
       propertyPath: m_Name
       value: SoundManager
