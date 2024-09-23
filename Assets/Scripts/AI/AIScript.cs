@@ -63,7 +63,14 @@ public class AIScript : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        enemyAnim = GetComponent<Animator>();
+        if (GetComponent<Animator>() != null)
+        {
+            enemyAnim = GetComponent<Animator>();
+        }
+        else
+        {
+            enemyAnim = GetComponentInChildren<Animator>();
+        }
         rb = GetComponent<Rigidbody>();
         laser = GetComponent<LineRenderer>();
         ChangeState(new IdleState());
