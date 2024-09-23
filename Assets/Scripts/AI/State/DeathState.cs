@@ -22,6 +22,7 @@ public class DeathState : IAIState
     // 爆発をAIの子として生成する
     private void DeathExplosion()
     {
+        ai.audioSource.PlayOneShot(ai.deathSound);
         // 爆発エフェクトをAIの位置と回転に基づいて生成し、AIの子オブジェクトとして設定する
         GameObject explosionInstance = Object.Instantiate(ai.explosionEffect, ai.transform.position, ai.transform.rotation);
         explosionInstance.transform.SetParent(ai.transform); // AIの子オブジェクトとして設定する
