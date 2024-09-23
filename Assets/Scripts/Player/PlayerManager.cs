@@ -44,7 +44,8 @@ public class PlayerManager : MonoBehaviour
     public static void PlayerDamage(int damage)
     {
         nowHP -= damage;
-        if(nowHP <= 0)
+        PlayerPrefs.SetInt("nowHP", nowHP);
+        if (nowHP <= 0)
         {
             nowHP = 0;
             GameOver();
@@ -54,6 +55,7 @@ public class PlayerManager : MonoBehaviour
     public static void PlayerSPAdd(int SP)
     {
         nowSP += SP;
+        PlayerPrefs.SetInt("nowSP", nowSP);
         if (nowSP > maxSP)
         {
             nowSP = maxSP;
