@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.Android;
 
 //public interface MeleeSwordTrail{}
 public class SwordComponent : MonoBehaviour
@@ -134,6 +135,8 @@ public class SwordComponent : MonoBehaviour
 
             // Play the particle effect
             swordEffectParticleSystem.Play();
+            var emission = swordEffectParticleSystem.emission;
+            emission.enabled = true;
         }
     }
 
@@ -142,6 +145,8 @@ public class SwordComponent : MonoBehaviour
         if (swordEffectParticleSystem != null && swordEffectParticleSystem.isPlaying)
         {
             swordEffectParticleSystem.Stop();  // Stop playing the particle system when sword is inactive
+            var emission = swordEffectParticleSystem.emission;
+            emission.enabled = false;
         }
     }
 }
