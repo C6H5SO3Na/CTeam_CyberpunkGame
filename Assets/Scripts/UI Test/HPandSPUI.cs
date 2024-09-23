@@ -23,9 +23,6 @@ public class HPandSPUI : MonoBehaviour
         //テスト
         if (Input.GetKey(KeyCode.Space))
         {
-            HPpercent = PlayerPrefs.GetInt("nowHP");
-            SPpercent = PlayerPrefs.GetInt("nowSP");
-            Debug.Log(PlayerPrefs.GetInt("nowHP"));
             changeHPSP(HPpercent, SPpercent);
         }
     }
