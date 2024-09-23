@@ -20,6 +20,10 @@ public class IdleState : IAIState
         {
             ai.ChangeState(new ChaseState());
         }
+        else if (ai.playerInMeleeRange)
+        {
+            ai.ChangeState(new MeleeAttackState());
+        }
         else
         {
             ai.ChangeState(new PatrolState());
