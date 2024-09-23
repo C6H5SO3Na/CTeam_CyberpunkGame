@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("pmw");
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -39,7 +40,9 @@ public class PlayerManager : MonoBehaviour
     public static void ResetPlayerStates()
     {
         nowHP = maxHP;
+        PlayerPrefs.SetInt("nowHP", nowHP);
         nowSP = 0;
+        PlayerPrefs.SetInt("nowSP", 0);
     }
     public static void PlayerDamage(int damage)
     {
