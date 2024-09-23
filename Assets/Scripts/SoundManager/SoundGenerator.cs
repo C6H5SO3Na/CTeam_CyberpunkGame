@@ -10,7 +10,6 @@ public class SoundGenerator : MonoBehaviour
     public GameObject bgmPrefab;  // Prefab for BGM
     //private string jsonFilePath = "Assets/Resources/soundData.json";
 
-
     private Dictionary<string, GameObject> soundDictionary = new Dictionary<string, GameObject>(); // Dictionary to manage both SFX and BGM objects
 
     // Generate Sound by ID
