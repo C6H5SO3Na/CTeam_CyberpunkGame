@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     public GameObject imagePrefab;//画像を生成するためのprefab
     public GameObject firstintoPrefab;  //firstintoを生成するためのprefab
 
-    private string jsonFilePath = "Assets/Scenes/ui TEST/UIText.json";
+    //private string jsonFilePath = "Assets/Scenes/ui TEST/UIText.json";
 
     void Start()
     {
@@ -58,9 +58,12 @@ public class UIManager : MonoBehaviour
     //番号によってuiを生成
     public void GenerateUIByID(string uiID)
     {
-        if (File.Exists(jsonFilePath))
+        TextAsset jsonFile = Resources.Load<TextAsset>("UIText");
+        if (jsonFile != null)
+        //if (File.Exists(jsonFilePath))
         {
-            string jsonString = File.ReadAllText(jsonFilePath);
+            string jsonString = jsonFile.text;
+            //string jsonString = File.ReadAllText(jsonFilePath);
             UIData uiData = JsonConvert.DeserializeObject<UIData>(jsonString);
 
             foreach (UIElement element in uiData.uiElements)

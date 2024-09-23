@@ -52,6 +52,7 @@ public class TitleManager : MonoBehaviour
                 {
                     //ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚é‚Æ“_–Å‚ª‘¬‚­‚È‚é
                     pressAnyButton.GetComponent<PressAnyButtonController>().changeAmount = 8.0f;
+                    sound.GenerateSoundByID("301");
                     phase = Phase.AfterPressButton;
                 }
                 break;
@@ -61,6 +62,7 @@ public class TitleManager : MonoBehaviour
                 if (timeSecCnt >= 2.0f)
                 {
                     phase = Phase.Fadeout;
+                    pressAnyButton.gameObject.SetActive(false);
                 }
                 break;
 

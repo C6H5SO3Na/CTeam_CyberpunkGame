@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.Android;
 
 //public interface MeleeSwordTrail{}
 public class SwordComponent : MonoBehaviour
@@ -20,6 +21,11 @@ public class SwordComponent : MonoBehaviour
 
     public int SwordPower;
 
+    public GameObject SwordEffectPrefab;
+    public GameObject Tracking;
+
+    private ParticleSystem swordEffectParticleSystem; // To store particle system
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +38,12 @@ public class SwordComponent : MonoBehaviour
             Debug.Log("Start");
             swordCollider.OnSwordCollisionEvent += OnSwordCollision;
         }
+
+        if (SwordEffectPrefab != null)
+        {
+            // Get the particle system from the SwordEffectPrefab
+            swordEffectParticleSystem = SwordEffectPrefab.GetComponentInChildren<ParticleSystem>();
+        }
     }
 
     // Update is called once per frame
@@ -40,6 +52,10 @@ public class SwordComponent : MonoBehaviour
         if (swordActiveTimer > 0)
         {
             swordActiveTimer -= Time.deltaTime;
+        }
+        else
+        {
+            StopSwordEffect();
         }
 
         ////effect appear time
@@ -69,13 +85,15 @@ public class SwordComponent : MonoBehaviour
         {
             SwordPower = 20;
         }
+
+        PlaySwordEffect();
     }
 
     public void OnSwordCollision(IEventSource _source, ISwordTarget _target)
     {
         Debug.Log("OnSwordCollision called");
 
-        swordActiveTime = 3f;
+        swordActiveTime = 2f;
         if (swordActiveTimer > 0)
         {
             TargetHitInfo hitInfo = new TargetHitInfo(_source);
@@ -111,6 +129,31 @@ public class SwordComponent : MonoBehaviour
         {
             swordCollider.OnSwordCollisionEvent -= OnSwordCollision;
             Debug.Log("Destroy");
+        }
+    }
+
+    private void PlaySwordEffect()
+    {
+        if (swordEffectParticleSystem != null && !swordEffectParticleSystem.isPlaying)
+        {
+            // Set the position and rotation of the particle effect
+            SwordEffectPrefab.transform.position = Tracking.transform.position;
+            SwordEffectPrefab.transform.rotation = Tracking.transform.rotation;
+
+            // Play the particle effect
+            swordEffectParticleSystem.Play();
+            var emission = swordEffectParticleSystem.emission;
+            emission.enabled = true;
+        }
+    }
+
+    private void StopSwordEffect()
+    {
+        if (swordEffectParticleSystem != null && swordEffectParticleSystem.isPlaying)
+        {
+            swordEffectParticleSystem.Stop();  // Stop playing the particle system when sword is inactive
+            var emission = swordEffectParticleSystem.emission;
+            emission.enabled = false;
         }
     }
 }

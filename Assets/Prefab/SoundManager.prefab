@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d8b254fad03994a990ea55d1481b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sePrefab: {fileID: 4296953690378176555, guid: c17b454fd7cef364f827370600b2e556, type: 3}
-  bgmPrefab: {fileID: 4296953690378176555, guid: c17b454fd7cef364f827370600b2e556, type: 3}
+  sePrefab: {fileID: 4296953690378176555, guid: be3ebd98ae360744ea67c42dfac51ed7, type: 3}
+  bgmPrefab: {fileID: 4296953690378176555, guid: 26e359365aea34b40874baa09b69d346, type: 3}
