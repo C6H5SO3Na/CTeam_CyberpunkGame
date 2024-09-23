@@ -11,7 +11,7 @@ public class MeleeAttackState : IAIState
 
     public MeleeAttackState()
     {
-        attackCooldown = 0.4f;
+        attackCooldown = 0.4f; // Cooldown duration
         currentAttackCooldown = 0f;
     }
 
@@ -21,7 +21,14 @@ public class MeleeAttackState : IAIState
         ai.isAttackingmelee = true;
         ai.isRunning = false;
         ai.isWalking = false;
+
+        // Trigger attack animation
+        ai.enemyAnim.SetTrigger("MeleeAttack");
+
+        // Reset cooldown to ensure it starts fresh
+        currentAttackCooldown = 0f; // Reset it here for proper timing
     }
+
 
     public void Execute(AIScript ai)
     {
@@ -39,7 +46,6 @@ public class MeleeAttackState : IAIState
         }
     }
 
-
     public void Exit(AIScript ai)
     {
         ai.isAttackingmelee = false;
@@ -47,19 +53,45 @@ public class MeleeAttackState : IAIState
 
     private void Attack()
     {
+        // Face the player before attacking
         Vector3 direction = (ai.player.position - ai.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         ai.transform.rotation = Quaternion.Slerp(ai.transform.rotation, lookRotation, Time.deltaTime * 5f);
 
+        // Make sure the attack can only happen when the cooldown has finished
         if (currentAttackCooldown <= 0)
         {
-            // Perform melee attack logic here
+            // Play attack animation
+            ai.enemyAnim.SetTrigger("MeleeAttack");
+
+            // Reset cooldown after attack
             currentAttackCooldown = attackCooldown;
+
+            // Perform attack logic (e.g., damage the player)
+            Debug.Log("Melee attack performed!");
         }
-        else if (currentAttackCooldown > 0)
+        else
         {
+            // Reduce the cooldown timer
             currentAttackCooldown -= Time.deltaTime;
         }
-    }
-}
 
+        // After the attack, wait for the animation to finish before transitioning
+        AnimatorStateInfo stateInfo = ai.enemyAnim.GetCurrentAnimatorStateInfo(0);
+
+        // Only play sound when the attack is within a specific point in the animation
+        if (stateInfo.IsName("MeleeAttack") && stateInfo.normalizedTime >= 0.4f && stateInfo.normalizedTime < 0.5f)
+        {
+            // Ensure the sound only plays once during this section of the animation
+            if (!ai.audioSource.isPlaying)
+            {
+                ai.audioSource.PlayOneShot(ai.meleeSound);
+            }
+        }
+        if (stateInfo.IsName("MeleeAttack") && stateInfo.normalizedTime >= 1.0f)
+        {
+            ai.ChangeState(new ChaseState());
+        }
+    }
+
+}

@@ -75,6 +75,7 @@ public class RangedAttackState : IAIState
                 RotateTowardsPlayer(); // プレイヤーの方向を向くように回転
             }
         }
+        
     }
 
     public void Exit(AIScript ai)
@@ -100,6 +101,7 @@ public class RangedAttackState : IAIState
         if (!isFiringLaser)
         {
             ai.StartCoroutine(FireLaserCoroutine()); // レーザー発射コルーチンを開始
+            ai.audioSource.PlayOneShot(ai.laserSound);
         }
     }
     

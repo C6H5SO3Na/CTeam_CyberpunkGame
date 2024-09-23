@@ -53,6 +53,14 @@ public class AIScript : MonoBehaviour, IDamageable
     public bool canMeleeAttack;
     public bool canRangedAttack;
 
+    [Header("SoundEffect")]
+    public AudioClip deathSound;
+    public AudioClip laserSound;
+    public AudioClip meleeSound;
+
+    // AudioSource to play the sounds
+    public AudioSource audioSource;
+
     public List<GameObject> patrolPoints;
 
 
@@ -74,6 +82,7 @@ public class AIScript : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody>();
         laser = GetComponent<LineRenderer>();
         ChangeState(new IdleState());
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -212,6 +221,7 @@ public class AIScript : MonoBehaviour, IDamageable
     {
         GetComponentInChildren<BoxCollider>().enabled = false;
     }
+
 
 
     private void OnDrawGizmosSelected()
