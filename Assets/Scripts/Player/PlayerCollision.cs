@@ -15,15 +15,15 @@ public class PlayerCollision : MonoBehaviour
         playerManager = GetComponentInParent<PlayerManager>();
         animator = GetComponent<Animator>();
         playerController = GetComponentInParent<PlayerController_New>();
-        if (PlayerManager.Instance == null) // Check if the Singleton instance is available
-        {
-            Debug.LogError("PlayerManager instance not found.");
-        }
+        //if (PlayerManager.Instance == null) // Check if the Singleton instance is available
+        //{
+        //    Debug.LogError("PlayerManager instance not found.");
+        //}
 
-        else
-        {
-            Debug.LogError("GameObject with 'Player' tag not found.");
-        }
+        //else
+        //{
+        //    Debug.LogError("GameObject with 'Player' tag not found.");
+        //}
     }
 
     // Update is called once per frame
