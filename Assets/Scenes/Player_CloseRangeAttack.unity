@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 176458707}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 282202530}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -667,6 +667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swordActiveTime: 0
   swordActiveTimer: 0
+  SwordPower: 0
 --- !u!1001 &769838589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1188,6 +1189,7 @@ MonoBehaviour:
   moveSpeed: 5
   slopeLimit: 45
   staircaseHeight: 0.5
+  isDamaged: 0
 --- !u!54 &1006232199
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1252,6 +1254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swordActiveTime: 0
   swordActiveTimer: 0
+  SwordPower: 0
 --- !u!1001 &1048584480
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1312,6 +1315,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 0919_T-Pose
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1991776505368873498, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.393
@@ -1346,6 +1353,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1388944759}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1388944765}
     - targetCorrespondingSourceObject: {fileID: 2715566404302941441, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 794195011}
@@ -1452,6 +1462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swordActiveTime: 0
   swordActiveTimer: 0
+  SwordPower: 0
 --- !u!1001 &1365119672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1572,10 +1583,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25334352
+  m_Radius: 0.29286808
   m_Height: 1.9355834
   m_Direction: 1
-  m_Center: {x: 0.004203081, y: 0.97107494, z: 0}
+  m_Center: {x: 0.016971827, y: 0.97107494, z: 0.03642547}
 --- !u!114 &1388944761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1590,6 +1601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swordActiveTime: 0
   swordActiveTimer: 0
+  SwordPower: 0
 --- !u!114 &1388944762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1612,6 +1624,7 @@ MonoBehaviour:
   moveSpeed: 5
   slopeLimit: 45
   staircaseHeight: 0.5
+  isDamaged: 0
 --- !u!114 &1388944763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1624,10 +1637,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4984751c5eef9b94bba863f8ae3b988b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
-  maxSP: 100
-  nowHP: 0
-  nowSP: 0
 --- !u!95 &1388944764
 Animator:
   serializedVersion: 5
@@ -1649,6 +1658,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1388944765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388944758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f16ad39333df64b82b3c3e13a0f803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1648752406 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 258513127543738991, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
