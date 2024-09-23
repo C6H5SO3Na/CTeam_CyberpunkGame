@@ -679,22 +679,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e244af1d719994ab693b7cedf89951, type: 3}
---- !u!1 &459291396
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 459291397}
-  m_Layer: 0
-  m_Name: testray
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &495640348 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c5aa1f6b287d98247adbb4336a3d4e4c, type: 3}
@@ -2873,9 +2857,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 459291397}
     - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1433412371}
@@ -3167,7 +3148,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   moveDirection: {x: 0, y: 0, z: 0}
-  raycasto: {fileID: 459291396}
+  raycasto: {fileID: 0}
   gravity: 8
   rotateForce: 200
   runForce: 3
@@ -3220,11 +3201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f16ad39333df64b82b3c3e13a0f803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1388944766 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
-  m_PrefabInstance: {fileID: 1048584480}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1433412370
 GameObject:
   m_ObjectHideFlags: 0
