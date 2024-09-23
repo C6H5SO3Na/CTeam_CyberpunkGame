@@ -88,7 +88,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
                 swordComponent.SetSwordActive(2);
                 isAttacking = true;
                 TriggerAttack("Attack2", 2.133f);
-                playerManager.PlayerSPReset();
+                PlayerManager.PlayerSPReset();
             }
 
             //if (Input.GetKeyDown(KeyCode.F))

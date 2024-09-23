@@ -85,9 +85,16 @@ public class SwordComponent : MonoBehaviour
                 targetList.Add(hitInfo);
                 Debug.Log("Target hit processed");
 
+                IDamageable damageable = _target as IDamageable;
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(SwordPower);
+                    Debug.Log($"Dealt {SwordPower} damage to enemy.");
+                }
+
                 if (AttackType == 1 && playerManager != null)
                 {
-                    playerManager.PlayerSPAdd(20);
+                    PlayerManager.PlayerSPAdd(20);
                     Debug.Log("SP added to player.");
                 }
             }

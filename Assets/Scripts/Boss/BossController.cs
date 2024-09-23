@@ -5,10 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
-public class BossController : MonoBehaviour
+public class BossController : MonoBehaviour, IDamageable
 {
-    [SerializeField]
-    public int HP = 10;
+    public int HP = 100;
 
     // References to the attack scripts
     //private slidingPunch slidingPunchScript;
@@ -47,11 +46,30 @@ public class BossController : MonoBehaviour
         StartCoroutine(AttackPatternCycle());
         gameClear = false;
     }
+    public void TakeDamage(int damage)
+    {
+        HP -= damage;
+        Debug.Log($"Boss took {damage} damage. Remaining HP: {HP}");
+
+        // Check if the boss's health reaches zero
+        if (HP <= 0 && gameClear == false) //&&GameManager.isClear == false)
+        {
+            StartCoroutine(FadeOutAndDestroy());
+            Vector3 spawnpos = new Vector3(bossHitBox.transform.position.x, bossHitBox.transform.position.y + 5.0f, bossHitBox.transform.position.z - 10.0f);
+            GameObject explosion = Instantiate(Explosion, spawnpos, bossHitBox.transform.rotation);
+            explosion.transform.SetParent(bossHitBox.transform);
+            gameClear = true;
+            animator.SetBool("gameClear", gameClear);
+            bossLaserScript.enabled = false;
+            shootingRocketScript.enabled = false;
+            //GameManager.isClear = true;
+        }
+    }
 
     private void Update()
     {
         HpText.text = "BossHP : " + HP;
-        if(HP <= 0 && gameClear == false) //&&GameManager.isClear == false)
+        if (HP <= 0 && gameClear == false) //&&GameManager.isClear == false)
         {
             StartCoroutine(FadeOutAndDestroy());
             Vector3 spawnpos = new Vector3(bossHitBox.transform.position.x, bossHitBox.transform.position.y + 5.0f, bossHitBox.transform.position.z - 10.0f);
