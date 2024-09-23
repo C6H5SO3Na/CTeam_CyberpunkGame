@@ -11,7 +11,7 @@ TagManager:
   - Ground
   - Sun
   - DontDestroyOnLoad
-  - Stair
+  - Sound
   layers:
   - Default
   - TransparentFX
@@ -23,7 +23,7 @@ TagManager:
   - Rocket
   - Laser
   - Enemy
-  - Stair
+  - 
   - 
   - 
   - 
