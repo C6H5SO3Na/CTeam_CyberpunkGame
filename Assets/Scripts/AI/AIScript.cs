@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIScript : MonoBehaviour
+public class AIScript : MonoBehaviour, IDamageable
 {
     [Header("References")]
     public NavMeshAgent agent;
@@ -31,7 +31,7 @@ public class AIScript : MonoBehaviour
     public float fadeDuration = 1.7f;
 
     [Header("Health")]
-    public int health = 3;
+    public int health = 30;
 
     [Header("Ranges")]
     public float sightRange, attackRange, meleeRange, projectileSpeed;

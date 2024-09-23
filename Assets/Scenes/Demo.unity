@@ -4184,6 +4184,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294471810}
   m_Mesh: {fileID: 4300000, guid: dee2cc7c00fcd6b4f90719f3660798f8, type: 3}
+--- !u!1 &323817870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7958049612200112844, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
+  m_PrefabInstance: {fileID: 700736707}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &323817874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323817870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba83e48a1b2a064b92413d709ce1ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordActiveTime: 0
+  swordActiveTimer: 0
+  SwordPower: 0
 --- !u!1 &324726228
 GameObject:
   m_ObjectHideFlags: 0
@@ -8930,7 +8950,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7958049612200112844, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 323817874}
   m_SourcePrefab: {fileID: 100100000, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
 --- !u!1 &705507993
 GameObject:

@@ -118,7 +118,11 @@ public class ShootingRocket : MonoBehaviour
 
             if (playerManager == null)
             {
-                Debug.LogError("Player component not found on GameObject with 'Player' tag.");
+                Debug.LogWarning("Player component not found on GameObject with 'Player' tag.");
+            }
+            else
+            {
+                
             }
         }
         else
