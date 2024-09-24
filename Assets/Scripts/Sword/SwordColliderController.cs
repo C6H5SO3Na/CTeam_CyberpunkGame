@@ -38,15 +38,15 @@ public class SwordColliderController : MonoBehaviour
 
     void OnTriggerEnter(Collider _trigger)
     {
-        Debug.Log("OnTriggerEnter");
+        //Debug.Log("OnTriggerEnter");
         ISwordTarget target = _trigger.gameObject.GetComponent<ISwordTarget>();
         if (target != null)
         {
-            Debug.Log("Detected Target");
+           // Debug.Log("Detected Target");
             if (eventSource != null)
             {
                 OnSwordCollisionEvent?.Invoke(eventSource, target);
-                Debug.Log("Collision Event Triggered");
+                //Debug.Log("Collision Event Triggered");
             }
             else Debug.LogWarning("SwordCollider hit a SwordTarget, but there was no source - Collision will be ignored");
         }

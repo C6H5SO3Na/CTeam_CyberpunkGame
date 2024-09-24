@@ -9,6 +9,8 @@ public class PlayerCollision : MonoBehaviour
     private Collider Colli;
     Animator animator;
 
+    public SoundGenerator soundGenerator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +57,7 @@ public class PlayerCollision : MonoBehaviour
         if(!playerController.isDamaged)
 
         {
+            soundGenerator.GenerateSoundByID("903");
             animator.SetTrigger(DamageTrigger);
             //PlayerManager.PlayerDamage(10);
             //Debug.Log("Player's body collided with Enemy, 10 damage dealt to player.");
@@ -66,5 +69,9 @@ public class PlayerCollision : MonoBehaviour
     {
         yield return new WaitForSeconds(AnimTime);
         playerController.isDamaged = false;
+        if (!playerController.isDamaged)
+        {
+            soundGenerator.DeleteSoundByID("903");
+        }     
     }
 }

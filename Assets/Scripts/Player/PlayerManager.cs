@@ -13,6 +13,8 @@ public class PlayerManager : MonoBehaviour
     public static int nowHP { get; private set; }
     public static int nowSP { get; private set; }
 
+    public SoundGenerator soundGenerator;
+
     void Awake()
     {
         //if (instance == null)
@@ -61,5 +63,14 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log("GameOver");
         //€–Sˆ—
+        //soundGenerator.GenerateSoundByID("902");
+        //StartCoroutine(SEEnding(1f));      
     }
+
+    //private IEnumerator SEEnding(float Time)
+    //{
+    //    yield return new WaitForSeconds(Time);
+    //    soundGenerator.DeleteSoundByID("902");
+
+    //}
 }

@@ -62,6 +62,35 @@
       "soundPath": "SE/StageClear",
       "loop": false,
       "playAtObjectPosition": false
+    },
+    {
+      "soundID": "901",
+      "soundType": "SE",
+      "soundPath": "SE/Player/Player_attack",
+      "loop": false,
+      "playAtObjectPosition": true
+    },
+    {
+      "soundID": "902",
+      "soundType": "SE",
+      "soundPath": "SE/Player/Player_die",
+      "loop": false,
+      "playAtObjectPosition": false
+    },
+    {
+      "soundID": "903",
+      "soundType": "SE",
+      "soundPath": "SE/Player/Player_hurt",
+      "loop": false,
+      "playAtObjectPosition": false
+    },
+    {
+      "soundID": "904",
+      "soundType": "SE",
+      "soundPath": "SE/Player/Player_attack2",
+      "loop": false,
+      "playAtObjectPosition": false
     }
+
   ]
 }

@@ -52,7 +52,7 @@ public class SwordAnimation : MonoBehaviour
 
         // Set the rotation of the particle effect to match the Tracking object's rotation
         //SwordEffectPrefab.transform.rotation = Tracking.transform.rotation;
-        Debug.Log(SwordComponent.AttackType+"atttyp");
+        //Debug.Log(SwordComponent.AttackType+"atttyp");
 
         if (SwordComponent.AttackType == 1)
         {
