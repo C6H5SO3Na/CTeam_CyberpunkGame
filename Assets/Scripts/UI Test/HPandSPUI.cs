@@ -21,11 +21,12 @@ public class HPandSPUI : MonoBehaviour
     void Update()
     {
         //テスト
-        if (Input.GetKey(KeyCode.Space))
-        {
-            changeHPSP(HPpercent, SPpercent);
-            Debug.Log(HPpercent);
-        }
+        //if (Input.GetKey(KeyCode.Space))
+        //{
+        //    changeHPSP(HPpercent, SPpercent);
+        //    Debug.Log(HPpercent);
+        //}
+        changeHPSP(HPpercent, SPpercent);
     }
 
     public void changeHPSP(float HPpercent, float SPpercent)
