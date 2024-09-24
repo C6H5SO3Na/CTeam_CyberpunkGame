@@ -12,9 +12,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI text;
     SoundGenerator sound;
     public static int stage = 1;
-    public const int maxStage = 3;
+    public const int maxStage = 1;
     public bool isClear = false;
     public bool isDead = false;
+    public static　bool isBoss = false;
     float timeSecCnt = 0.0f;//秒単位
     public enum Phase
     {
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
                 if (!fade.IsFade())
                 {
                     phase = Phase.NextStage;
+                    sound.DeleteSoundByID("302");
                 }
                 break;
             case Phase.NextStage:
@@ -76,9 +78,15 @@ public class GameManager : MonoBehaviour
     void NextStage()
     {
         ++stage;
-        if (stage > maxStage)
+        if (isBoss)
         {
-            SceneManager.LoadScene("BossStage");
+            SceneManager.LoadScene("Ending");//エンディングへ
+            isBoss = false;
+        }
+        else if (stage > maxStage)
+        {
+            SceneManager.LoadScene("Boss");
+            isBoss = true;
         }
         else
         {

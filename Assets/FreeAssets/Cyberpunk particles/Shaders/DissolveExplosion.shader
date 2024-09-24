@@ -16,7 +16,7 @@ Shader "DissolveExplosion"
 
 	SubShader
 	{
-		Tags{  "RenderPipeline" = "UniversalPipeline" "RenderType" = "Transparent"  "Queue" = "Transparent+0" "IgnoreProjector" = "True" "IsEmissive" = "true"  }
+		Tags{ "RenderType" = "Transparent"  "Queue" = "Transparent+0" "IgnoreProjector" = "True" "IsEmissive" = "true"  }
 		Cull Off
 		CGINCLUDE
 		#include "UnityShaderVariables.cginc"
@@ -140,7 +140,8 @@ Shader "DissolveExplosion"
 			ENDCG
 		}
 	}
-	Fallback "Universal Render Pipeline/Lit"
+	Fallback "Diffuse"
+	CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN
 Version=15401
