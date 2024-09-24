@@ -6,7 +6,7 @@ public class SwordAnimation : MonoBehaviour
 {
     public GameObject SwordEffectPrefab;
     public GameObject Tracking;
-    private SwordComponent SwordComponent;
+    public SwordComponent SwordComponent;
 
     private ParticleSystem swordEffectParticleSystem;
     private float DestroyTime;
@@ -27,43 +27,9 @@ public class SwordAnimation : MonoBehaviour
         
     }
 
-    //public void AttackAnimOn()
-    //{
-    //    GameObject tmp = GameObject.Instantiate(SwordEffectPrefab, this.transform.position, Quaternion.identity);
-    //    Destroy(tmp.gameObject, 2.0f);
-    //}
-
-    //public void PlaySwordEffect()
-    //{
-    //    if (swordEffectParticleSystem != null && !swordEffectParticleSystem.isPlaying)
-    //    {
-    //       SwordEffectPrefab.transform.rotation = Tracking.transform.rotation;
-
-    //        // Set the position and rotation of the particle effect
-    //        //if (SwordComponent.AttackType == 1)
-    //        //{
-    //        //    SwordEffectPrefab.transform.rotation = Tracking.transform.rotation;
-    //        //}               
-    //        //else if (SwordComponent.AttackType == 2)
-    //        //{
-    //        //    Vector3 currentEulerAngles = Tracking.transform.rotation.eulerAngles;
-    //        //    currentEulerAngles.x += 90;
-    //        //    Tracking.transform.rotation = Quaternion.Euler(currentEulerAngles);
-    //        //    SwordEffectPrefab.transform.rotation = Tracking.transform.rotation;
-
-    //        //}
-
-
-    //        // Play the particle effect
-    //        swordEffectParticleSystem.Play();
-    //        var emission = swordEffectParticleSystem.emission;
-    //        emission.enabled = true;
-    //    }
-    //}
-
     public void PlaySwordEffect()
     {
-        if (swordEffectParticleSystem != null && !swordEffectParticleSystem.isPlaying)
+        if (swordEffectParticleSystem != null)
         {
             // Start the coroutine to play the sword effect after 1 second delay
             StartCoroutine(PlaySwordEffectWithDelay(0.5f));  // 1 second delay
@@ -77,12 +43,26 @@ public class SwordAnimation : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // Set the rotation of the particle effect to match the Tracking object's rotation
-        SwordEffectPrefab.transform.rotation = Tracking.transform.rotation;
+        //SwordEffectPrefab.transform.rotation = Tracking.transform.rotation;
+        Debug.Log(SwordComponent.AttackType+"atttyp");
 
-        // Play the particle effect
-        swordEffectParticleSystem.Play();
-        var emission = swordEffectParticleSystem.emission;
-        emission.enabled = true;
+        if (SwordComponent.AttackType == 1)
+        {
+            SwordEffectPrefab.transform.localPosition = new(-0.589999974f, 0.100000001f + 0.3f, 0);
+            SwordEffectPrefab.transform.localRotation = Quaternion.Euler(0, 0, 234.111542f);
+            swordEffectParticleSystem.Play();
+        }
+        else if (SwordComponent.AttackType == 2)
+        {
+            SwordEffectPrefab.transform.localPosition = new(-0.589999974f, 0, 0);
+            SwordEffectPrefab.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            swordEffectParticleSystem.Play();
+        }
+        //SwordEffectPrefab.transform.position = new(-0.589999974f, 0.100000001f + 1.0f, 0);
+        //SwordEffectPrefab.transform.rotation = Quaternion.Euler(0, 0, 234.111542f);
+
+        //var emission = swordEffectParticleSystem.emission;
+        //emission.enabled = true;
     }
     public void StopSwordEffect()
     {

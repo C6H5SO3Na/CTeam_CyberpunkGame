@@ -54,7 +54,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
     // Update is called once per frame
     void Update()
     {
-        if (!isAttacking && !isDamaged)
+        if (!isAttacking /*&& !isDamaged*/)
         {
             PlayerInput();
             PlayerMovement();
@@ -134,7 +134,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         RigidBd.MovePosition(RigidBd.position + globalDirection * Time.deltaTime);
 
         //カメラ位置を現在のキャラクター位置基準に設定する
-        Camera.main.transform.position = transform.position + Quaternion.Euler(0, charaDir, 0) * defaultCameraOffset;
+        //Camera.main.transform.position = transform.position + Quaternion.Euler(0, charaDir, 0) * defaultCameraOffset;
 
         //走っているかどうかのアニメーション設定
         animator.SetBool("Run", isRun);
@@ -198,8 +198,8 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         RaycastHit hit;
         if (Physics.Raycast(raycastOj.transform.position, Vector3.forward, out hit, Mathf.Infinity, stairLayer))
         {
-            Debug.Log("hitstair");
             float angle = Vector3.Angle(hit.normal, Vector3.up);
+            Debug.Log($"hitstair: {angle}, {angle > 0 && angle <= slopeLimit}");
             return angle > 0 && angle <= slopeLimit;
         }
         else
