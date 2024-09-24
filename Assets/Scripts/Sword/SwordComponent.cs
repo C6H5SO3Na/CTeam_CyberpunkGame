@@ -38,7 +38,7 @@ public class SwordComponent : MonoBehaviour
 
         if (swordCollider!=null)
         {
-            Debug.Log("Start");
+            //Debug.Log("Start");
             swordCollider.OnSwordCollisionEvent += OnSwordCollision;
         }
 
@@ -94,7 +94,7 @@ public class SwordComponent : MonoBehaviour
 
     public void OnSwordCollision(IEventSource _source, ISwordTarget _target)
     {
-        Debug.Log("OnSwordCollision called");
+       // Debug.Log("OnSwordCollision called");
 
         swordActiveTime = 2f;
         if (swordActiveTimer > 0)
@@ -104,7 +104,7 @@ public class SwordComponent : MonoBehaviour
             {
                 _target.OnTargetHit(hitInfo, AttackType);
                 targetList.Add(hitInfo);
-                Debug.Log("Target hit processed");
+                //Debug.Log("Target hit processed");
 
                 IDamageable damageable = _target as IDamageable;
                 if (damageable != null)
@@ -131,7 +131,7 @@ public class SwordComponent : MonoBehaviour
         if (swordCollider != null)
         {
             swordCollider.OnSwordCollisionEvent -= OnSwordCollision;
-            Debug.Log("Destroy");
+            //Debug.Log("Destroy");
         }
     }
 

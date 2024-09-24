@@ -42,7 +42,7 @@ public class PlayerCollision : MonoBehaviour
 
         if (/*other.gameObject.CompareTag("Enemy") ||*/ other.gameObject.CompareTag("EnemyAttack"))
         {
-            Debug.Log($"other: {other.gameObject.tag}");
+            //Debug.Log($"other: {other.gameObject.tag}");
             TriggerDamage("Damage", 1.033f + 0.5f);
                 
         }
