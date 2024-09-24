@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI text;
     SoundGenerator sound;
     public static int stage = 1;
-    public const int maxStage = 1;
+    public const int maxStage = 3;
     public bool isClear = false;
     public bool isDead = false;
     public staticÅ@bool isBoss = false;
