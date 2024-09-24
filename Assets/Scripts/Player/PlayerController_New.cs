@@ -7,7 +7,9 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
 {
     Animator animator;
     public LayerMask floorLayer;
+    public LayerMask stairLayer;
     public Vector3 moveDirection = Vector3.zero;
+    public GameObject raycastOj;
 
     public float gravity = 8f;
     public float rotateForce = 200f;   //回転量
@@ -132,7 +134,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         RigidBd.MovePosition(RigidBd.position + globalDirection * Time.deltaTime);
 
         //カメラ位置を現在のキャラクター位置基準に設定する
-        //Camera.main.transform.position = transform.position + Quaternion.Euler(0, charaDir, 0) * defaultCameraOffset;
+        Camera.main.transform.position = transform.position + Quaternion.Euler(0, charaDir, 0) * defaultCameraOffset;
 
         //走っているかどうかのアニメーション設定
         animator.SetBool("Run", isRun);
@@ -181,7 +183,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
     {
         //地面チェック
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f, floorLayer))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 3.0f, floorLayer))
         {
             isFloor = true;
         }
@@ -194,11 +196,17 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
     private bool OnSlope()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.5f))
+        if (Physics.Raycast(raycastOj.transform.position, Vector3.forward, out hit, Mathf.Infinity, stairLayer))
         {
+            Debug.Log("hitstair");
             float angle = Vector3.Angle(hit.normal, Vector3.up);
             return angle > 0 && angle <= slopeLimit;
         }
+        else
+        {
+            Debug.DrawRay(raycastOj.transform.position, transform.TransformDirection(Vector3.forward) * 10000, Color.white);
+        }
+
         return false;
     }
 
