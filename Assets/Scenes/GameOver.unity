@@ -442,6 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectImage: {fileID: 82681541}
   fade: {fileID: 807114367}
+  sound: {fileID: 1869295461}
 --- !u!224 &807114364 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4441933556998402666, guid: 7c415d723a1e2ae45ba9765ed1e4b04a, type: 3}
