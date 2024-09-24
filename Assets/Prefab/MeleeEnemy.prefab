@@ -115,7 +115,7 @@ MonoBehaviour:
   knockbackForce: 0
   lastHitPosition: {x: 0, y: 0, z: 0}
   fadeDuration: 2
-  health: 3
+  health: 40
   sightRange: 20
   attackRange: 10
   meleeRange: 1

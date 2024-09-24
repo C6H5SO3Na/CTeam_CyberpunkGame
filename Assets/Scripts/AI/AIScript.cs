@@ -132,11 +132,7 @@ public class AIScript : MonoBehaviour, IDamageable
         canRangeattack = true;
     }
 
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health <= 0) ChangeState(new DeathState());
-    }
+
 
     public void DestroyEnemy()
     {
@@ -193,23 +189,68 @@ public class AIScript : MonoBehaviour, IDamageable
         }
         Destroy(gameObject);
     }
+
+    public void TakeDamage(int damage)
+    {
+
+        health -= damage;
+
+
+        if (health <= 0)
+        {
+            ChangeState(new DeathState());
+        }
+    }
+
     public void GetHurt(Vector3 hitPosition)
     {
         if (!meDead && !isHurt)
         {
             lastHitPosition = hitPosition;
-            health--;
             ChangeState(new HurtState());
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check if the object that hit the AI is tagged as "Sword"
+        if (other.CompareTag("Sword"))
+        {
+            // Try to get the SwordComponent from the other object or its parent
+            SwordComponent sword = other.GetComponentInParent<SwordComponent>();
+
+            // If we found the sword component, apply the damage
+            if (sword != null)
+            {
+                Vector3 hitPosition = other.transform.position;  // Get the hit position
+                GetHurt(hitPosition);  // Trigger the hurt animation or state
+
+                // Use SwordPower from the SwordComponent to deal damage
+                TakeDamage(sword.SwordPower);
+                Debug.Log($"Received {sword.SwordPower} damage from sword.");
+            }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "PlayerWeapon")
+        // Check if the object that collided with the AI is tagged as "Sword"
+        if (collision.gameObject.CompareTag("Sword"))
         {
-            Vector3 hitPosition = collision.contacts[0].point;
-            Debug.Log("Collision detected with PlayerWeapon at position: " + hitPosition);
-            GetHurt(hitPosition);
+            // Try to get the SwordComponent from the object that collided or its parent
+            SwordComponent sword = collision.gameObject.GetComponentInParent<SwordComponent>();
+
+            // If we found the sword component, apply the damage
+            if (sword != null)
+            {
+                Vector3 hitPosition = collision.contacts[0].point;  // Get the hit point on collision
+                Debug.Log("Collision detected with PlayerWeapon at position: " + hitPosition);
+                GetHurt(hitPosition);  // Trigger the hurt state
+
+                // Use SwordPower from the SwordComponent to deal damage
+                TakeDamage(sword.SwordPower);
+                Debug.Log($"Received {sword.SwordPower} damage from sword.");
+            }
         }
     }
 

@@ -5,23 +5,35 @@ using UnityEngine;
 public class bossHitBox : MonoBehaviour
 {
     public GameObject boss;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
+    // Handle sword collision and apply damage to the boss
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("PlayerWeapon"))
+        // Check if the object that collided with the boss is tagged as "PlayerWeapon"
+        if (collision.gameObject.CompareTag("Sword"))
         {
-            boss.GetComponent<BossController>().HP -= 1;
+            // Try to get the SwordComponent from the weapon (or its parent object)
+            SwordComponent sword = collision.gameObject.GetComponentInParent<SwordComponent>();
+
+            // If the SwordComponent is found, reduce the boss's HP based on SwordPower
+            if (sword != null)
+            {
+                // Apply damage to the boss's HP
+                boss.GetComponent<BossController>().HP -= sword.SwordPower;
+
+            }
         }
     }
 }

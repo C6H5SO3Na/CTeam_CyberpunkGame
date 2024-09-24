@@ -67,8 +67,6 @@ public class MeleeAttackState : IAIState
             // Reset cooldown after attack
             currentAttackCooldown = attackCooldown;
 
-            // Perform attack logic (e.g., damage the player)
-            Debug.Log("Melee attack performed!");
         }
         else
         {
