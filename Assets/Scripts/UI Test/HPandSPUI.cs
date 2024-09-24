@@ -24,6 +24,7 @@ public class HPandSPUI : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             changeHPSP(HPpercent, SPpercent);
+            Debug.Log(HPpercent);
         }
     }
 
