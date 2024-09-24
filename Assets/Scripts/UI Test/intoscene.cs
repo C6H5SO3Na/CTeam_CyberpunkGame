@@ -11,7 +11,7 @@ public class intoscene : MonoBehaviour
     void Start()
     {
         uiManager.GenerateUIByID("102");
-
+        PlayerPrefs.SetInt("nowHP", 85);
     }
 
     // Update is called once per frame
