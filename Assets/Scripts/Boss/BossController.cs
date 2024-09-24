@@ -83,12 +83,7 @@ public class BossController : MonoBehaviour, IDamageable
 
         if (HP <= 0 && !gameClear)
         {
-            // Play the death sound
-            if (deathSound != null)
-            {
-                audioSource.PlayOneShot(deathSound);
-            }
-
+            StartCoroutine(PlayDeathSoundRepeatedly());
             StartCoroutine(FadeOutAndDestroy());
 
             Vector3 spawnpos = new Vector3(bossHitBox.transform.position.x, bossHitBox.transform.position.y + 5.0f, bossHitBox.transform.position.z - 10.0f);
@@ -212,6 +207,21 @@ public class BossController : MonoBehaviour, IDamageable
         if (laserSound != null)
         {
             audioSource.PlayOneShot(laserSound);
+        }
+    }
+
+    IEnumerator PlayDeathSoundRepeatedly()
+    {
+        int times = 3; // Number of times to play the sound
+        float delay = deathSound.length; // Delay between sound plays
+
+        for (int i = 0; i < times; i++)
+        {
+            if (deathSound != null)
+            {
+                audioSource.PlayOneShot(deathSound);
+            }
+            yield return new WaitForSeconds(delay); // Wait before playing the next sound
         }
     }
 }

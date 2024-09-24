@@ -132,9 +132,10 @@ MonoBehaviour:
   isHurt: 0
   canMeleeAttack: 1
   canRangedAttack: 0
-  deathSound: {fileID: 8300000, guid: 176a3a5b8cc4ef44cb0b5ea9bddcaf28, type: 3}
+  deathSound: {fileID: 8300000, guid: c7e572b255e311b479005985ed7f4ba2, type: 3}
   laserSound: {fileID: 8300000, guid: 69b05e9a47c59a645b4687c6fe3204af, type: 3}
   meleeSound: {fileID: 8300000, guid: 6aec814fa3b1a564abe0b45409354370, type: 3}
+  audioSource: {fileID: 0}
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
