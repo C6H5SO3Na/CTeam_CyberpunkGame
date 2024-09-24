@@ -3287,7 +3287,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388944758}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3f16ad39333df64b82b3c3e13a0f803, type: 3}
   m_Name: 
@@ -3489,13 +3489,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1379336010906102342, guid: e7806184a87bc374d9bbe2bdb44b377c, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1873274899369842306, guid: e7806184a87bc374d9bbe2bdb44b377c, type: 3}
       propertyPath: m_Name
       value: Slash_fx_06
       objectReference: {fileID: 0}
     - target: {fileID: 1873274899369842306, guid: e7806184a87bc374d9bbe2bdb44b377c, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4691514375410153209, guid: e7806184a87bc374d9bbe2bdb44b377c, type: 3}
+      propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4691514375410153214, guid: e7806184a87bc374d9bbe2bdb44b377c, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4691514376421970322, guid: e7806184a87bc374d9bbe2bdb44b377c, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4691978486912563837, guid: e7806184a87bc374d9bbe2bdb44b377c, type: 3}
       propertyPath: m_RootOrder
@@ -3748,6 +3764,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 62210982291400653, guid: 3cbf9dd7b39230e439610a2cb37bb7f3, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 62210983307477153, guid: 3cbf9dd7b39230e439610a2cb37bb7f3, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2596937598595723737, guid: 3cbf9dd7b39230e439610a2cb37bb7f3, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6357299679376885681, guid: 3cbf9dd7b39230e439610a2cb37bb7f3, type: 3}
       propertyPath: m_Name
       value: Slash_fx_02
@@ -3755,6 +3783,14 @@ PrefabInstance:
     - target: {fileID: 6357299679376885681, guid: 3cbf9dd7b39230e439610a2cb37bb7f3, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9079345701722160595, guid: 3cbf9dd7b39230e439610a2cb37bb7f3, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9082225214100164094, guid: 3cbf9dd7b39230e439610a2cb37bb7f3, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
