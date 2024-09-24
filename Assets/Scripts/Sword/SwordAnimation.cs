@@ -31,8 +31,16 @@ public class SwordAnimation : MonoBehaviour
     {
         if (swordEffectParticleSystem != null)
         {
+            if (SwordComponent.AttackType == 1)
+            {
+                StartCoroutine(PlaySwordEffectWithDelay(0.5f));
+            }
+            else if (SwordComponent.AttackType == 2)
+            {
+                StartCoroutine(PlaySwordEffectWithDelay(1f));
+            }
             // Start the coroutine to play the sword effect after 1 second delay
-            StartCoroutine(PlaySwordEffectWithDelay(0.5f));  // 1 second delay
+            /*StartCoroutine(PlaySwordEffectWithDelay(0.5f)); */ // 1 second delay
         }
     }
 
