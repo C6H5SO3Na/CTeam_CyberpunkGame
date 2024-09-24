@@ -26,30 +26,6 @@ public class bossLaser : MonoBehaviour
     public int laserDamage = 10; // レーザーが与えるダメージ量
     private List<float> lastDamageTimes = new List<float>(); // 各レーザーが最後にダメージを適用した時間を追跡するリスト
 
-    private PlayerManager playerManager; //プレイヤーのHP情報
-
-    void Start()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player"); // プレイヤーオブジェクトを探す
-        if (player != null)
-        {
-            if (PlayerManager.Instance == null) // シングルトンインスタンスが利用可能か確認
-            {
-                Debug.LogWarning("PlayerManager instance not found.");
-                // You can continue executing further logic here if needed
-            }
-            else
-            {
-                // Proceed with logic that requires PlayerManager.Instance
-            }
-        }
-        else
-        {
-            Debug.LogError("GameObject with 'Player' tag not found.");
-        }
-
-    }
-
     void OnEnable()
     {
         // スクリプトが有効化された際にリストを再初期化

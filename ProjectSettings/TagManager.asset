@@ -11,7 +11,8 @@ TagManager:
   - Ground
   - Sun
   - DontDestroyOnLoad
-  - Stair
+  - Sound
+  - Sword
   layers:
   - Default
   - TransparentFX

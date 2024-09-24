@@ -5,16 +5,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public static PlayerManager _instance;
-    public static PlayerManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-                Debug.LogError("PlayerManager instance is not initialized yet.");
-            return _instance;
-        }
-    }
+    //public  PlayerManager instance;
 
     public static int maxHP = 100;
     public static int maxSP = 100;
@@ -24,29 +15,23 @@ public class PlayerManager : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("pmw");
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //    DontDestroyOnLoad(instance);
+        //}
         ResetPlayerStates();
     }
 
     public static void ResetPlayerStates()
     {
         nowHP = maxHP;
-        PlayerPrefs.SetInt("nowHP", nowHP);
         nowSP = 0;
-        PlayerPrefs.SetInt("nowSP", 0);
     }
     public static void PlayerDamage(int damage)
     {
         nowHP -= damage;
+        Debug.Log("nowHP");
         PlayerPrefs.SetInt("nowHP", nowHP);
         if (nowHP <= 0)
         {
@@ -59,6 +44,7 @@ public class PlayerManager : MonoBehaviour
     {
         nowSP += SP;
         PlayerPrefs.SetInt("nowSP", nowSP);
+        Debug.Log("nowSP");
         if (nowSP > maxSP)
         {
             nowSP = maxSP;
@@ -71,7 +57,7 @@ public class PlayerManager : MonoBehaviour
         nowSP = 0;
     }
 
-    private static void GameOver()
+    public static void GameOver()
     {
         Debug.Log("GameOver");
         //éÄñSèàóù

@@ -107,30 +107,6 @@ public class ShootingRocket : MonoBehaviour
     private bool isDestroyed = false;
     public GameObject explosionPrefab; // 爆発のプレハブ
 
-    private PlayerManager playerManager; //プレイヤーのHP情報
-
-    void Start()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player"); //プレイヤーを探す
-        if (player != null)
-        {
-            playerManager = player.GetComponent<PlayerManager>();
-
-            if (playerManager == null)
-            {
-                Debug.LogWarning("Player component not found on GameObject with 'Player' tag.");
-            }
-            else
-            {
-                
-            }
-        }
-        else
-        {
-            Debug.LogError("GameObject with 'Player' tag not found.");
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (!isDestroyed && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Ground")))
