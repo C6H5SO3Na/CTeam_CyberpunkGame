@@ -10,6 +10,7 @@ public class GameOverManager : MonoBehaviour
 {
     [SerializeField] Image selectImage;
     [SerializeField] Fade fade;
+    [SerializeField] SoundGenerator sound;
     float timeSecCnt = 0.0f;//秒単位
     int select = 0;
 
@@ -51,11 +52,14 @@ public class GameOverManager : MonoBehaviour
             case Phase.BeforePressButton:
                 if (Input.GetButtonDown("Vertical"))
                 {
+                    sound.DeleteSoundByID("303");
+                    sound.GenerateSoundByID("303");
                     select = select == 0 ? 1 : 0;//三項演算子
                     selectImage.gameObject.transform.DOMoveY(328.0f + select * -120.0f, 0.5f).SetEase(Ease.InOutSine);
                 }
                 if (Input.GetButtonDown("Normal_Attack"))
                 {
+                    sound.GenerateSoundByID("301");
                     //ボタンが押されると点滅が速くなる
                     selectImage.GetComponent<PressAnyButtonController>().changeAmount = 8.0f;
                     phase = Phase.AfterPressButton;

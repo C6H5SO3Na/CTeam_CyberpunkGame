@@ -50,6 +50,12 @@
       "loop": true
     },
     {
+      "soundID": "105",
+      "soundType": "BGM",
+      "soundPath": "BGM/GameOver",
+      "loop": true
+    },
+    {
       "soundID": "301",
       "soundType": "SE",
       "soundPath": "SE/PressButton",
@@ -60,6 +66,13 @@
       "soundID": "302",
       "soundType": "SE",
       "soundPath": "SE/StageClear",
+      "loop": false,
+      "playAtObjectPosition": false
+    },
+    {
+      "soundID": "303",
+      "soundType": "SE",
+      "soundPath": "SE/Select",
       "loop": false,
       "playAtObjectPosition": false
     }
