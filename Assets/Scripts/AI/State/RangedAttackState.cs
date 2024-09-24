@@ -10,7 +10,7 @@ public class RangedAttackState : IAIState
 
     // レーザー関連の変数
     private float laserDuration = 2f; // レーザーの継続時間
-    private float laserDamageRate = 0.1f; // レーザーのダメージを与える頻度
+    private float laserDamageRate = 0.5f; // レーザーのダメージを与える頻度
     public RangedAttackState()
     {
         projectileCooldown = 4.0f; // 射撃クールダウン時間

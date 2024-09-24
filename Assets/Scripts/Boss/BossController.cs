@@ -18,7 +18,7 @@ public class BossController : MonoBehaviour, IDamageable
 
     public GameObject bossHitBox;
     public GameObject Explosion;
-    public Text HpText;
+
 
     private bool gameClear;
     private Animator animator;
@@ -79,7 +79,6 @@ public class BossController : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        HpText.text = "BossHP : " + HP;
 
         if (HP <= 0 && !gameClear)
         {
