@@ -196,7 +196,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 058a4fb8054568c4a96734ac8849c1a8, type: 2}
     - target: {fileID: -8679921383154817045, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 49586b2704c7b1f4e9c1f4100d71bab9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -498,6 +498,7 @@ MonoBehaviour:
   AttackType: 0
   swordActiveTimer: 0
   SwordPower: 0
+  SwordReferences: {fileID: 3644113679510573830}
 --- !u!136 &1535524936863653977
 CapsuleCollider:
   m_ObjectHideFlags: 0
