@@ -199,7 +199,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
         if (Physics.Raycast(raycastOj.transform.position, Vector3.forward, out hit, Mathf.Infinity, stairLayer))
         {
             float angle = Vector3.Angle(hit.normal, Vector3.up);
-            Debug.Log($"hitstair: {angle}, {angle > 0 && angle <= slopeLimit}");
+            //Debug.Log($"hitstair: {angle}, {angle > 0 && angle <= slopeLimit}");
             return angle > 0 && angle <= slopeLimit;
         }
         else
