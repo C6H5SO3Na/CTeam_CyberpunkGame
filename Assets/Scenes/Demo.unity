@@ -15721,11 +15721,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: 0919_Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2150506338363318242, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675215893802129157, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
+      propertyPath: SwordReferences
+      value: 
+      objectReference: {fileID: 1397975312}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
+--- !u!1 &1397975312 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3644113679510573830, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
+  m_PrefabInstance: {fileID: 1397975311}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1400119453
 GameObject:
   m_ObjectHideFlags: 0

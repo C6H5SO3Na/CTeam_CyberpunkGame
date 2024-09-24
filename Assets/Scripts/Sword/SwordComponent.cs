@@ -23,6 +23,8 @@ public class SwordComponent : MonoBehaviour
 
     private SwordAnimation SwordAnimation;
 
+    public GameObject SwordReferences;
+
     //public GameObject SwordEffectPrefab;
     //public GameObject Tracking;
 
@@ -58,7 +60,7 @@ public class SwordComponent : MonoBehaviour
         }
         else
         {
-           //SwordAnimation.StopSwordEffect();
+            //SwordAnimation.StopSwordEffect();
         }
 
         ////effect appear time
@@ -75,9 +77,13 @@ public class SwordComponent : MonoBehaviour
         //    swordTrail._emit = false;
         //}
     }
-
+    public void SetSwordColliderOff()
+    {
+        SwordReferences.GetComponent<CapsuleCollider>().enabled = false;
+    }
     public void SetSwordActive(int _AttactType)
     {
+        SwordReferences.GetComponent<CapsuleCollider>().enabled = true;
         swordActiveTimer = swordActiveTime;
         AttackType = _AttactType;
         if (AttackType == 1)
