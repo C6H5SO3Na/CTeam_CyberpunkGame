@@ -5,16 +5,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    private static PlayerManager _instance;
-    public static PlayerManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-                Debug.LogError("PlayerManager instance is not initialized yet.");
-            return _instance;
-        }
-    }
+    public static PlayerManager instance;
 
     public static int maxHP = 100;
     public static int maxSP = 100;
@@ -24,14 +15,10 @@ public class PlayerManager : MonoBehaviour
 
     void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (instance == null)
         {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+            DontDestroyOnLoad(instance);
         }
         ResetPlayerStates();
     }
