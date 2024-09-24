@@ -58,7 +58,7 @@ public class SwordComponent : MonoBehaviour
         }
         else
         {
-            SwordAnimation.StopSwordEffect();
+           //SwordAnimation.StopSwordEffect();
         }
 
         ////effect appear time

@@ -34,28 +34,32 @@ public class PlayerCollision : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-
-        //if (other.gameObject.CompareTag("Sword") || other.transform.IsChildOf(transform.Find("Sword")))
-        //{
-        //    // Ignore sword collider
-        //    return;
-        //}
+        if (other.gameObject.CompareTag("Sword") || other.transform.Find("mixamorig:RightHand"))
+        {
+            // Ignore sword collider
+            return;
+        }
 
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyAttack"))
-            {
-                TriggerDamage("Damage", 1.033f);
-                Debug.Log("Player's body collided with Enemy, 10 damage dealt to player.");
-            }
+        {
+            Debug.Log($"other: {other.gameObject.tag}");
+            TriggerDamage("Damage", 1.033f + 0.5f);
+                
+        }
 
            
     }
 
     private void TriggerDamage(string DamageTrigger, float AnimTime)
     {
-        playerController.isDamaged = true;
-        animator.SetTrigger(DamageTrigger);
-        PlayerManager.PlayerDamage(10);
-        StartCoroutine(EndDamage(AnimTime));
+        if(!playerController.isDamaged)
+        {
+            animator.SetTrigger(DamageTrigger);
+            PlayerManager.PlayerDamage(10);
+            Debug.Log("Player's body collided with Enemy, 10 damage dealt to player.");
+            playerController.isDamaged = true;
+            StartCoroutine(EndDamage(AnimTime));
+        }        
     }
     private IEnumerator EndDamage(float AnimTime)
     {

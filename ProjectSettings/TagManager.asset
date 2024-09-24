@@ -12,6 +12,7 @@ TagManager:
   - Sun
   - DontDestroyOnLoad
   - Sound
+  - Sword
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Rocket
   - Laser
   - Enemy
-  - 
+  - Stair
   - 
   - 
   - 
