@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4204,6 +4204,8 @@ MonoBehaviour:
   swordActiveTime: 0
   swordActiveTimer: 0
   SwordPower: 0
+  SwordEffectPrefab: {fileID: 0}
+  Tracking: {fileID: 0}
 --- !u!1 &324726228
 GameObject:
   m_ObjectHideFlags: 0
@@ -8902,6 +8904,10 @@ PrefabInstance:
     - target: {fileID: 6319705827008871734, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6473248558592234856, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9077770167423917319, guid: b176ff29ddb846b4f9f64073b5922c00, type: 3}
       propertyPath: m_RootOrder
