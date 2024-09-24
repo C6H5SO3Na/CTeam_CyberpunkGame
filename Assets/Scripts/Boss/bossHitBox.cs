@@ -36,4 +36,22 @@ public class bossHitBox : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check if the object that collided with the boss is tagged as "PlayerWeapon"
+        if (other.gameObject.CompareTag("Sword"))
+        {
+            // Try to get the SwordComponent from the weapon (or its parent object)
+            SwordComponent sword = other.gameObject.GetComponentInParent<SwordComponent>();
+
+            // If the SwordComponent is found, reduce the boss's HP based on SwordPower
+            if (sword != null)
+            {
+                // Apply damage to the boss's HP
+                boss.GetComponent<BossController>().HP -= sword.SwordPower;
+
+            }
+        }
+    }
 }
