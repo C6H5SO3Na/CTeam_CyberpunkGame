@@ -8,6 +8,7 @@ public class BGM : MonoBehaviour
     [SerializeField] string soundName;
     void Start()
     {
+        if (sound == null) { return; }
         sound.GenerateSoundByID(soundName);
     }
 }
