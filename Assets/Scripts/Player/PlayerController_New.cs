@@ -34,7 +34,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
     public bool isDamaged;
     private PlayerManager playerManager;
 
-    public SoundGenerator soundGenerator;
+    SoundGenerator soundGenerator;
     //private float AnimTime;
 
     // Start is called before the first frame update
@@ -51,6 +51,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
         isAttacking = false;
         isDamaged = false;
         playerManager = GetComponent<PlayerManager>();
+        soundGenerator = GameObject.Find("SoundManager").GetComponent<SoundGenerator>();
     }
 
     // Update is called once per frame
