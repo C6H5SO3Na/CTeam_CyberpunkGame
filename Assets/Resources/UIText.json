@@ -19,8 +19,12 @@
       "uiContent": "0",
            "position": {
                 "x": -545,
-                "y": 330
-            }
+                "y": 430
+              },
+              "scale": {
+                        "x": 0.8,
+                        "y": 0.8
+              }
     },
     {
       "uiType": "Image",
