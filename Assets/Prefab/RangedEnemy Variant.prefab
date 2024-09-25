@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9fb48047009f94f409f5340b3bdd081c, type: 2}
     - target: {fileID: -8679921383154817045, guid: 9d0cc40e2ba24274facc588e30159864, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9d0cc40e2ba24274facc588e30159864, type: 3}
       propertyPath: m_LocalScale.x
@@ -616,6 +616,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   beamsource: {fileID: 6445180479758110211, guid: db7d6358dfd7ae84cb65061d87847e2e, type: 3}
   explosionEffect: {fileID: 2043486959, guid: 3e5b95893daf607469d653ba913a9fac, type: 3}
+  playerobj: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 63
@@ -665,7 +666,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4197348406803617077}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.99
+  m_Radius: 3.01
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
