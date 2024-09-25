@@ -10,12 +10,12 @@ public class PlayerManager : MonoBehaviour
     public static int maxHP = 100;
     public static int maxSP = 100;
 
-    public static int nowHP { get; private set; }
-    public static int nowSP { get; private set; }
+    public static int nowHP { get; private set; } = 100;
+    public static int nowSP { get; private set; } = 0;
 
     public SoundGenerator soundGenerator;
 
-    void Awake()
+    void Start()
     {
         //if (instance == null)
         //{
@@ -28,13 +28,18 @@ public class PlayerManager : MonoBehaviour
     public static void ResetPlayerStates()
     {
         nowHP = maxHP;
+        PlayerPrefs.SetInt("nowHP", nowHP);
+        Debug.Log(nowHP + "nowHPis");
         nowSP = 0;
+        PlayerPrefs.SetInt("nowSP", nowSP);
     }
     public static void PlayerDamage(int damage)
     {
         nowHP -= damage;
-        Debug.Log("nowHP");
+        Debug.Log("HPUI Change");
         PlayerPrefs.SetInt("nowHP", nowHP);
+        //Debug.Log(nowHP + "nowHPis");
+        //Debug.Log(PlayerPrefs.GetInt("nowHP")+"nowHPis");
         if (nowHP <= 0)
         {
             nowHP = 0;
