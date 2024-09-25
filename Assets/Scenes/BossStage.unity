@@ -469,6 +469,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss2nd
       objectReference: {fileID: 0}
+    - target: {fileID: 2827561676097726211, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4011444916955731909, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
       propertyPath: m_CastShadows
       value: 0

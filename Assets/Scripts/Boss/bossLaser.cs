@@ -34,6 +34,7 @@ public class bossLaser : MonoBehaviour
     }
     void OnEnable()
     {
+        bossHitBox.GetComponent<MeshCollider>().enabled = true;
         // スクリプトが有効化された際にリストを再初期化
         initialPlayerXPositions.Clear();
         initialPlayerZPositions.Clear();
@@ -77,10 +78,13 @@ public class bossLaser : MonoBehaviour
 
     void OnDisable()
     {
+        GetComponentInParent<BossController>().DestroyHitableEffect();
+
         if (bossHitBox != null)
         {
             bossHitBox.GetComponent<MeshCollider>().enabled = false;
         }
+        
 
         if (attackCoroutine != null)
         {
