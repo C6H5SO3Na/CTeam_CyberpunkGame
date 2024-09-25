@@ -4,12 +4,12 @@ using UnityEngine;
 public class PatrolState : IAIState
 {
     private AIScript ai;
-    private int currentPatrolIndex = 0;
     private float idleTime = 2f;
     private float idleTimer = 0f;
     private bool isIdle = false;
     private float stuckTimer = 0f;
     private const float stuckThreshold = 2f;
+    private Bounds patrolBounds;
 
     public void Enter(AIScript ai)
     {
@@ -18,14 +18,15 @@ public class PatrolState : IAIState
         ai.isRunning = false;
         ai.isAttackingmelee = false;
 
-        if (ai.patrolPoints == null || ai.patrolPoints.Count == 0)
+        if (ai.patrolPoints == null || ai.patrolPoints.Count != 4)
         {
-            Debug.LogError("パトロールポイントはまだ設定しない。");
+            Debug.LogError("パトロールポイントが正しく設定されていません。4つのパトロールポイントが必要です。");
             return;
         }
 
         ai.agent.speed = Random.Range(1.5f, 3f);
-        MoveToNextPatrolPoint();
+        CalculatePatrolBounds();
+        MoveToNextPatrolPosition();
     }
 
     public void Execute(AIScript ai)
@@ -59,7 +60,7 @@ public class PatrolState : IAIState
             if (idleTimer >= idleTime)
             {
                 isIdle = false;
-                MoveToNextPatrolPoint();
+                MoveToNextPatrolPosition();
             }
         }
         else
@@ -78,7 +79,7 @@ public class PatrolState : IAIState
                     if (stuckTimer > stuckThreshold)
                     {
                         stuckTimer = 0f;
-                        MoveToNextPatrolPoint();
+                        MoveToNextPatrolPosition();
                     }
                 }
                 else
@@ -89,39 +90,56 @@ public class PatrolState : IAIState
         }
     }
 
-    private void MoveToNextPatrolPoint()
+    private void MoveToNextPatrolPosition()
     {
-        if (ai.patrolPoints.Count == 0)
+        if (ai.patrolPoints.Count != 4)
             return;
 
         bool pathFound = false;
         int attempts = 0;
-        int maxAttempts = ai.patrolPoints.Count;
+        int maxAttempts = 10; // Limit attempts to avoid infinite loop
 
         while (!pathFound && attempts < maxAttempts)
         {
-            GameObject nextPatrolPoint = ai.patrolPoints[currentPatrolIndex];
+            Vector3 randomPosition = GetRandomPositionWithinBounds();
 
             NavMeshPath path = new NavMeshPath();
-            if (ai.agent.CalculatePath(nextPatrolPoint.transform.position, path) && path.status == NavMeshPathStatus.PathComplete)
+            if (ai.agent.CalculatePath(randomPosition, path) && path.status == NavMeshPathStatus.PathComplete)
             {
-                ai.agent.SetDestination(nextPatrolPoint.transform.position);
+                ai.agent.SetDestination(randomPosition);
                 pathFound = true;
             }
-            else
-            {
-                currentPatrolIndex = (currentPatrolIndex + 1) % ai.patrolPoints.Count;
-                attempts++;
-            }
+            attempts++;
         }
 
         if (!pathFound)
         {
             Debug.LogWarning("行く場所がない");
         }
-        else
+    }
+
+    private void CalculatePatrolBounds()
+    {
+        Vector3 min = ai.patrolPoints[0].transform.position;
+        Vector3 max = ai.patrolPoints[0].transform.position;
+
+        for (int i = 1; i < ai.patrolPoints.Count; i++)
         {
-            currentPatrolIndex = (currentPatrolIndex + 1) % ai.patrolPoints.Count;
+            Vector3 point = ai.patrolPoints[i].transform.position;
+            min = Vector3.Min(min, point);
+            max = Vector3.Max(max, point);
         }
+
+        patrolBounds = new Bounds();
+        patrolBounds.SetMinMax(min, max);
+    }
+
+    private Vector3 GetRandomPositionWithinBounds()
+    {
+        float randomX = Random.Range(patrolBounds.min.x, patrolBounds.max.x);
+        float randomY = Random.Range(patrolBounds.min.y, patrolBounds.max.y);
+        float randomZ = Random.Range(patrolBounds.min.z, patrolBounds.max.z);
+
+        return new Vector3(randomX, randomY, randomZ);
     }
 }
