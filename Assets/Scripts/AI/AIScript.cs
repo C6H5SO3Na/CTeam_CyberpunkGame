@@ -15,6 +15,7 @@ public class AIScript : MonoBehaviour, IDamageable
     public LineRenderer laser;
     public GameObject beamsource;
     public GameObject explosionEffect;
+    public GameObject playerobj;
 
     [Header("Layers")]
     public LayerMask whatIsGround, whatIsPlayer;
@@ -70,6 +71,7 @@ public class AIScript : MonoBehaviour, IDamageable
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerobj = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         if (GetComponent<Animator>() != null)
         {
