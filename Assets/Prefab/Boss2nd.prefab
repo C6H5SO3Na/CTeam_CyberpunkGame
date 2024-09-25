@@ -193,7 +193,7 @@ MonoBehaviour:
   attackInterval: 5
   bossHitBox: {fileID: 7027301036561478697}
   Explosion: {fileID: 3023628428471086990, guid: 738500261c2be38478cb20a3962c6ab3, type: 3}
-  HpText: {fileID: 0}
+  hitableEffect: {fileID: 6445180479758110211, guid: b8f2dd506510d9d4caea1961749d030b, type: 3}
   gameManager: {fileID: 0}
   deathSound: {fileID: 8300000, guid: dd6ef4f3b03dea24090715f5df001e0e, type: 3}
   laserSound: {fileID: 8300000, guid: 4401902411e1f814e854d38d9a572e25, type: 3}
@@ -215,6 +215,7 @@ MonoBehaviour:
   - {fileID: 4011444916953830693}
   - {fileID: 4011444916953830695}
   player: {fileID: 0}
+  playerobj: {fileID: 0}
   rotationSpeed: 1
   sweepAngle: 45
   bossHitBox: {fileID: 7027301036561478697}

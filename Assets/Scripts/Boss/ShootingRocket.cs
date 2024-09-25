@@ -17,14 +17,18 @@ public class ShootingRocket : MonoBehaviour
     public GameObject bossHitBox;
     public List<GameObject> bossArm; // ボスの腕のリスト
 
+
     void OnEnable()
     {
+        bossHitBox.GetComponent<MeshCollider>().enabled = true;
+
+        GetComponent<BossController>().SpawnHitableEffect();
+
         attackCoroutine = StartCoroutine(HandleShootingRocket());
     }
 
     void OnDisable()
     {
-        bossHitBox.GetComponent<MeshCollider>().enabled = false;
         if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
@@ -48,6 +52,9 @@ public class ShootingRocket : MonoBehaviour
 
         // スポーンするまでの遅延
         yield return new WaitForSeconds(delayBeforeSpawn);
+
+        gameObject.GetComponentInParent<BossController>().DestroyHitableEffect();
+        bossHitBox.GetComponent<MeshCollider>().enabled = false;
 
         for (int i = 0; i < rocketCount; i++)
         {

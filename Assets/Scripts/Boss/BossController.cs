@@ -18,6 +18,8 @@ public class BossController : MonoBehaviour, IDamageable
 
     public GameObject bossHitBox;
     public GameObject Explosion;
+    public GameObject hitableEffect;
+    private GameObject activeHitableEffect;
 
 
     private bool gameClear;
@@ -156,19 +158,43 @@ public class BossController : MonoBehaviour, IDamageable
             switch (attackChoice)
             {
                 case 0:
+                    SpawnHitableEffect();
                     ExecuteShootingRocket();
                     break;
                 case 1:
+                    SpawnHitableEffect();
                     ExecuteBossLaser();
                     break;
                 default:
                     break;
             }
-
             lastAttack = attackChoice;
-            bossHitBox.GetComponent<MeshCollider>().enabled = true;
+            
 
             yield return new WaitForSeconds(attackInterval);
+        }
+    }
+    public void SpawnHitableEffect()
+    {
+        if (hitableEffect != null && activeHitableEffect == null)
+        {
+            // Instantiate the hitable effect at the bossHitBox position
+            activeHitableEffect = Instantiate(hitableEffect, bossHitBox.transform.position, bossHitBox.transform.rotation);
+
+            // Set the parent to bossHitBox
+            activeHitableEffect.transform.SetParent(bossHitBox.transform);
+
+            // Now adjust the local position relative to the parent (bossHitBox)
+            activeHitableEffect.transform.localPosition += new Vector3(0f, 0.17f, 1.23f);
+        }
+    }
+
+    public void DestroyHitableEffect()
+    {
+        if (activeHitableEffect != null)
+        {
+            Destroy(activeHitableEffect);
+            activeHitableEffect = null;
         }
     }
 
