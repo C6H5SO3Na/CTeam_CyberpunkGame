@@ -27,11 +27,11 @@ public class DontDestroy : MonoBehaviour
     void Update()
     {
         //ボスシーンに推移時にStage1で作成したオブジェクトを削除
-        if (!SceneManager.GetActiveScene().name.Contains("Stage") && gameObject.CompareTag("DontDestroyOnLoad"))
-        {
-            SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
-            Destroy(gameObject);
-            isCreated = false;
-        }
+        //if (!SceneManager.GetActiveScene().name.Contains("Stage") && gameObject.CompareTag("DontDestroyOnLoad"))
+        //{
+        //    SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
+        //    Destroy(gameObject);
+        //    isCreated = false;
+        //}
     }
 }

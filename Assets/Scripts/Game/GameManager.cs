@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Fade fade;
     [SerializeField] TextMeshProUGUI text;
     SoundGenerator sound;
-    public static int stage = 1;
+    public static int stage = 3;
+    //public int nowStage;
     public const int maxStage = 3;
     public bool isClear = false;
     public bool isDead = false;
@@ -82,6 +83,7 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("Ending");//エンディングへ
             isBoss = false;
+            stage = 1;
         }
         else if (stage > maxStage)
         {
@@ -90,6 +92,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            //nowStage = stage;
             SceneManager.LoadScene("Stage" + stage);
         }
     }
