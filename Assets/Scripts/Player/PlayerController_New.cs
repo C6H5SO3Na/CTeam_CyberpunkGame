@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇåpè≥Ç∑ÇÈ
 {
@@ -40,6 +41,17 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
     // Start is called before the first frame update
     void Start()
     {
+        var meshList = GetComponentsInChildren<MeshRenderer>().ToList();
+        var materials = new List<Material>();
+        foreach (var mesh in meshList)
+        {
+            materials.AddRange(mesh.materials);
+        }
+        foreach(var material in materials)
+        {
+            material.color = new Color(1, 1, 1, 0.5f);
+        }
+
         Colli = GetComponent<Collider>();
         RigidBd = GetComponent<Rigidbody>();
         RigidBd.freezeRotation = true; //ÉvÉåÉCÉÑÅ[ÇÃâÒì]ñhé~
@@ -86,9 +98,9 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
             //playerManager.PlayerSPAdd(1);
         }
         //ëÂãZ
-        //if(playerManager.nowSP == 100)
-        //{
-        if (Input.GetKeyDown(KeyCode.C) || Input.GetButtonDown("Special_Attack"))
+        if (PlayerManager.nowSP == 100)
+        {
+            if (Input.GetKeyDown(KeyCode.C) || Input.GetButtonDown("Special_Attack"))
             {
                 swordComponent.SetSwordActive(2);
                 isAttacking = true;
@@ -96,6 +108,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
                 TriggerAttack(2, "Attack2", 2.133f);
                 PlayerManager.PlayerSPReset();
             }
+        }
 
         //if (Input.GetKeyDown(KeyCode.F))
         //{

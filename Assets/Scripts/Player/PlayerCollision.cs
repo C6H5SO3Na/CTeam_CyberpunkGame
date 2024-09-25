@@ -44,8 +44,8 @@ public class PlayerCollision : MonoBehaviour
 
         if (/*other.gameObject.CompareTag("Enemy") ||*/ other.gameObject.CompareTag("EnemyAttack"))
         {
-            //Debug.Log($"other: {other.gameObject.tag}");
-            TriggerDamage("Damage", 1.033f + 0.5f);
+            Debug.Log($"other: {other.gameObject.tag}");
+            TriggerDamage("Damage", 1.033f + 0.3f);
                 
         }
 
@@ -60,16 +60,16 @@ public class PlayerCollision : MonoBehaviour
             soundGenerator.GenerateSoundByID("903");
             animator.SetTrigger(DamageTrigger);
             //PlayerManager.PlayerDamage(10);
-            //Debug.Log("Player's body collided with Enemy, 10 damage dealt to player.");
+            Debug.Log("Player get damage");
             playerController.isDamaged = true;
-            StartCoroutine(EndDamage(AnimTime));
+            StartCoroutine(EndDamage(AnimTime));           
         }        
     }
     private IEnumerator EndDamage(float AnimTime)
     {
         yield return new WaitForSeconds(AnimTime);
         playerController.isDamaged = false;
-        if (!playerController.isDamaged)
+        if (playerController.isDamaged)
         {
             soundGenerator.DeleteSoundByID("903");
         }     

@@ -35,7 +35,7 @@ public class SwordComponent : MonoBehaviour
     {
         swordCollider = GetComponentInChildren<SwordColliderController>();
         //swordTrail = GetComponentInChildren<MeleeSwordTrail>();
-        playerManager = GetComponentInParent<PlayerManager>();
+        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         SwordAnimation = GetComponentInParent<SwordAnimation>();
 
         if (swordCollider!=null)
@@ -84,45 +84,49 @@ public class SwordComponent : MonoBehaviour
     public void SetSwordActive(int _AttactType)
     {
         SwordReferences.GetComponent<CapsuleCollider>().enabled = true;
-        swordActiveTimer = swordActiveTime;
+        
         AttackType = _AttactType;
         if (AttackType == 1)
         {
             SwordPower = 10;
+            swordActiveTime = 1.5f;
         }
         if (AttackType == 2)
         {
             SwordPower = 20;
+            swordActiveTime = 2;
         }
+        swordActiveTimer = swordActiveTime;
         //SwordAnimation.AttackAnimOn();
         SwordAnimation.PlaySwordEffect();
     }
 
     public void OnSwordCollision(IEventSource _source, ISwordTarget _target)
     {
+        Debug.Log("sword hit somethisg");
         if (swordActiveTimer > 0)
         {
             TargetHitInfo hitInfo = new TargetHitInfo(_source);
-            if (!targetList.Contains(hitInfo))
+            _target.OnTargetHit(hitInfo, AttackType);  // Trigger target's hit logic
+            targetList.Add(hitInfo);
+            Debug.Log("sword hit somethisg and timer>0");
+
+            // Check if the target implements IDamageable
+            IDamageable damageable = _target as IDamageable;
+            if (damageable != null)
             {
-                _target.OnTargetHit(hitInfo, AttackType);  // Trigger target's hit logic
-                targetList.Add(hitInfo);
-
-                // Check if the target implements IDamageable
-                IDamageable damageable = _target as IDamageable;
-                if (damageable != null)
-                {
-                    // Deal damage to the target based on SwordPower
-                    damageable.TakeDamage(SwordPower);
-                    Debug.Log($"Dealt {SwordPower} damage to enemy.");
-                }
-
-                // Example additional logic for AttackType
-                if (AttackType == 1 && playerManager != null)
-                {
-                    PlayerManager.PlayerSPAdd(20);  // Reward player for successful hit
-                    Debug.Log("SP added to player.");
-                }
+                // Deal damage to the target based on SwordPower
+                damageable.TakeDamage(SwordPower);
+                Debug.Log($"Dealt {SwordPower} damage to enemy.");
+            }
+            //if (!targetList.Contains(hitInfo))
+            //{
+                
+            //}
+            if (AttackType == 1 && playerManager != null)
+            {
+                PlayerManager.PlayerSPAdd(20);  // Reward player for successful hit
+                Debug.Log("SP added to player.");
             }
         }
         else
