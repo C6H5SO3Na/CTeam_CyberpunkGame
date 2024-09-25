@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c4cf3fa42c13741b642892a16e0d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 1
+  HP: 100
   attackInterval: 5
   bossHitBox: {fileID: 7027301036561478697}
   Explosion: {fileID: 3023628428471086990, guid: 738500261c2be38478cb20a3962c6ab3, type: 3}

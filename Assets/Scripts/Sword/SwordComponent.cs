@@ -23,6 +23,8 @@ public class SwordComponent : MonoBehaviour
 
     private SwordAnimation SwordAnimation;
 
+    public GameObject SwordReferences;
+
     //public GameObject SwordEffectPrefab;
     //public GameObject Tracking;
 
@@ -58,7 +60,7 @@ public class SwordComponent : MonoBehaviour
         }
         else
         {
-           //SwordAnimation.StopSwordEffect();
+            //SwordAnimation.StopSwordEffect();
         }
 
         ////effect appear time
@@ -75,9 +77,13 @@ public class SwordComponent : MonoBehaviour
         //    swordTrail._emit = false;
         //}
     }
-
+    public void SetSwordColliderOff()
+    {
+        SwordReferences.GetComponent<CapsuleCollider>().enabled = false;
+    }
     public void SetSwordActive(int _AttactType)
     {
+        SwordReferences.GetComponent<CapsuleCollider>().enabled = true;
         swordActiveTimer = swordActiveTime;
         AttackType = _AttactType;
         if (AttackType == 1)
@@ -94,28 +100,27 @@ public class SwordComponent : MonoBehaviour
 
     public void OnSwordCollision(IEventSource _source, ISwordTarget _target)
     {
-       // Debug.Log("OnSwordCollision called");
-
-        swordActiveTime = 2f;
         if (swordActiveTimer > 0)
         {
             TargetHitInfo hitInfo = new TargetHitInfo(_source);
             if (!targetList.Contains(hitInfo))
             {
-                _target.OnTargetHit(hitInfo, AttackType);
+                _target.OnTargetHit(hitInfo, AttackType);  // Trigger target's hit logic
                 targetList.Add(hitInfo);
-                //Debug.Log("Target hit processed");
 
+                // Check if the target implements IDamageable
                 IDamageable damageable = _target as IDamageable;
                 if (damageable != null)
                 {
+                    // Deal damage to the target based on SwordPower
                     damageable.TakeDamage(SwordPower);
                     Debug.Log($"Dealt {SwordPower} damage to enemy.");
                 }
 
+                // Example additional logic for AttackType
                 if (AttackType == 1 && playerManager != null)
                 {
-                    PlayerManager.PlayerSPAdd(20);
+                    PlayerManager.PlayerSPAdd(20);  // Reward player for successful hit
                     Debug.Log("SP added to player.");
                 }
             }

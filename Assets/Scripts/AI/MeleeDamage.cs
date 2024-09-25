@@ -20,7 +20,7 @@ public class MeleeDamage : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("PlayerHit");
+            PlayerManager.PlayerDamage(10);
         }
     }
 

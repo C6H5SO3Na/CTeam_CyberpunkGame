@@ -21,7 +21,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
 
     Quaternion defaultCameraDir;    //デフォルトのカメラ方向
     Vector3 defaultCameraOffset;    //デフォルトのカメラ補正位置
-    float charaDir = 0;             //キャラクターの方向
+    Vector2 playerDirection;             //キャラクターの方向
 
     Vector3 defaultPosition;        //リセット時のキャラクター位置
     SwordComponent swordComponent;  //swordComponentにアクセスできるようにする
@@ -44,8 +44,8 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         RigidBd = GetComponent<Rigidbody>();
         RigidBd.freezeRotation = true; //プレイヤーの回転防止
         animator = GetComponent<Animator>();
-        //defaultCameraDir = Camera.main.transform.rotation;
-        //defaultCameraOffset = Camera.main.transform.position - transform.position;
+        defaultCameraDir = Camera.main.transform.rotation;
+        defaultCameraOffset = Camera.main.transform.position - transform.position;
         //defaultPosition = transform.position;
         swordComponent = GetComponent<SwordComponent>();
         isAttacking = false;
@@ -60,6 +60,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         {
             PlayerInput();
             PlayerMovement();
+            RotateCamera();
         }
         CheckFloor();
         PlayerSlopeMovement();
@@ -95,12 +96,16 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
                 PlayerManager.PlayerSPReset();
             }
 
-            //if (Input.GetKeyDown(KeyCode.F))
-            //{
-            //    animator.SetTrigger("Damage");
-            //    playerManager.PlayerDamage(1);
-            //}
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    animator.SetTrigger("Damage");
+        //    playerManager.PlayerDamage(1);
         //}
+        //}
+
+        if (Input.GetAxis("Vertical_R") != 0.0f || Input.GetAxis("Horizontal_R") != 0.0f)
+        {
+        }
     }
 
     private void PlayerMovement()
@@ -118,8 +123,8 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
             moveDirection = input * moveSpeed;
 
             //カメラの向きを基準にキャラの向きを変える
-            float Dir = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, charaDir + Dir, 0);
+            float normalizedDir = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0.0f, playerDirection.x + normalizedDir, 0.0f);
         }
         else
         {
@@ -132,11 +137,11 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
 
         //移動を行う
         //キャラクターの向きに前進する
-        Vector3 globalDirection = Quaternion.Euler(0, charaDir, 0) * moveDirection;
+        Vector3 globalDirection = Quaternion.Euler(0, playerDirection.x, 0) * moveDirection;
         RigidBd.MovePosition(RigidBd.position + globalDirection * Time.deltaTime);
 
         //カメラ位置を現在のキャラクター位置基準に設定する
-        //Camera.main.transform.position = transform.position + Quaternion.Euler(0, charaDir, 0) * defaultCameraOffset;
+        //Camera.main.transform.position = transform.position + Quaternion.Euler(0, playerDirection.x, 0) * defaultCameraOffset;
 
         //走っているかどうかのアニメーション設定
         animator.SetBool("Run", isRun);
@@ -243,5 +248,15 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
                 soundGenerator.DeleteSoundByID("904");
             }           
         }
+    }
+
+    private void RotateCamera()
+    {
+        //プレイヤの視点変更
+        playerDirection.x += Input.GetAxis("Horizontal_R");
+
+        //カメラを回転
+        Camera.main.transform.rotation = Quaternion.Euler(playerDirection.y, playerDirection.x, 0.0f) * defaultCameraDir;
+        Camera.main.transform.position = transform.position + Quaternion.Euler(playerDirection.y, playerDirection.x, 0.0f) * defaultCameraOffset;
     }
 }
