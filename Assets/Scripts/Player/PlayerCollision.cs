@@ -52,7 +52,7 @@ public class PlayerCollision : MonoBehaviour
            
     }
 
-    private void TriggerDamage(string DamageTrigger, float AnimTime)
+    public void TriggerDamage(string DamageTrigger, float AnimTime)
     {
         if(!playerController.isDamaged)
 

@@ -7,6 +7,7 @@ public class bossLaser : MonoBehaviour
     public GameObject laserPrefab; // LineRendererコンポーネントを持つPrefab
     public Transform[] startpoints; // 複数のレーザーの発射点の配列
     public Transform player; // プレイヤーのTransformへの参照
+    public GameObject playerobj;
 
     private List<GameObject> instantiatedLasers = new List<GameObject>(); // 生成されたPrefabを格納するリスト
     private List<Vector3> shotDirections = new List<Vector3>(); // 各レーザーの方向を格納するリスト
@@ -26,6 +27,11 @@ public class bossLaser : MonoBehaviour
     public int laserDamage = 10; // レーザーが与えるダメージ量
     private List<float> lastDamageTimes = new List<float>(); // 各レーザーが最後にダメージを適用した時間を追跡するリスト
 
+
+    private void Start()
+    {
+        playerobj = GameObject.FindGameObjectWithTag("Player");
+    }
     void OnEnable()
     {
         // スクリプトが有効化された際にリストを再初期化
@@ -172,6 +178,7 @@ public class bossLaser : MonoBehaviour
             // 各レーザーの最後のダメージ適用時間を更新
             lastDamageTimes[index] = Time.time;
             PlayerManager.PlayerDamage(laserDamage);//プレイヤーのダメージ
+            playerobj.GetComponent<PlayerCollision>().TriggerDamage("Damage", 1.033f + 0.5f);
             Debug.Log("レーザーがプレイヤーに当たり、" + laserDamage + " ダメージを適用");
             Debug.Log("Player HP now: " + PlayerManager.nowHP);
         }
