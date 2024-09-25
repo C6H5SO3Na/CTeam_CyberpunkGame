@@ -33,6 +33,8 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
     private bool isAttacking;
     public bool isDamaged;
     private PlayerManager playerManager;
+
+    public SoundGenerator soundGenerator;
     //private float AnimTime;
 
     // Start is called before the first frame update
@@ -78,19 +80,19 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
         {
             swordComponent.SetSwordActive(1);
             isAttacking = true;
-            TriggerAttack("Attack", 1.417f);
-            
+            soundGenerator.GenerateSoundByID("901");
+            TriggerAttack(1, "Attack", 1.417f);
             //playerManager.PlayerSPAdd(1);
         }
-
         //‘å‹Z
         //if(playerManager.nowSP == 100)
         //{
-            if (Input.GetKeyDown(KeyCode.C) || Input.GetButtonDown("Special_Attack"))
+        if (Input.GetKeyDown(KeyCode.C) || Input.GetButtonDown("Special_Attack"))
             {
                 swordComponent.SetSwordActive(2);
                 isAttacking = true;
-                TriggerAttack("Attack2", 2.133f);
+                soundGenerator.GenerateSoundByID("904");
+                TriggerAttack(2, "Attack2", 2.133f);
                 PlayerManager.PlayerSPReset();
             }
 
@@ -225,16 +227,27 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
         }
         return Vector3.up;
     }
-    private void TriggerAttack(string attackTrigger, float AnimTime)
+    private void TriggerAttack(int attackingNum, string attackTrigger, float AnimTime)
     {
         isAttacking = true;
         animator.SetTrigger(attackTrigger);
-        StartCoroutine(EndAttack(AnimTime));
+        StartCoroutine(EndAttack(attackingNum, AnimTime));
     }
-    private IEnumerator EndAttack(float AnimTime)
+    private IEnumerator EndAttack(int attackingNum, float AnimTime)
     {
         yield return new WaitForSeconds(AnimTime);
         isAttacking = false;
+        if(!isAttacking)
+        {
+            if (attackingNum == 1)
+            {
+                soundGenerator.DeleteSoundByID("901");
+            }
+            if (attackingNum == 2)
+            {
+                soundGenerator.DeleteSoundByID("904");
+            }           
+        }
     }
 
     private void RotateCamera()

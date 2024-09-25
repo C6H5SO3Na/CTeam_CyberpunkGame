@@ -698,6 +698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4984751c5eef9b94bba863f8ae3b988b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundGenerator: {fileID: 1014656740}
 --- !u!4 &692306951
 Transform:
   m_ObjectHideFlags: 0
@@ -1271,6 +1272,7 @@ MonoBehaviour:
   slopeLimit: 45
   staircaseHeight: 0.5
   isDamaged: 0
+  soundGenerator: {fileID: 0}
 --- !u!54 &1006232199
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1337,6 +1339,17 @@ MonoBehaviour:
   AttackType: 0
   swordActiveTimer: 0
   SwordPower: 0
+--- !u!114 &1014656740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4221346925712917454, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+  m_PrefabInstance: {fileID: 1431312925}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d8b254fad03994a990ea55d1481b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1019239116
 GameObject:
   m_ObjectHideFlags: 0
@@ -2694,6 +2707,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c799775e4e440a848ac09c8d296d41a0, type: 3}
+--- !u!1001 &1431312925
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 36.76307
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.827751
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -48.116917
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376497052887746984, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753418062341332407, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8c7971ecf4bd2f144b23edb0c9875c38, type: 3}
 --- !u!1001 &1641352916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3001,7 +3075,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh150508
+  m_Name: pb_Mesh32196
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -3253,6 +3327,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 283814974175427884, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
+      propertyPath: soundGenerator
+      value: 
+      objectReference: {fileID: 1014656740}
+    - target: {fileID: 507236779396161321, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
+      propertyPath: soundGenerator
+      value: 
+      objectReference: {fileID: 1014656740}
     - target: {fileID: 1204543752674597356, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
       propertyPath: m_RootOrder
       value: 9
