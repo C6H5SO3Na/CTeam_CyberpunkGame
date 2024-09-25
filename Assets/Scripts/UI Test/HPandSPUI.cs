@@ -6,7 +6,7 @@ public class HPandSPUI : MonoBehaviour
 {
     public RectTransform HPRectTransform;
     public RectTransform SPRectTransform;
-    float longPerPercent = 7f; //1%ごとにUIの変更量
+    float longPerPercent = 3.5f; //1%ごとにUIの変更量
     int HPpercent;
     int SPpercent;
     
@@ -14,7 +14,7 @@ public class HPandSPUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("nowHP",100);
+        PlayerPrefs.SetInt("nowHP",200);
         SPpercent = PlayerPrefs.GetInt("nowSP");
     }
 
@@ -27,7 +27,7 @@ public class HPandSPUI : MonoBehaviour
         //}
         HPpercent = PlayerPrefs.GetInt("nowHP");
         SPpercent = PlayerPrefs.GetInt("nowSP");
-        changeHPSP(HPpercent, SPpercent);
+        changeHPSP(HPpercent, SPpercent*2);
     }
 
     public void changeHPSP(float HPpercent, float SPpercent)
