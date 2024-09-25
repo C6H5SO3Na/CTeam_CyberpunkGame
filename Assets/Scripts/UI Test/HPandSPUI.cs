@@ -14,18 +14,20 @@ public class HPandSPUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HPpercent = PlayerPrefs.GetInt("nowHP");
+        PlayerPrefs.SetInt("nowHP",100);
         SPpercent = PlayerPrefs.GetInt("nowSP");
     }
 
     void Update()
     {
         //テスト
-        if (Input.GetKey(KeyCode.Space))
-        {
-            changeHPSP(HPpercent, SPpercent);
-            Debug.Log(HPpercent);
-        }
+        //if (Input.GetKey(KeyCode.Space))
+        //{
+        //    changeHPSP(HPpercent, SPpercent);
+        //}
+        HPpercent = PlayerPrefs.GetInt("nowHP");
+        SPpercent = PlayerPrefs.GetInt("nowSP");
+        changeHPSP(HPpercent, SPpercent);
     }
 
     public void changeHPSP(float HPpercent, float SPpercent)
