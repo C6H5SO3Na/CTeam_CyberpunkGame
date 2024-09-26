@@ -23,25 +23,32 @@ public class bossLaser : MonoBehaviour
     public GameObject bossHitBox;
 
     // ダメージに関連する変数
-    public float damageRate = 0.5f; // レーザーがプレイヤーに当たった際にダメージが適用される間隔
+    public float damageRate = 0.8f; // レーザーがプレイヤーに当たった際にダメージが適用される間隔
     public int laserDamage = 10; // レーザーが与えるダメージ量
     private List<float> lastDamageTimes = new List<float>(); // 各レーザーが最後にダメージを適用した時間を追跡するリスト
 
 
-    private void Start()
+    void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         playerobj = GameObject.FindGameObjectWithTag("Player");
     }
     void OnEnable()
     {
-        bossHitBox.GetComponent<MeshCollider>().enabled = true;
+        GameObject activeHitBox = GetComponentInParent<BossController>().GetActiveHitBox();
+
+        // Ensure the correct hitbox's collider is enabled
+        if (activeHitBox != null)
+        {
+            activeHitBox.GetComponent<MeshCollider>().enabled = true;
+        }
         // スクリプトが有効化された際にリストを再初期化
         initialPlayerXPositions.Clear();
         initialPlayerZPositions.Clear();
         lastDamageTimes.Clear(); // 最後のダメージ適用時間の追跡をクリア
 
         // 各レーザーの回転速度を初期化し、Prefabを生成
-        rotationSpeed = Random.Range(10.0f, 15.0f);
+        rotationSpeed = Random.Range(30.0f, 40.0f);
 
         for (int i = 0; i < startpoints.Length; i++)
         {
@@ -52,7 +59,7 @@ public class bossLaser : MonoBehaviour
             instantiatedLasers.Add(laserInstance);
 
             // スクリプトが有効化された時点でランダムなX位置とプレイヤーの現在のZ位置を保存
-            initialPlayerXPositions.Add(Random.Range(player.position.x - 5.0f, player.position.x + 5.0f));
+            initialPlayerXPositions.Add(player.position.x);
             initialPlayerZPositions.Add(player.position.z);
 
             // 各レーザーのスイープパラメータを初期化
@@ -80,10 +87,11 @@ public class bossLaser : MonoBehaviour
     {
         GetComponentInParent<BossController>().DestroyHitableEffect();
 
-        if (bossHitBox != null)
-        {
-            bossHitBox.GetComponent<MeshCollider>().enabled = false;
-        }
+           GameObject activeHitBox = GetComponentInParent<BossController>().GetActiveHitBox();
+    if (activeHitBox != null)
+    {
+        activeHitBox.GetComponent<MeshCollider>().enabled = false;
+    }
         
 
         if (attackCoroutine != null)
@@ -116,13 +124,13 @@ public class bossLaser : MonoBehaviour
     {
         float rotationThisFrame = rotationSpeed * Time.deltaTime;
 
-        // 各発射点でスイープ角度内で左右に回転
+        // Adjust the current rotation angle based on direction
         if (rotatingLeft[index])
         {
             currentRotationAngles[index] -= rotationThisFrame;
             if (currentRotationAngles[index] <= -sweepAngle)
             {
-                rotatingLeft[index] = false; // 方向を切り替え
+                rotatingLeft[index] = false; // Switch direction
             }
         }
         else
@@ -130,21 +138,25 @@ public class bossLaser : MonoBehaviour
             currentRotationAngles[index] += rotationThisFrame;
             if (currentRotationAngles[index] >= sweepAngle)
             {
-                rotatingLeft[index] = true; // 方向を切り替え
+                rotatingLeft[index] = true; // Switch direction
             }
         }
 
-        // 保存されたXおよびZ位置に基づいて各レーザーのターゲットポイントを計算
+        // Calculate a direction vector that rotates around the laser's starting point
+        Vector3 startpointPosition = startpoints[index].position;
         Vector3 targetPoint = new Vector3(
-            initialPlayerXPositions[index], // 有効化時に保存されたランダムなX位置を使用
-            150, // 地面のレベル (y = 0)
-            initialPlayerZPositions[index] // 有効化時に保存されたZ位置を使用
+            player.position.x,  // Get the player's current position
+            152, // Maintain the y-position
+            initialPlayerZPositions[index]
         );
 
-        // ターゲットポイントにスイープ回転を適用
-        Vector3 sweepDirection = Quaternion.Euler(0, currentRotationAngles[index], 0) * (targetPoint - startpoints[index].position).normalized;
+
+        Vector3 directionToPlayer = (targetPoint - startpointPosition).normalized;
+        Vector3 sweepDirection = Quaternion.Euler(0, currentRotationAngles[index], 0) * directionToPlayer;
+
         shotDirections[index] = sweepDirection;
     }
+
 
     void UpdateLaser(int index)
     {

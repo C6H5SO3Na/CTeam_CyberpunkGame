@@ -7,7 +7,12 @@ using UnityEngine.VFX;
 
 public class BossController : MonoBehaviour, IDamageable
 {
-    public int HP = 100;
+    public int HPMiddle = 200;
+    //public int HPLeft = 50;
+    //public int HPRight = 50;
+
+   // public bool leftdead = false;
+   // public bool rightdead = false;
 
     // References to the attack scripts
     private bossLaser bossLaserScript;
@@ -16,9 +21,15 @@ public class BossController : MonoBehaviour, IDamageable
     public float attackInterval = 5.0f; // Time between attacks
     private int lastAttack = -1; // Track the last attack (-1 means no previous attack)
 
-    public GameObject bossHitBox;
+    public GameObject bossHitBoxMiddle;
+    public GameObject bossHitBoxRight;
+    public GameObject bossHitBoxLeft;
+
+
+
     public GameObject Explosion;
     public GameObject hitableEffect;
+    private GameObject activeHitBox; // Track the active hitbox
     private GameObject activeHitableEffect;
 
 
@@ -53,11 +64,11 @@ public class BossController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        HP -= damage;
-        Debug.Log($"Boss took {damage} damage. Remaining HP: {HP}");
+        HPMiddle -= damage;
+        Debug.Log($"Boss took {damage} damage. Remaining HP: {HPMiddle}");
 
         // Check if the boss's health reaches zero
-        if (HP <= 0 && !gameClear)
+        if (HPMiddle <= 0 && !gameClear)
         {
             // Play the death sound
             if (deathSound != null)
@@ -67,9 +78,9 @@ public class BossController : MonoBehaviour, IDamageable
 
             StartCoroutine(FadeOutAndDestroy());
 
-            Vector3 spawnpos = new Vector3(bossHitBox.transform.position.x, bossHitBox.transform.position.y + 5.0f, bossHitBox.transform.position.z - 10.0f);
-            GameObject explosion = Instantiate(Explosion, spawnpos, bossHitBox.transform.rotation);
-            explosion.transform.SetParent(bossHitBox.transform);
+            Vector3 spawnpos = new Vector3(bossHitBoxMiddle.transform.position.x, bossHitBoxMiddle.transform.position.y + 5.0f, bossHitBoxMiddle.transform.position.z - 10.0f);
+            GameObject explosion = Instantiate(Explosion, spawnpos, bossHitBoxMiddle.transform.rotation);
+            explosion.transform.SetParent(bossHitBoxMiddle.transform);
 
             gameClear = true;
             animator.SetBool("gameClear", gameClear);
@@ -82,14 +93,14 @@ public class BossController : MonoBehaviour, IDamageable
     private void Update()
     {
 
-        if (HP <= 0 && !gameClear)
+        if (HPMiddle <= 0 && !gameClear)
         {
             StartCoroutine(PlayDeathSoundRepeatedly());
             StartCoroutine(FadeOutAndDestroy());
 
-            Vector3 spawnpos = new Vector3(bossHitBox.transform.position.x, bossHitBox.transform.position.y + 5.0f, bossHitBox.transform.position.z - 10.0f);
-            GameObject explosion = Instantiate(Explosion, spawnpos, bossHitBox.transform.rotation);
-            explosion.transform.SetParent(bossHitBox.transform);
+            Vector3 spawnpos = new Vector3(bossHitBoxMiddle.transform.position.x, bossHitBoxMiddle.transform.position.y + 5.0f, bossHitBoxMiddle.transform.position.z - 10.0f);
+            GameObject explosion = Instantiate(Explosion, spawnpos, bossHitBoxMiddle.transform.rotation);
+            explosion.transform.SetParent(bossHitBoxMiddle.transform);
 
             gameClear = true;
             animator.SetBool("gameClear", gameClear);
@@ -99,6 +110,11 @@ public class BossController : MonoBehaviour, IDamageable
         }
     }
 
+
+    public GameObject GetActiveHitBox()
+    {
+        return activeHitBox;
+    }
     IEnumerator FadeOutAndDestroy()
     {
         float elapsedTime = 0f;
@@ -178,14 +194,36 @@ public class BossController : MonoBehaviour, IDamageable
     {
         if (hitableEffect != null && activeHitableEffect == null)
         {
-            // Instantiate the hitable effect at the bossHitBox position
-            activeHitableEffect = Instantiate(hitableEffect, bossHitBox.transform.position, bossHitBox.transform.rotation);
+            // Randomly choose one of the three hitboxes (0: Middle, 1: Left, 2: Right)
+            int randomHitboxIndex = Random.Range(0, 3);
 
-            // Set the parent to bossHitBox
-            activeHitableEffect.transform.SetParent(bossHitBox.transform);
+            switch (randomHitboxIndex)
+            {
+                case 0:
+                    activeHitBox = bossHitBoxMiddle;
+                    break;
+                case 1:
+                    activeHitBox = bossHitBoxLeft;
+                    break;
+                case 2:
+                    activeHitBox = bossHitBoxRight;
+                    break;
+            }
 
-            // Now adjust the local position relative to the parent (bossHitBox)
-            activeHitableEffect.transform.localPosition += new Vector3(0f, 0.17f, 1.23f);
+            // Enable the chosen hitbox collider
+            if (activeHitBox != null)
+            {
+                activeHitBox.GetComponent<MeshCollider>().enabled = true;
+            }
+
+            // Instantiate the hitable effect at the chosen hitbox's position
+            activeHitableEffect = Instantiate(hitableEffect, activeHitBox.transform.position, activeHitBox.transform.rotation);
+
+            // Set the parent to the chosen hitbox
+            activeHitableEffect.transform.SetParent(activeHitBox.transform);
+
+            // Adjust the local position relative to the active hitbox
+            activeHitableEffect.transform.localPosition += new Vector3(0f, 0.17f, 1.23f);  // Adjust as needed
         }
     }
 
@@ -195,6 +233,13 @@ public class BossController : MonoBehaviour, IDamageable
         {
             Destroy(activeHitableEffect);
             activeHitableEffect = null;
+        }
+
+        // Disable the active hitbox collider
+        if (activeHitBox != null)
+        {
+            activeHitBox.GetComponent<MeshCollider>().enabled = false;
+            activeHitBox = null;
         }
     }
 
