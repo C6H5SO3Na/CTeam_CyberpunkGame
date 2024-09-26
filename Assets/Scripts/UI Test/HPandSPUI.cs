@@ -27,6 +27,7 @@ public class HPandSPUI : MonoBehaviour
         //}
         HPpercent = PlayerPrefs.GetInt("nowHP");
         SPpercent = PlayerPrefs.GetInt("nowSP");
+        if ( HPpercent < 0 ) { HPpercent = 1; }
         changeHPSP(HPpercent, SPpercent*2);
     }
 
