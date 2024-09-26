@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     float timeSecCnt = 0.0f;//•b’PˆÊ
     public enum Phase
     {
-        Fadein, Game, AfterClear, Fadeout, NextStage
+        Fadein, Game, AfterClear, Fadeout, NextStage, AfterDead, ToGameOver
     }
     Phase phase;
     // Start is called before the first frame update
@@ -51,6 +51,10 @@ public class GameManager : MonoBehaviour
                     sound.GenerateSoundByID("302");
                     phase = Phase.AfterClear;
                 }
+                else if (isDead)
+                {
+                    phase = Phase.AfterDead;
+                }
                 break;
 
             case Phase.AfterClear:
@@ -61,17 +65,37 @@ public class GameManager : MonoBehaviour
                     phase = Phase.Fadeout;
                 }
                 break;
+
+            case Phase.AfterDead:
+                timeSecCnt += Time.deltaTime;
+                if (timeSecCnt >= 2.0f)
+                {
+                    phase = Phase.Fadeout;
+                }
+                break;
+
             case Phase.Fadeout:
                 fade.Fadeout();
 
                 if (!fade.IsFade())
                 {
-                    phase = Phase.NextStage;
-                    sound.DeleteSoundByID("302");
+                    if (isDead)
+                    {
+                        phase = Phase.ToGameOver;
+                    }
+                    else
+                    {
+                        phase = Phase.NextStage;
+                        sound.DeleteSoundByID("302");
+                    }
                 }
                 break;
             case Phase.NextStage:
                 NextStage();
+                break;
+
+            case Phase.ToGameOver:
+                ToGameOver();
                 break;
         }
     }
@@ -95,5 +119,10 @@ public class GameManager : MonoBehaviour
             //nowStage = stage;
             SceneManager.LoadScene("Stage" + stage);
         }
+    }
+
+    void ToGameOver()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 }
