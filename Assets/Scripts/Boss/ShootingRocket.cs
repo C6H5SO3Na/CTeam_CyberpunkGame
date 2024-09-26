@@ -20,7 +20,13 @@ public class ShootingRocket : MonoBehaviour
 
     void OnEnable()
     {
-        bossHitBox.GetComponent<MeshCollider>().enabled = true;
+        GameObject activeHitBox = GetComponentInParent<BossController>().GetActiveHitBox();
+
+        // Ensure the correct hitbox's collider is enabled
+        if (activeHitBox != null)
+        {
+            activeHitBox.GetComponent<MeshCollider>().enabled = true;
+        }
 
         GetComponent<BossController>().SpawnHitableEffect();
 
@@ -54,7 +60,11 @@ public class ShootingRocket : MonoBehaviour
         yield return new WaitForSeconds(delayBeforeSpawn);
 
         gameObject.GetComponentInParent<BossController>().DestroyHitableEffect();
-        bossHitBox.GetComponent<MeshCollider>().enabled = false;
+        GameObject activeHitBox = GetComponentInParent<BossController>().GetActiveHitBox();
+        if (activeHitBox != null)
+        {
+            activeHitBox.GetComponent<MeshCollider>().enabled = false;
+        }
 
         for (int i = 0; i < rocketCount; i++)
         {
@@ -109,36 +119,67 @@ public class ShootingRocket : MonoBehaviour
 
 
 
-    public class RocketCollisionHandler : MonoBehaviour
+public class RocketCollisionHandler : MonoBehaviour
 {
     private bool isDestroyed = false;
-    public GameObject explosionPrefab; // 爆発のプレハブ
+    public GameObject explosionPrefab; // Explosion prefab
+    private float explosionRadius = 5f; 
+    private int explosionDamage = 20; // Damage dealt by the explosion
+
+    private LayerMask playerLayer; // Only affect the Player
+
+    private void Awake()
+    {
+        // Assuming the player's layer is named "Player"
+        playerLayer = LayerMask.GetMask("Player");
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (!isDestroyed && (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Ground")))
         {
-
-            if (collision.gameObject.CompareTag("Player"))
+            // Only proceed if the rocket hits the ground
+            if (collision.gameObject.CompareTag("Ground"))
             {
-                PlayerManager.PlayerDamage(10);//プレイヤーのダメージ
-                Debug.Log("プレイヤーをヒット10ダメージ");
+                // Trigger explosion effect and apply AoE damage
+                Explode(collision.contacts[0].point);
+            }
+            else if (collision.gameObject.CompareTag("Player"))
+            {
+                // Direct hit on the player
+                PlayerManager.PlayerDamage(30); // Deal direct damage
                 Debug.Log("Player HP now: " + PlayerManager.nowHP);
             }
 
-            // 衝突位置を取得
-            Vector3 collisionPoint = collision.contacts[0].point;
-            collisionPoint.y -= 2f;
-
-            // 爆発エフェクトを衝突位置にスポーン
-            if (explosionPrefab != null)
-            {
-                Instantiate(explosionPrefab, collisionPoint, Quaternion.identity);
-            }
-            
             isDestroyed = true;
-            Destroy(gameObject);
+            Destroy(gameObject); // Destroy the rocket itself
         }
+    }
+
+    // Method to handle the explosion effect and AoE damage
+    private void Explode(Vector3 explosionPoint)
+    {
+        // Lower the explosion position slightly for a more realistic effect
+        explosionPoint.y -= 4f;
+
+        // Spawn the explosion effect
+        if (explosionPrefab != null)
+        {
+            Instantiate(explosionPrefab, explosionPoint, Quaternion.identity);
+        }
+
+        // Apply AoE damage to the player only within the explosion radius
+        Collider[] hitColliders = Physics.OverlapSphere(explosionPoint, explosionRadius, playerLayer);
+
+        foreach (Collider hitCollider in hitColliders)
+        {
+            // Check if we hit the player
+            if (hitCollider.CompareTag("Player"))
+            {
+                PlayerManager.PlayerDamage(explosionDamage);
+            }
+        }
+
     }
 
     public void SetDestroyOnCollision()

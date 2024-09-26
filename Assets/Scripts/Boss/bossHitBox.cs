@@ -31,7 +31,7 @@ public class bossHitBox : MonoBehaviour
             if (sword != null)
             {
                 // Apply damage to the boss's HP
-                boss.GetComponent<BossController>().HP -= sword.SwordPower;
+                boss.GetComponent<BossController>().HPMiddle -= sword.SwordPower;
 
             }
         }
@@ -49,7 +49,7 @@ public class bossHitBox : MonoBehaviour
             if (sword != null)
             {
                 // Apply damage to the boss's HP
-                boss.GetComponent<BossController>().HP -= sword.SwordPower;
+                boss.GetComponent<BossController>().HPMiddle -= sword.SwordPower;
 
             }
         }
