@@ -38,6 +38,8 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ğ
     public PlayerManager playerManager;
     private int deadTime;
 
+    bool isAbleAttackR2 = false;//R2ƒ{ƒ^ƒ“—p
+
     SoundGenerator soundGenerator;
     //private float AnimTime;
 
@@ -98,13 +100,21 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ğ
         //}
 
         //•’ÊUŒ‚
-        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Normal_Attack") /*|| Input.GetButtonDown("Normal_AttackRT")*/)
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Normal_Attack") || (Input.GetAxis("Normal_AttackRT") > 0.0f && isAbleAttackR2))
         {
+            isAbleAttackR2 = false;//R2‚Ì‚İ
+
             swordComponent.SetSwordActive(1);
             isAttacking = true;
             soundGenerator.GenerateSoundByID("901");
             TriggerAttack(1, "Attack", 1.417f);
             //playerManager.PlayerSPAdd(1);
+        }
+
+        //R2‚ğ—£‚³‚È‚¢‚ÆŸ‚Ì’ÊíUŒ‚‚Í‚Å‚«‚È‚¢
+        if (Input.GetAxis("Normal_AttackRT") <= 0.0f)
+        {
+            isAbleAttackR2 = true;
         }
         //‘å‹Z
         if (PlayerManager.nowSP == 100)
@@ -260,7 +270,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ğ
     {
         yield return new WaitForSeconds(AnimTime);
         isAttacking = false;
-        if(!isAttacking)
+        if (!isAttacking)
         {
             if (attackingNum == 1)
             {
@@ -269,7 +279,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ğ
             if (attackingNum == 2)
             {
                 soundGenerator.DeleteSoundByID("904");
-            }           
+            }
         }
     }
 
@@ -285,13 +295,13 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ğ
 
     public void GameOver(int time)
     {
-        if(time == 0)
+        if (time == 0)
         {
             soundGenerator.GenerateSoundByID("902");
             StartCoroutine(DeadSEEnd(1f));
             Debug.Log("DeadSEPlay");
         }
-        
+
         //if (PlayerManager.PlayerisDead == true)
         //{
         //    soundGenerator.GenerateSoundByID("902");
