@@ -11,6 +11,8 @@ public class TitleManager : MonoBehaviour
     [SerializeField] Fade fade;
     float timeSecCnt = 0.0f;//•b’PˆÊ
     [SerializeField] public SoundGenerator sound;
+    //[SerializeField] private SceneLoaderAnimation sceneLoaderAnimetion;
+    [SerializeField] private GameObject sceneLoader;
     enum Phase
     {
         Fadein, BeforePressButton, AfterPressButton, Fadeout, ToGameScene
@@ -40,7 +42,7 @@ public class TitleManager : MonoBehaviour
         {
             case Phase.Fadein:
                 fade.Fadein();
-
+                Debug.Log(fade.IsFade());
                 if (!fade.IsFade())
                 {
                     phase = Phase.BeforePressButton;

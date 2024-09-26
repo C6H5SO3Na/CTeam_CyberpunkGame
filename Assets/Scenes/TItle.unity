@@ -381,6 +381,7 @@ MonoBehaviour:
   pressAnyButton: {fileID: 516008855}
   fade: {fileID: 807114367}
   sound: {fileID: 1162157876}
+  sceneLoader: {fileID: 0}
 --- !u!4 &696007970
 Transform:
   m_ObjectHideFlags: 0
@@ -884,6 +885,26 @@ PrefabInstance:
     - target: {fileID: 7507250494897776607, guid: 7c415d723a1e2ae45ba9765ed1e4b04a, type: 3}
       propertyPath: m_Name
       value: Fade
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507250494897776607, guid: 7c415d723a1e2ae45ba9765ed1e4b04a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8719209363702103056, guid: 7c415d723a1e2ae45ba9765ed1e4b04a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7273b918d5645aa4d9413d3de3ab317c, type: 3}
+    - target: {fileID: 8719209363702103056, guid: 7c415d723a1e2ae45ba9765ed1e4b04a, type: 3}
+      propertyPath: m_Color.b
+      value: 0.49803925
+      objectReference: {fileID: 0}
+    - target: {fileID: 8719209363702103056, guid: 7c415d723a1e2ae45ba9765ed1e4b04a, type: 3}
+      propertyPath: m_Color.g
+      value: 0.49803925
+      objectReference: {fileID: 0}
+    - target: {fileID: 8719209363702103056, guid: 7c415d723a1e2ae45ba9765ed1e4b04a, type: 3}
+      propertyPath: m_Color.r
+      value: 0.49803925
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
