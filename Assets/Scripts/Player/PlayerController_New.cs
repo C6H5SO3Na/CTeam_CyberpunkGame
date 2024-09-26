@@ -28,6 +28,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
 
     Vector3 defaultPosition;        //リセット時のキャラクター位置
     SwordComponent swordComponent;  //swordComponentにアクセスできるようにする
+    [SerializeField] GameManager manager;   //GameManager
 
     private Rigidbody RigidBd;
     private Collider Colli;
@@ -315,5 +316,6 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         yield return new WaitForSeconds(Time);
         soundGenerator.DeleteSoundByID("902");
         Debug.Log("DeadSEEnd");
+        manager.isDead = true;
     }
 }

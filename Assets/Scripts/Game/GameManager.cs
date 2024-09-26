@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] public static int remaining;
     [SerializeField] Fade fade;
-    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] GameObject clearImg;
     SoundGenerator sound;
     public static int stage = 1;
     //public int nowStage;
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case Phase.AfterClear:
-                text.gameObject.SetActive(true);
+                clearImg.gameObject.SetActive(true);
                 timeSecCnt += Time.deltaTime;
                 if (timeSecCnt >= 2.0f)
                 {
