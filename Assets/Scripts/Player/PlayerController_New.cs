@@ -90,7 +90,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
         //}
 
         //ïÅí çUåÇ
-        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Normal_Attack"))
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Normal_Attack") /*|| Input.GetButtonDown("Normal_AttackRT")*/)
         {
             swordComponent.SetSwordActive(1);
             isAttacking = true;
