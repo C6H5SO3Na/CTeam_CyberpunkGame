@@ -15,6 +15,8 @@ public class PlayerManager : MonoBehaviour
 
     public SoundGenerator soundGenerator;
 
+    public static bool PlayerisDead;
+
     void Start()
     {
         //if (instance == null)
@@ -32,6 +34,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log(nowHP + "nowHPis");
         nowSP = 0;
         PlayerPrefs.SetInt("nowSP", nowSP);
+        PlayerisDead = false;
     }
     public static void PlayerDamage(int damage)
     {
@@ -43,7 +46,7 @@ public class PlayerManager : MonoBehaviour
         if (nowHP <= 0)
         {
             nowHP = 0;
-            GameOver();
+            PlayerDead();
         }
     }
 
@@ -66,10 +69,11 @@ public class PlayerManager : MonoBehaviour
         PlayerPrefs.SetInt("nowSP", nowSP);
     }
 
-    public static void GameOver()
+    public static void PlayerDead()
     {
+        PlayerisDead = true;
         Debug.Log("GameOver");
-        //Ž€–Sˆ—
+        //Ž€–Sˆ—   
         //soundGenerator.GenerateSoundByID("902");
         //StartCoroutine(SEEnding(1f));      
     }
