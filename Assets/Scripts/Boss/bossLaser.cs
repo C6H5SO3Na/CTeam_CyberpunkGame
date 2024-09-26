@@ -87,11 +87,11 @@ public class bossLaser : MonoBehaviour
     {
         GetComponentInParent<BossController>().DestroyHitableEffect();
 
-           GameObject activeHitBox = GetComponentInParent<BossController>().GetActiveHitBox();
-    if (activeHitBox != null)
-    {
-        activeHitBox.GetComponent<MeshCollider>().enabled = false;
-    }
+        GameObject activeHitBox = GetComponentInParent<BossController>().GetActiveHitBox();
+        if (activeHitBox != null)
+        {
+            activeHitBox.GetComponent<MeshCollider>().enabled = false;
+        }
         
 
         if (attackCoroutine != null)
