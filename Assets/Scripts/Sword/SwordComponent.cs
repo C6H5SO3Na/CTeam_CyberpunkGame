@@ -27,6 +27,9 @@ public class SwordComponent : MonoBehaviour
 
     private HashSet<ISwordTarget> hitTargets = new HashSet<ISwordTarget>();
 
+    public GameObject attack2Hitbox;
+    private Collider attack2HitboxCollider;
+
     //public GameObject SwordEffectPrefab;
     //public GameObject Tracking;
 
@@ -47,6 +50,14 @@ public class SwordComponent : MonoBehaviour
             swordCollider.OnSwordCollisionEvent += OnSwordCollision;
         }
 
+        if (attack2Hitbox != null)
+        {
+            attack2HitboxCollider = attack2Hitbox.GetComponent<Collider>();
+        }
+        if (attack2HitboxCollider != null)
+        {
+            attack2HitboxCollider.enabled = false;
+        }
         //if (SwordEffectPrefab != null)
         //{
         //    // Get the particle system from the SwordEffectPrefab
@@ -64,6 +75,10 @@ public class SwordComponent : MonoBehaviour
         else
         {
             //SwordAnimation.StopSwordEffect();
+            if (attack2HitboxCollider != null)
+            {
+                attack2HitboxCollider.enabled = false; // Disable hitbox collider after attack ends
+            }
         }
 
         ////effect appear time
@@ -93,11 +108,20 @@ public class SwordComponent : MonoBehaviour
         {
             SwordPower = 10;
             swordActiveTime = 1.5f;
+            if (attack2HitboxCollider != null)
+            {
+                attack2HitboxCollider.enabled = false; // Disable hitbox for attack 1
+            }
         }
         if (AttackType == 2)
         {
             SwordPower = 20;
             swordActiveTime = 2;
+            if (attack2HitboxCollider != null)
+            {
+                attack2HitboxCollider.enabled = true; // Enable larger hitbox for attack 2
+                Debug.Log("hitbox collider true");
+            }
         }
         swordActiveTimer = swordActiveTime;
         hitTargets.Clear();
