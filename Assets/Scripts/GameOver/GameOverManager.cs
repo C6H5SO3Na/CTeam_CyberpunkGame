@@ -100,7 +100,8 @@ public class GameOverManager : MonoBehaviour
     /// </summary>
     void ToStage()
     {
-        SceneManager.LoadScene("Stage" + GameManager.stage);
+        GameManager.stage = 1;
+        SceneManager.LoadScene("Stage1");
     }
 
     /// <summary>

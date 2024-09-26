@@ -28,6 +28,7 @@ public class TitleManager : MonoBehaviour
         timeSecCnt = 0.0f;
         phase = Phase.Fadein;
         sound.GenerateSoundByID("101");
+        GameManager.stage = 1;
     }
 
     // Update is called once per frame
