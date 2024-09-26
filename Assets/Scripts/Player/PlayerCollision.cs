@@ -70,7 +70,11 @@ public class PlayerCollision : MonoBehaviour
         yield return new WaitForSeconds(AnimTime);
         if (playerController.isDamaged)
         {
-            soundGenerator.DeleteSoundByID("903");
+            if(!PlayerManager.PlayerisDead)
+            {
+                soundGenerator.DeleteSoundByID("903");
+            }
+            
         }
         playerController.isDamaged = false;
     }
