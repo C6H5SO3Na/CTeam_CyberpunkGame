@@ -6,6 +6,7 @@ public class DeathState : IAIState
 {
     private AIScript ai;
 
+    
     public void Enter(AIScript ai)
     {
         this.ai = ai;
@@ -17,15 +18,22 @@ public class DeathState : IAIState
 
         ai.StartCoroutine(ai.FadeOutAndDestroy());
         DeathExplosion(); // 爆発エフェクトを生成
+
     }
 
     // 爆発をAIの子として生成する
     private void DeathExplosion()
     {
-        ai.audioSource.PlayOneShot(ai.deathSound);
-        // 爆発エフェクトをAIの位置と回転に基づいて生成し、AIの子オブジェクトとして設定する
-        GameObject explosionInstance = Object.Instantiate(ai.explosionEffect, ai.transform.position, ai.transform.rotation);
-        explosionInstance.transform.SetParent(ai.transform); // AIの子オブジェクトとして設定する
+        if (!ai.hasExploded)
+        {
+            ai.audioSource.PlayOneShot(ai.deathSound);
+
+            // 爆発エフェクトをAIの位置と回転に基づいて生成し、AIの子オブジェクトとして設定する
+            GameObject explosionInstance = Object.Instantiate(ai.explosionEffect, ai.transform.position, ai.transform.rotation);
+            explosionInstance.transform.SetParent(ai.transform); // AIの子オブジェクトとして設定する
+
+            ai.hasExploded = true; // 爆発エフェクトが生成されたことを記録する
+        }
     }
 
     public void Execute(AIScript ai)

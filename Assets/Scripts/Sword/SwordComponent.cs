@@ -25,6 +25,8 @@ public class SwordComponent : MonoBehaviour
 
     public GameObject SwordReferences;
 
+    private HashSet<ISwordTarget> hitTargets = new HashSet<ISwordTarget>();
+
     //public GameObject SwordEffectPrefab;
     //public GameObject Tracking;
 
@@ -37,6 +39,7 @@ public class SwordComponent : MonoBehaviour
         //swordTrail = GetComponentInChildren<MeleeSwordTrail>();
         playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         SwordAnimation = GetComponentInParent<SwordAnimation>();
+        
 
         if (swordCollider!=null)
         {
@@ -97,6 +100,7 @@ public class SwordComponent : MonoBehaviour
             swordActiveTime = 2;
         }
         swordActiveTimer = swordActiveTime;
+        hitTargets.Clear();
         //SwordAnimation.AttackAnimOn();
         SwordAnimation.PlaySwordEffect();
     }
@@ -104,8 +108,9 @@ public class SwordComponent : MonoBehaviour
     public void OnSwordCollision(IEventSource _source, ISwordTarget _target)
     {
         Debug.Log("sword hit somethisg");
-        if (swordActiveTimer > 0)
+        if (swordActiveTimer > 0 && !hitTargets.Contains(_target))
         {
+            hitTargets.Add(_target);
             TargetHitInfo hitInfo = new TargetHitInfo(_source);
             _target.OnTargetHit(hitInfo, AttackType);  // Trigger target's hit logic
             targetList.Add(hitInfo);
