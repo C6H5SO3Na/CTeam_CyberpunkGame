@@ -50,12 +50,12 @@ public class GameOverManager : MonoBehaviour
                 break;
 
             case Phase.BeforePressButton:
-                if (Input.GetButtonDown("Vertical"))
+                if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.0f && !DOTween.IsTweening(selectImage.gameObject.transform))//パッド入力とキーボード両方対応
                 {
                     sound.DeleteSoundByID("303");
                     sound.GenerateSoundByID("303");
                     select = select == 0 ? 1 : 0;//三項演算子
-                    selectImage.gameObject.transform.DOMoveY(328.0f + select * -120.0f, 0.5f).SetEase(Ease.InOutSine);
+                    selectImage.gameObject.transform.DOMoveY(328.0f + select * -120.0f, 0.7f).SetEase(Ease.InOutSine);
                 }
                 if (Input.GetButtonDown("Normal_Attack"))
                 {
