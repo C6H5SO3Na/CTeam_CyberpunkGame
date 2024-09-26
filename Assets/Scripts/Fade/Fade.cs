@@ -38,15 +38,12 @@ public class Fade : MonoBehaviour
                 imageColor=image.color;
                 imageColor.a += (-changeAmount * Time.deltaTime);
                 image.color = imageColor;
-                Debug.Log(image.color.a);
                 if (image.color.a < 0.0f)
                 {
                     imageColor = image.color;
                     imageColor.a = 0.0f;
                     image.color = imageColor;
-                    Debug.Log("idel");
                     state = State.Idle;
-                    Debug.Log(state);
                     isFade = false;
                 }
                 break;
