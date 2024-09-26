@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class AIScript : MonoBehaviour, IDamageable
 {
@@ -63,6 +64,8 @@ public class AIScript : MonoBehaviour, IDamageable
     public AudioSource audioSource;
 
     public List<GameObject> patrolPoints;
+
+    public bool hasExploded = false;
 
 
     private IAIState currentState;
