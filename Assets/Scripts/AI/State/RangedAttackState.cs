@@ -41,11 +41,13 @@ public class RangedAttackState : IAIState
     {
         if (ai.isHurt)
         {
-            ai.ChangeState(new HurtState()); // ダメージを受けたらHurtStateに移行
+            StopLaser(); // Stop laser firing when hurt
+            ai.ChangeState(new HurtState());
         }
         else if (!ai.playerInSightRange)
         {
-            ai.ChangeState(new PatrolState()); // プレイヤーが視界外ならPatrolStateに移行
+            StopLaser(); // Stop laser firing when the player is no longer in sight
+            ai.ChangeState(new PatrolState());
         }
         else if (ai.canRangeattack && !isFiringLaser)
         {
@@ -58,12 +60,23 @@ public class RangedAttackState : IAIState
                 RotateTowardsPlayer(); // プレイヤーの方向を向くように回転
             }
         }
-        
     }
 
     public void Exit(AIScript ai)
     {
-        ai.isAttackingranged = false; // 遠距離攻撃の状態を終了
+        ai.isAttackingranged = false; //遠距離攻撃の状態を終了
+
+        // Stop the laser if it's still firing
+        if (ai.laser != null && ai.laser.enabled)
+        {
+            ai.laser.enabled = false; // レーザーを無効にする
+        }
+
+        // Stop firing laser coroutine if it's running
+        if (isFiringLaser)
+        {
+            isFiringLaser = false; // 発射状態をリセット
+        }
     }
 
     private void RotateTowardsPlayer()
@@ -77,7 +90,18 @@ public class RangedAttackState : IAIState
         ai.transform.rotation = Quaternion.Slerp(ai.transform.rotation, targetRotation, Time.deltaTime * 1f); // 回転速度を調整（2fは速度）
     }
 
-
+    private void StopLaser()
+    {
+        // Stop the laser and related coroutine if it's still active
+        if (isFiringLaser)
+        {
+            isFiringLaser = false; // Stop firing laser
+            if (ai.laser != null)
+            {
+                ai.laser.enabled = false; // Disable laser
+            }
+        }
+    }
     public void FireLaser()
     {
         //レーザーを発射
