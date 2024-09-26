@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 using System.Linq;
+using Unity.Mathematics;
 
 public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇåpè≥Ç∑ÇÈ
 {
@@ -33,7 +34,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
     private bool isRun;
     private bool isAttacking;
     public bool isDamaged;
-    private PlayerManager playerManager;
+    public PlayerManager playerManager;
 
     SoundGenerator soundGenerator;
     //private float AnimTime;
@@ -41,16 +42,16 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
     // Start is called before the first frame update
     void Start()
     {
-        var meshList = GetComponentsInChildren<MeshRenderer>().ToList();
-        var materials = new List<Material>();
-        foreach (var mesh in meshList)
-        {
-            materials.AddRange(mesh.materials);
-        }
-        foreach(var material in materials)
-        {
-            material.color = new Color(1, 1, 1, 0.5f);
-        }
+        //var meshList = GetComponentsInChildren<MeshRenderer>().ToList();
+        //var materials = new List<Material>();
+        //foreach (var mesh in meshList)
+        //{
+        //    materials.AddRange(mesh.materials);
+        //}
+        //foreach(var material in materials)
+        //{
+        //    material.color = new Color(1, 1, 1, 0.5f);
+        //}
 
         Colli = GetComponent<Collider>();
         RigidBd = GetComponent<Rigidbody>();
@@ -272,5 +273,22 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceÇ
         //ÉJÉÅÉâÇâÒì]
         Camera.main.transform.rotation = Quaternion.Euler(playerDirection.y, playerDirection.x, 0.0f) * defaultCameraDir;
         Camera.main.transform.position = transform.position + Quaternion.Euler(playerDirection.y, playerDirection.x, 0.0f) * defaultCameraOffset;
+    }
+
+    public void GameOver()
+    {
+        if (PlayerManager.PlayerisDead == true)
+        {
+            soundGenerator.GenerateSoundByID("902");
+            StartCoroutine(DeadSEEnd(1f));
+            Debug.Log("DeadSEPlay");
+        }
+    }
+
+    private IEnumerator DeadSEEnd(float Time)
+    {
+        yield return new WaitForSeconds(Time);
+        soundGenerator.DeleteSoundByID("902");
+        Debug.Log("DeadSEEnd");
     }
 }

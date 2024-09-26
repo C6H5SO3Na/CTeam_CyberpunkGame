@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Fade fade;
     [SerializeField] TextMeshProUGUI text;
     SoundGenerator sound;
-    public static int stage = 3;
+    public static int stage = 1;
     //public int nowStage;
     public const int maxStage = 3;
     public bool isClear = false;
