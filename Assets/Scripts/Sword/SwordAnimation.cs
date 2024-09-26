@@ -5,12 +5,12 @@ using UnityEngine;
 public class SwordAnimation : MonoBehaviour
 {
     public GameObject SwordEffectPrefab;
-    //public GameObject SwordEffectPrefab2;
+    public GameObject SwordEffectPrefab2;
     public GameObject Tracking;
     public SwordComponent SwordComponent;
 
     private ParticleSystem swordEffectParticleSystem;
-    //private ParticleSystem swordEffectParticleSystem2;
+    private ParticleSystem swordEffectParticleSystem2;
     private float DestroyTime;
 
     // Start is called before the first frame update
@@ -21,11 +21,11 @@ public class SwordAnimation : MonoBehaviour
             // Get the particle system from the SwordEffectPrefab
             swordEffectParticleSystem = SwordEffectPrefab.GetComponentInChildren<ParticleSystem>();
         }
-        //if (SwordEffectPrefab2 != null)
-        //{
-        //    // Get the particle system from the SwordEffectPrefab
-        //    swordEffectParticleSystem2 = SwordEffectPrefab2.GetComponentInChildren<ParticleSystem>();
-        //}
+        if (SwordEffectPrefab2 != null)
+        {
+            // Get the particle system from the SwordEffectPrefab
+            swordEffectParticleSystem2 = SwordEffectPrefab2.GetComponentInChildren<ParticleSystem>();
+        }
     }
 
     // Update is called once per frame
@@ -71,10 +71,10 @@ public class SwordAnimation : MonoBehaviour
         {
             SwordEffectPrefab.transform.localPosition = new(-0.589999974f, 0, 0);
             SwordEffectPrefab.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            //SwordEffectPrefab2.transform.localPosition = new(-0.589999974f, 0, 0);
-           // SwordEffectPrefab2.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            SwordEffectPrefab2.transform.localPosition = new(-0.589999974f, 0, 0);
+            SwordEffectPrefab2.transform.localRotation = Quaternion.Euler(0, 0, 0);
             swordEffectParticleSystem.Play();
-            //swordEffectParticleSystem2.Play();
+            swordEffectParticleSystem2.Play();
         }
         //SwordEffectPrefab.transform.position = new(-0.589999974f, 0.100000001f + 1.0f, 0);
         //SwordEffectPrefab.transform.rotation = Quaternion.Euler(0, 0, 234.111542f);
@@ -90,11 +90,11 @@ public class SwordAnimation : MonoBehaviour
             var emission = swordEffectParticleSystem.emission;
             emission.enabled = false;
         }
-        //if (swordEffectParticleSystem2 != null && swordEffectParticleSystem2.isPlaying)
-        //{
-        //    swordEffectParticleSystem2.Stop();  // Stop playing the particle system when sword is inactive
-        //    var emission = swordEffectParticleSystem2.emission;
-        //    emission.enabled = false;
-        //}
+        if (swordEffectParticleSystem2 != null && swordEffectParticleSystem2.isPlaying)
+        {
+            swordEffectParticleSystem2.Stop();  // Stop playing the particle system when sword is inactive
+            var emission = swordEffectParticleSystem2.emission;
+            emission.enabled = false;
+        }
     }
 }
