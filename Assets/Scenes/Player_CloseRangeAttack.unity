@@ -988,10 +988,6 @@ PrefabInstance:
       propertyPath: playerManager
       value: 
       objectReference: {fileID: 1361488772}
-    - target: {fileID: 507236779396161321, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
-      propertyPath: soundGenerator
-      value: 
-      objectReference: {fileID: 1014656740}
     - target: {fileID: 1204543752674597356, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
       propertyPath: m_RootOrder
       value: 17
