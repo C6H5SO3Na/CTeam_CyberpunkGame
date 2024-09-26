@@ -8,8 +8,7 @@ public class PlayerCollision : MonoBehaviour
     private PlayerController_New playerController;
     private Collider Colli;
     Animator animator;
-
-    public SoundGenerator soundGenerator;
+    SoundGenerator soundGenerator;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +16,7 @@ public class PlayerCollision : MonoBehaviour
         playerManager = GetComponentInParent<PlayerManager>();
         animator = GetComponent<Animator>();
         playerController = GetComponentInParent<PlayerController_New>();
+        soundGenerator = FindObjectOfType<SoundGenerator>();
         //if (PlayerManager.Instance == null) // Check if the Singleton instance is available
         //{
         //    Debug.LogError("PlayerManager instance not found.");
@@ -45,7 +45,7 @@ public class PlayerCollision : MonoBehaviour
         if (/*other.gameObject.CompareTag("Enemy") ||*/ other.gameObject.CompareTag("EnemyAttack"))
         {
             Debug.Log($"other: {other.gameObject.tag}");
-            TriggerDamage("Damage", 1.033f + 0.3f);
+            TriggerDamage("Damage", 1.033f);
                 
         }
 
@@ -68,10 +68,10 @@ public class PlayerCollision : MonoBehaviour
     private IEnumerator EndDamage(float AnimTime)
     {
         yield return new WaitForSeconds(AnimTime);
-        playerController.isDamaged = false;
         if (playerController.isDamaged)
         {
             soundGenerator.DeleteSoundByID("903");
-        }     
+        }
+        playerController.isDamaged = false;
     }
 }

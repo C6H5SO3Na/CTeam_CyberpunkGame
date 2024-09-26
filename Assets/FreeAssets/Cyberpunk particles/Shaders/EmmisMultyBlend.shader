@@ -47,7 +47,8 @@ Shader "ppp"
 
 		float snoise( float2 v )
 		{
-			const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
+			const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.0243
+				43902439 );
 			float2 i = floor( v + dot( v, C.yy ) );
 			float2 x0 = v - i + dot( i, C.xx );
 			float2 i1;
