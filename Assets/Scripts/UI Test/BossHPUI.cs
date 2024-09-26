@@ -18,7 +18,7 @@ public class BossHPUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HPpercent = bossController.HPMiddle * 2;
+        HPpercent = bossController.HPMiddle;
         if (HPpercent < 0 ) { HPpercent = 0; }
         changeHP(HPpercent);
     }

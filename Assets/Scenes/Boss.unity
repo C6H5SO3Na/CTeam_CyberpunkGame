@@ -376,6 +376,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2016687418255967062, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
   m_PrefabInstance: {fileID: 906601965}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &247293699 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1204543752674597356, guid: 90d43928dc7af0f4aa70e7fa09c4a8ec, type: 3}
+  m_PrefabInstance: {fileID: 906601965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &586392558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1194,7 +1199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866605154902883533, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866605154902883533, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
       propertyPath: m_Center.y
@@ -1212,6 +1217,14 @@ PrefabInstance:
       propertyPath: m_IncludeLayers.m_Bits
       value: 1663
       objectReference: {fileID: 0}
+    - target: {fileID: 6673036045795044839, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 247293699}
+    - target: {fileID: 6673036045795044839, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
+      propertyPath: playerobj
+      value: 
+      objectReference: {fileID: 247293690}
     - target: {fileID: 7205048225252868620, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1260,6 +1273,10 @@ PrefabInstance:
       propertyPath: HPMiddle
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 9177643281129987949, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 161149210}
     - target: {fileID: 9177643281129987949, guid: 939cd43c31245274b9e5896c43eef541, type: 3}
       propertyPath: bossHitBoxLeft
       value: 
