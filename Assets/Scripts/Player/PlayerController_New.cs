@@ -86,7 +86,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSource‚ð
         CheckFloor();
         PlayerSlopeMovement();
         SetAnimationSpeed();
-        if (PlayerManager.PlayerisDead == true)
+        if (PlayerManager.PlayerisDead)
         {
             GameOver(deadTime);
             deadTime++;
