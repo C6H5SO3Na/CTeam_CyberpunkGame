@@ -28,6 +28,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
 
     Vector3 defaultPosition;        //リセット時のキャラクター位置
     SwordComponent swordComponent;  //swordComponentにアクセスできるようにする
+    [SerializeField] GameManager manager;   //GameManager
 
     private Rigidbody RigidBd;
     private Collider Colli;
@@ -70,6 +71,7 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         playerManager = GetComponent<PlayerManager>();
         soundGenerator = GameObject.Find("SoundManager").GetComponent<SoundGenerator>();
         deadTime = 0;
+        playerDirection = new Vector2(transform.localEulerAngles.y, transform.localEulerAngles.x);
     }
 
     // Update is called once per frame
@@ -89,6 +91,8 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
             GameOver(deadTime);
             deadTime++;
         }
+        //カメラ位置を現在のキャラクター位置基準に設定する
+        Camera.main.transform.position = transform.position + Quaternion.Euler(0, playerDirection.x, 0) * defaultCameraOffset;
     }
     private void PlayerInput()
     {
@@ -172,9 +176,6 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         //キャラクターの向きに前進する
         Vector3 globalDirection = Quaternion.Euler(0, playerDirection.x, 0) * moveDirection;
         RigidBd.MovePosition(RigidBd.position + globalDirection * Time.deltaTime);
-
-        //カメラ位置を現在のキャラクター位置基準に設定する
-        //Camera.main.transform.position = transform.position + Quaternion.Euler(0, playerDirection.x, 0) * defaultCameraOffset;
 
         //走っているかどうかのアニメーション設定
         animator.SetBool("Run", isRun);
@@ -315,5 +316,6 @@ public class PlayerController_New : MonoBehaviour, IEventSource //IEventSourceを
         yield return new WaitForSeconds(Time);
         soundGenerator.DeleteSoundByID("902");
         Debug.Log("DeadSEEnd");
+        manager.isDead = true;
     }
 }
