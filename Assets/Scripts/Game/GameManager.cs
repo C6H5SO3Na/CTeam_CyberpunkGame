@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public bool isDead = false;
     public staticÅ@bool isBoss = false;
     float timeSecCnt = 0.0f;//ïbíPà 
+
     public enum Phase
     {
         Fadein, Game, AfterClear, Fadeout, NextStage, AfterDead, ToGameOver
@@ -34,6 +35,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+            isClear = true;
+        }
+
+
         switch (phase)
         {
             case Phase.Fadein:
