@@ -9,7 +9,7 @@ public class DontDestroy : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (!SceneManager.GetActiveScene().name.Contains("Stage")) { return; }
+        if (!SceneManager.GetActiveScene().name.Contains("Stage") || !SceneManager.GetActiveScene().name.Contains("Boss")) { return; }
         //1つしか生成されないようにする
         if (!isCreated)
         {
@@ -27,7 +27,7 @@ public class DontDestroy : MonoBehaviour
     void Update()
     {
         //ボスシーンに推移時にStage1で作成したオブジェクトを削除
-        if (!SceneManager.GetActiveScene().name.Contains("Stage") && gameObject.CompareTag("DontDestroyOnLoad"))
+        if (!SceneManager.GetActiveScene().name.Contains("Stage") || !SceneManager.GetActiveScene().name.Contains("Boss") && gameObject.CompareTag("DontDestroyOnLoad"))
         {
             SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
             Destroy(gameObject);
