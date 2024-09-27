@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5971813e48fc8224abb50eb3f978c319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: {fileID: 0}
+  sound: {fileID: 2098664624}
   soundName: 103
 --- !u!1001 &206267498
 PrefabInstance:
