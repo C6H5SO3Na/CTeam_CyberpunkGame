@@ -59,13 +59,6 @@ public class ShootingRocket : MonoBehaviour
         // スポーンするまでの遅延
         yield return new WaitForSeconds(delayBeforeSpawn);
 
-        gameObject.GetComponentInParent<BossController>().DestroyHitableEffect();
-        GameObject activeHitBox = GetComponentInParent<BossController>().GetActiveHitBox();
-        if (activeHitBox != null)
-        {
-            activeHitBox.GetComponent<MeshCollider>().enabled = false;
-        }
-
         for (int i = 0; i < rocketCount; i++)
         {
             Vector3 spawnPosition;
@@ -112,7 +105,13 @@ public class ShootingRocket : MonoBehaviour
             Destroy(rocketInstance, rocketLifetime);
         }
 
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(2.0f);
+        gameObject.GetComponentInParent<BossController>().DestroyHitableEffect();
+        GameObject activeHitBox = GetComponentInParent<BossController>().GetActiveHitBox();
+        if (activeHitBox != null)
+        {
+            activeHitBox.GetComponent<MeshCollider>().enabled = false;
+        }
         this.enabled = false;
     }
 }
