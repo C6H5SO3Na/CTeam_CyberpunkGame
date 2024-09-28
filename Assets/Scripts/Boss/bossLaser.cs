@@ -40,7 +40,7 @@ public class bossLaser : MonoBehaviour
         // Ensure the correct hitbox's collider is enabled
         if (activeHitBox != null)
         {
-            activeHitBox.GetComponent<MeshCollider>().enabled = true;
+            activeHitBox.GetComponent<CapsuleCollider>().enabled = true;
         }
         // スクリプトが有効化された際にリストを再初期化
         initialPlayerXPositions.Clear();
@@ -90,7 +90,7 @@ public class bossLaser : MonoBehaviour
         GameObject activeHitBox = GetComponentInParent<BossController>().GetActiveHitBox();
         if (activeHitBox != null)
         {
-            activeHitBox.GetComponent<MeshCollider>().enabled = false;
+            activeHitBox.GetComponent<CapsuleCollider>().enabled = false;
         }
         
 

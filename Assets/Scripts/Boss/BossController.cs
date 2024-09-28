@@ -213,7 +213,7 @@ public class BossController : MonoBehaviour, IDamageable
             // Enable the chosen hitbox collider
             if (activeHitBox != null)
             {
-                activeHitBox.GetComponent<MeshCollider>().enabled = true;
+                activeHitBox.GetComponent<CapsuleCollider>().enabled = true;
             }
 
             // Instantiate the hitable effect at the chosen hitbox's position

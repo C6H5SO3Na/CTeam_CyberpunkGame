@@ -25,7 +25,7 @@ public class ShootingRocket : MonoBehaviour
         // Ensure the correct hitbox's collider is enabled
         if (activeHitBox != null)
         {
-            activeHitBox.GetComponent<MeshCollider>().enabled = true;
+            activeHitBox.GetComponent<CapsuleCollider>().enabled = true;
         }
 
         GetComponent<BossController>().SpawnHitableEffect();
@@ -110,7 +110,7 @@ public class ShootingRocket : MonoBehaviour
         GameObject activeHitBox = GetComponentInParent<BossController>().GetActiveHitBox();
         if (activeHitBox != null)
         {
-            activeHitBox.GetComponent<MeshCollider>().enabled = false;
+            activeHitBox.GetComponent<CapsuleCollider>().enabled = false;
         }
         this.enabled = false;
     }
