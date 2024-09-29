@@ -238,7 +238,7 @@ public class BossController : MonoBehaviour, IDamageable
         // Disable the active hitbox collider
         if (activeHitBox != null)
         {
-            activeHitBox.GetComponent<MeshCollider>().enabled = false;
+            activeHitBox.GetComponent<CapsuleCollider>().enabled = false;
             activeHitBox = null;
         }
     }
